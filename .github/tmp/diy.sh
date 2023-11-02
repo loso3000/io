@@ -88,6 +88,20 @@ sed -i '/echo/d' ./feeds/packages/utils/coremark/coremark
 git clone https://github.com/sirpdboy/luci-app-lucky ./package/lucky
 git clone https://github.com/sirpdboy/luci-app-ddns-go ./package/ddns-go
 
+#2305
+str="^[^#]*option Include '/etc/collectd/conf.d'"
+cmd="s@$str@#&@"
+sed -ri "$cmd" feeds/luci/applications/luci-app-statistics/root/etc/config/luci_statistics
+echo "Fix luci-app-statistics ref wrong path error"
+
+# fix stupid coremark benchmark error
+touch package/base-files/files/etc/bench.log
+chmod 0666 package/base-files/files/etc/bench.log
+echo "Touch coremark log file to fix uhttpd error!!!"
+
+
+
+
 # nlbwmon
 #sed -i 's/524288/16777216/g' feeds/packages/net/nlbwmon/files/nlbwmon.config
 # 可以设置汉字名字
