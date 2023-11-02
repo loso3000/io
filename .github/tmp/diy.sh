@@ -386,37 +386,29 @@ rm -rf  ./feeds/luci/applications/luci-app-passwall
 rm -rf  ./feeds/luci/applications/luci-app-passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
 git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
-# git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
+
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
+rm -rf ./package/openwrt-passwall/trojan-plus
+sed -i 's,default n,default y,g' package/passwall2/luci-app-passwall2/Makefile
+sed -i 's,default n,default y,g' package/passwall/luci-app-passwall/Makefile
+
+rm -rf ./feeds/packages/net/sing-box
+svn export https://github.com/xiaorouji/openwrt-passwall-packages/trunk/sing-box ./feeds/packages/net/sing-box
+svn export https://github.com/xiaorouji/openwrt-passwall-packages/trunk/sing-box package/new/sing-box
+
+rm -rf ./feeds/packages/net/trojan-plus
+svn export https://github.com/QiuSimons/OpenWrt-Add/trunk/trojan-plus package/new/trojan-plus
+svn export https://github.com/fw876/helloworld/trunk/shadow-tls package/new/shadow-tls
+# svn export https://github.com/fw876/helloworld/trunk/tuic-client package/new/tuic-client
+
 #bypass
-svn export https://github.com/loso3000/other/trunk/up/pass/luci-app-bypass ./package/luci-app-bypass
-rm ./package/luci-app-bypass/po/zh_Hans && mv ./package/luci-app-bypass/po/zh-cn ./package/luci-app-bypass/po/zh_Hans
-# sed -i 's,default n,default y,g' package/luci-app-bypass/Makefile
-# pushd package/passwall/luci-app-passwall
-# sed -i 's,default n,default y,g' Makefile
-# popd
-
-#svn export https://github.com/QiuSimons/OpenWrt-Add/trunk/trojan-plus package/new/trojan-plus
-
-# 在 X86 架构下移除 Shadowsocks-rust
-sed -i '/Rust:/d' package/passwall/luci-app-passwall/Makefile
-sed -i '/Rust:/d' package/diy/luci-app-vssr/Makefile
-sed -i '/Rust:/d' ./package/other/up/pass/luci-app-bypass/Makefile
-sed -i '/Rust:/d' ./package/other/up/pass/luci-ssr-plus/Makefile
-sed -i '/Rust:/d' ./package/other/up/pass/luci-ssr-plusdns/Makefile
-
-sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
-
-# Remove some default packages
-# sed -i 's/luci-app-ddns//g;s/luci-app-upnp//g;s/luci-app-adbyby-plus//g;s/luci-app-vsftpd//g;s/luci-app-ssr-plus//g;s/luci-app-unblockmusic//g;s/luci-app-vlmcsd//g;s/luci-app-wol//g;s/luci-app-nlbwmon//g;s/luci-app-accesscontrol//g' include/target.mk
-# sed -i 's/luci-app-adbyby-plus//g;s/luci-app-vsftpd//g;s/luci-app-ssr-plus//g;s/luci-app-unblockmusic//g;s/luci-app-vlmcsd//g;s/luci-app-wol//g;s/luci-app-nlbwmon//g;s/luci-app-accesscontrol//g' include/target.mk
-#Add x550
-# git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
-
-# config_file_turboacc=`find package/ -follow -type f -path '*/luci-app-turboacc/root/etc/config/turboacc'`
-# sed -i "s/option hw_flow '1'/option hw_flow '0'/" $config_file_turboacc
-# sed -i "s/option sfe_flow '1'/option sfe_flow '0'/" $config_file_turboacc
-# sed -i "s/option sfe_bridge '1'/option sfe_bridge '0'/" $config_file_turboacc
-# sed -i "/dep.*INCLUDE_.*=n/d" `find package/ -follow -type f -path '*/luci-app-turboacc/Makefile'`
+rm -rf ./feeds/luci/applications/luci-app-ssr-plus
+svn export https://github.com/loso3000/other/trunk/up/pass ./package/pass
+rm ./package/pass/luci-app-bypass/po/zh_Hans
+mv ./package/pass/luci-app-bypass/po/zh-cn ./package/pass/luci-app-bypass/po/zh_Hans
+rm ./package/pass/luci-app-ssr-plus/po/zh_Hans
+mv ./package/pass/luci-app-ssr-plus/po/zh-cn ./package/pass/luci-app-ssr-plus/po/zh_Hans
+sed -i 's,default n,default y,g' package/pass/luci-app-bypass/Makefile
 
 sed -i "s/option limit_enable '1'/option limit_enable '0'/" `find package/ -follow -type f -path '*/nft-qos/files/nft-qos.config'`
 sed -i "s/option enabled '1'/option enabled '0'/" `find package/ -follow -type f -path '*/vsftpd-alt/files/vsftpd.uci'`
