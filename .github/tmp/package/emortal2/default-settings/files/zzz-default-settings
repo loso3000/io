@@ -339,7 +339,6 @@ test $ver -lt 5 && {
 	rm -f /etc/nginx/conf.d/_lan.crt  /etc/nginx/conf.d/_lan.key
 	test -e /etc/nginx/conf.d/_lan.conf && \
 	/usr/bin/nginx-util 'add_ssl' '_lan'
-	#重新配置nginx，不强制使用https
 uci -q delete nginx._lan
 uci -q delete nginx._redirect2ssl
 uci -q set nginx._lan=server
