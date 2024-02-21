@@ -60,8 +60,8 @@ rm -rf  ./feeds/luci/applications/luci-app-appfilter
 # rm -rf  ./feeds/packages/net/wget
 # mv -rf ./package/wget  ./feeds/packages/net/wget
 #aria2
-rm -rf ./feeds/packages/net/aria2
-rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app-aria2
+#rm -rf ./feeds/packages/net/aria2
+#rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app-aria2
 
 # Passwall
 
