@@ -3,11 +3,11 @@ Sysinfo() {
 [ -z "${TARGET_PROFILE}" ] && local TARGET_PROFILE=$(jsonfilter -e '@.model.id' < /etc/board.json | tr ',' '_')
 local DISTRIB_ARCH=$(cat /etc/openwrt_release | grep "DISTRIB_ARCH=" |awk -F "'" '{print $2}')
 if grep -Eq "x86" "/etc/openwrt_release" ; then
-	[ -d /sys/firmware/efi ] && DISTRIB_ARCH= "${DISTRIB_ARCH} - UEFI" || DISTRIB_ARCH="${DISTRIB_ARCH} - BIOS"
+	[ -d /sys/firmware/efi ] && ARCH=`echo ${DISTRIB_ARCH} - UEFI` || ARCH=`echo ${DISTRIB_ARCH} - BIOS`
 else
-	DISTRIB_ARCH=${DISTRIB_ARCH}	
+	ARCH=${DISTRIB_ARCH}	
 fi
-local IP_Address=`ip -4 a | egrep "br-lan" | grep "inet" | awk '{print $2}'`
+local IP_Address=`ip -4 a | grep "br-lan" | grep "inet" | awk '{print $2}'`
 local CPU_Model=$(awk -F ':[ ]' '/model name/{printf ($2);exit}' /proc/cpuinfo)
 local Mem_sum=$(free | grep Mem | awk '{a=$2/1024} {printf("%dMB\n",a)}')
 local Overlay_Available="$(df -h | grep ":/overlay" | awk '{print $4}' | awk 'NR==1')"
@@ -18,7 +18,7 @@ cat <<EOF
 $(echo -e "${Yellow}$(uname -n)/${TARGET_PROFILE}")
 $(echo -e "${Red}CPU    Model:	${CPU_Model}${White}")
 $(echo -e "${Blue}Mem    Total:	${Mem_sum}${White}")
-$(echo -e "${Green}TARGET  Info:	${DISTRIB_ARCH}${White}")
+$(echo -e "${Green}TARGET  Info:	${ARCH}${White}")
 FIRWare  Ver:	$(uname -rs)$([ -n "${TEMP}" ] && echo -e "${TEMP}")
 $(echo -e "${Red}IPv4 Address:	${IP_Address}${White}")
 Overlay /TMP:	${Overlay_Available} / ${Tmp_Available}
@@ -108,6 +108,6 @@ in order to prevent unauthorized SSH logins.
 ------------------------------------------------
 EOF
 fi
-EG " menu->调用菜单(Call Menu) 进阶设置可取消SSH登陆菜单 "
+EG " menu->调用菜单(Call Menu) 进阶设置可禁用/显示SSH登陆菜单 "
 EW ""
 /usr/bin/zsh
