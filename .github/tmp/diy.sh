@@ -69,6 +69,7 @@ rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app
 git clone https://github.com/sbwml/openwrt_helloworld  ./package/ssr
 rm -rf ./package/ssr/xray-core
 rm -rf ./package/ssr/mosdns
+rm -rf ./package/ssr/luci-app-ssr-plus
 rm -rf ./package/ssr/trojan-plus
 rm -rf ./package/ssr/xray-plugin
 rm -rf ./package/ssr/naiveproxy
@@ -79,6 +80,7 @@ rm -rf package/feeds/packages/xray-plugin
 rm -rf package/feeds/packages/v2ray-core
 rm -rf package/feeds/packages/v2ray-plugin
 
+rm -rf ./feeds/packages/net/hysteria
 rm -rf ./feeds/packages/net/v2ray-core
 rm -rf ./feeds/packages/net/v2ray-plugin
 rm -rf ./feeds/packages/net/xray-core
@@ -406,7 +408,7 @@ EOF
 
 
 ./scripts/feeds update -i
-
+./scripts/feeds install -i
 cat  ./x86_64/${CONFIG_S}  > .config
 case "${CONFIG_S}" in
 "Vip"*)
