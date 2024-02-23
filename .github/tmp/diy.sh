@@ -19,9 +19,6 @@ mv -rf  ./package/emortal2/default-settings   ./package/emortal/default-settings
 mv -rf  ./package/emortal2/automount   ./package/emortal/automount
 mv -rf  ./package/emortal2/autosamba   ./package/emortal/autosamba
 
-echo "Remove git full clone"
-sed -i "s/src-git-full/src-git/g" feeds.conf.default
-
 # fix stupid coremark benchmark error
 touch package/base-files/files/etc/bench.log
 chmod 0666 package/base-files/files/etc/bench.log
