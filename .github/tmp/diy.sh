@@ -238,6 +238,27 @@ sed -i 's/msgstr "QoS Nftables 版"/msgstr "服务质量"/g' feeds/luci/applicat
 sed -i 's/msgstr "终端"/msgstr "网页终端"/g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
 sed -i "s/src: (ssl === '1' ? 'https' : 'http')/src: (ssl === '1' ? 'https' : window.location.protocol.replace(':',''))/g" feeds/luci/applications/luci-app-ttyd/htdocs/luci-static/resources/view/ttyd/term.js
 
+
+
+# Try dnsmasq v2.89 with pkg version 7
+dnsmasq_path="package/network/services/dnsmasq"
+dnsmasq_ver=$(grep -m1 'PKG_UPSTREAM_VERSION:=2.89' ${dnsmasq_path}/Makefile)
+if [ -z "${dnsmasq_ver}" ]; then
+    rm -rf $dnsmasq_path
+    cp ./data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
+    cp -r ./data/dnsmasq ${dnsmasq_path}
+    echo "Try dnsmasq v2.89"
+else
+# upgrade dnsmasq to version 2.89
+    pkg_ver=$(grep -m1 'PKG_RELEASE:=7' ${dnsmasq_path}/Makefile)
+    if [ -z "${pkg_ver}" ]; then
+        # rm -rf $dnsmasq_path
+        # cp $GITHUB_WORKSPACE/data/etc/ipcalc.sh package/base-files/files/bin/ipcalc.sh
+        # cp -r $GITHUB_WORKSPACE/data/dnsmasq ${dnsmasq_path}
+        echo "Already dnsmasq v2.89"
+    fi
+fi
+
 # make minidlna depends on libffmpeg-full instead of libffmpeg
 # little bro ffmpeg mini custom be gone
 sed -i "s/libffmpeg /libffmpeg-full /g" feeds/packages/multimedia/minidlna/Makefile
