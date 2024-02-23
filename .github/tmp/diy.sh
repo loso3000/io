@@ -22,6 +22,11 @@ mv -rf  ./package/emortal2/autosamba   ./package/emortal/autosamba
 echo "Remove git full clone"
 sed -i "s/src-git-full/src-git/g" feeds.conf.default
 
+# fix stupid coremark benchmark error
+touch package/base-files/files/etc/bench.log
+chmod 0666 package/base-files/files/etc/bench.log
+echo "Touch coremark log file to fix uhttpd error!!!"
+
 case "${CONFIG_S}" in
 Plus)
 ;;
@@ -232,6 +237,28 @@ sed -i 's/msgstr "QoS Nftables 版"/msgstr "服务质量"/g' feeds/luci/applicat
 #luci-app-ttyd
 sed -i 's/msgstr "终端"/msgstr "网页终端"/g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
 sed -i "s/src: (ssl === '1' ? 'https' : 'http')/src: (ssl === '1' ? 'https' : window.location.protocol.replace(':',''))/g" feeds/luci/applications/luci-app-ttyd/htdocs/luci-static/resources/view/ttyd/term.js
+
+# make minidlna depends on libffmpeg-full instead of libffmpeg
+# little bro ffmpeg mini custom be gone
+sed -i "s/libffmpeg /libffmpeg-full /g" feeds/packages/multimedia/minidlna/Makefile
+echo "Set minidlna depends on libffmpeg-full instead of libffmpeg"
+
+# make cshark depends on libustream-openssl instead of libustream-mbedtls
+# i fucking hate stupid mbedtls so much, be gone
+sed -i "s/libustream-mbedtls/libustream-openssl/g" feeds/packages/net/cshark/Makefile
+echo "Set cshark depends on libustream-openssl instead of libustream-mbedtls"
+
+# remove ipv6-helper depends on odhcpd*
+sed -i "s/+odhcpd-ipv6only//g" feeds/CustomPkgs/net/ipv6-helper/Makefile
+echo "Remove ipv6-helper depends on odhcpd*"
+
+# remove hnetd depends on odhcpd*
+sed -i "s/+odhcpd//g" feeds/routing/hnetd/Makefile
+echo "Remove hnetd depends on odhcpd*"
+
+# make shairplay depends on mdnsd instead of libavahi-compat-libdnssd
+sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" feeds/packages/sound/shairplay/Makefile
+echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
 
 
 git clone https://github.com/yaof2/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
