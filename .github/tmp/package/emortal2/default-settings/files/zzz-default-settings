@@ -5,6 +5,7 @@ ver=$(uci -q get base_config.@base[0].ver 2>/dev/null)
 test -n "$ver" || ver=0
 #argon
 sed -i 's,media .. \"\/b,resource .. \"\/b,g' /usr/lib/lua/luci/view/themes/argon/sysauth.htm
+uci -q set luci.main.lang='auto'
 uci -q set luci.main.mediaurlbase='/luci-static/kucat'
 debug=0
 setup_ssid()
@@ -20,14 +21,24 @@ setup_ssid()
     #local mac=`ifconfig ${s} | grep "HWaddr" | awk '{print $5}'`
     #local wifimac=`echo ${mac}|awk -F ":" '{print $4""$5""$6 }'|tr A-Z a-z|cut -c4-`
     uci -q set wireless.${r}.disabled=0
-    uci -q set wireless.${r}.country=CN
+    uci -q set wireless.${r}.hwmode='11a'
+    uci -q set wireless.${r}.country='US'
+    uci -q set wireless.${r}.legacy_rates='1'
+    uci -q set wireless.${r}.mu_beamformer='1'
+    uci -q set wireless.${r}.htmode='HT40'
     if [ `uci -q get wireless.${r}.channel` -lt 14 ]; then
-        uci -q set wireless.${r}.channel=11
+        uci -q set wireless.${r}.channel=40
         uci -q set wireless.default_${r}.ssid="${SSID}"-2.4G
     else
         uci -q set wireless.${r}.channel=149
         uci -q set wireless.default_${r}.ssid="${SSID}"-5G
     fi
+    uci -q set wireless.default_${r}.device='radio0'
+    uci -q set wireless.default_${r}.network='lan'
+    uci -q set wireless.default_${r}.mode='ap'
+    uci -q set wireless.default_${r}.disassoc_low_ack='0'
+    uci -q set wireless.default_${r}.encryption='psk2+tkip+ccmp'
+    uci -q set wireless.default_${r}.wps_pushbutton='0'
     uci -q set wireless.default_${r}.encryption='psk2'
     uci -q set wireless.default_${r}.key="${SSID_PASSWD}"
     uci commit wireless
@@ -96,9 +107,10 @@ set system.@system[0].timezone=CST-8
 set system.@system[0].zonename=Asia/Shanghai
 set system.@system[0].ttylogin='1'
 delete system.ntp.server
-add_list system.ntp.server=ntp.ntsc.ac.cn
-add_list system.ntp.server=ntp.aliyun.com
-add_list system.ntp.server=cn.ntp.org.cn
+add_list system.ntp.server='time1.cloud.tencent.com'
+add_list system.ntp.server='ntp1.aliyun.com'
+add_list system.ntp.server='ntp.ntsc.ac.cn'
+add_list system.ntp.server='cn.ntp.org.cn'
 set dhcp.@dnsmasq[0].min_ttl='3600'
 set dhcp.@dnsmasq[0].filter_aaaa='0'
 set dhcp.@dnsmasq[0].localservice='0'
@@ -161,7 +173,7 @@ set network.wan.mtu=1420
 set network.wan.metric='41'
 set network.wan.delegate='0'
 set network.wan.ipv6='0'
--q delete network.wan6
+delete network.wan6
 set turboacc.config.sw_flow='0'
 EOF
 sed -i 's/\"nas\"/\"services\"/g' /usr/lib/lua/luci/controller/samba4.lua
@@ -307,6 +319,7 @@ new_DISTRIB_REVISION=`cat  /etc/ezopenwrt_version`
 if [ ` cat /etc/config/luci | grep immortalwrt` ] ;then 
 
 
+sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
 sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
 echo "DISTRIB_DESCRIPTION='OpenWrt '" >> /etc/openwrt_release
 sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
@@ -316,11 +329,8 @@ echo '' >/etc/openwrt_version
 }
 
 sed -i "s/left',/right',/g" /www/luci-static/resources/view/status/include/20_memory.js
-sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com\/openwrt/g' /etc/opkg/distfeeds.conf
-# sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
-# sed -i 's#downloads.openwrt.org#mirrors.cloud.tencent.com/lede#g' /etc/opkg/distfeeds.conf
-# sed -i "s/# //g" /etc/opkg/distfeeds.conf
-# sed -i '/openwrt_luci/ { s/snapshots/releases\/18.06.9/g; }'  /etc/opkg/distfeeds.conf
+sed -i 's,downloads.openwrt.org,mirror.sjtu.edu.cn/openwrt,g' /etc/opkg/distfeeds.conf
+sed -i 's,downloads.immortalwrt.org,mirrors.vsean.net/openwrt,g' /etc/opkg/distfeeds.conf
 else
 [ -f /etc/ezopenwrt_version ]  && { 
     sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
@@ -331,7 +341,6 @@ else
     sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
     # opkg mirror
     sed -i 's,downloads.immortalwrt.org,mirrors.vsean.net/openwrt,g' /etc/opkg/distfeeds.conf
-    # sed -i 's,downloads.immortalwrt.org,mirrors.vsean.net/openwrt,g' /etc/opkg/distfeeds.conf
 
 fi
 test $ver -lt 5 && {
@@ -339,29 +348,6 @@ test $ver -lt 5 && {
 	rm -f /etc/nginx/conf.d/_lan.crt  /etc/nginx/conf.d/_lan.key
 	test -e /etc/nginx/conf.d/_lan.conf && \
 	/usr/bin/nginx-util 'add_ssl' '_lan'
-uci -q delete nginx._lan
-uci -q delete nginx._redirect2ssl
-uci -q set nginx._lan=server
-uci -q set nginx._lan.server_name='_lan'
-uci -q set nginx._lan.access_log='off; # logd openwrt'
-uci -q set nginx._ssl=server
-uci -q set nginx._ssl.server_name='_ssl'
-uci -q set nginx._ssl.uci_manage_ssl='self-signed'
-uci -q set nginx._ssl.access_log='off; # logd openwrt'
-uci -q set nginx._ssl.ssl_certificate='/etc/nginx/conf.d/_lan.crt'
-uci -q set nginx._ssl.ssl_certificate_key='/etc/nginx/conf.d/_lan.key'
-uci -q set nginx._ssl.ssl_session_cache='shared:SSL:32k'
-uci -q set nginx._ssl.ssl_session_timeout='64m'
-uci -q add_list nginx._lan.listen='80 default_server'
-uci -q add_list nginx._lan.listen='[::]:80 default_server'
-uci -q add_list nginx._ssl.listen='443 ssl'
-uci -q add_list nginx._ssl.listen='[::]:443 ssl'
-uci -q add_list nginx._lan.include='restrict_locally'
-uci -q add_list nginx._lan.include='conf.d/*.locations'
-uci -q add_list nginx._ssl.include='restrict_locally'
-uci -q add_list nginx._ssl.include='conf.d/*.locations'
-uci commit nginx
-	
 	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
 }
 # set dockerd.globals if exist
@@ -376,6 +362,7 @@ test $ver -lt 6 && {
 }
 uci -q set base_config.@base[0].ver=$ver
 uci commit base_config
+ntpd -n -q -p 1.lede.pool.ntp.org
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
 echo 'hsts=0' > /root/.wgetrc
