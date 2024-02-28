@@ -12,7 +12,7 @@ LUCI_PKGARCH:=all
 
 PKG_NAME:=luci-app-netdata
 PKG_VERSION:=1.2
-PKG_RELEASE:=20240227
+PKG_RELEASE:=20240228
 
 define Build/Compile
 endef

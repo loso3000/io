@@ -19,7 +19,8 @@ o.default=19999
 
 m.apply_on_parse = true
 m.on_after_apply = function(self,map)
-	luci.sys.exec("/etc/init.d/netdata start")
+  luci.sys.exec("/etc/init.d/netdata start")
+  luci.http.redirect(luci.dispatcher.build_url("admin","status","netdata","setting"))
 end
 
 return m
