@@ -460,6 +460,6 @@ EOF
 cat  ./x86_64/${CONFIG_S}  > .config
 case "${CONFIG_S}" in
 "Vip"*)
-cat  ./x86_64/comm  >> .config
+# cat  ./x86_64/comm  >> .config
 ;;
 esac
