@@ -71,7 +71,7 @@ rm -rf  ./feeds/luci/applications/luci-app-appfilter
 # Passwall
 
 #bypass
-git clone https://github.com/sbwml/openwrt_helloworld  ./package/ssr
+# git clone https://github.com/sbwml/openwrt_helloworld  ./package/ssr
 rm -rf ./package/ssr/xray-core
 rm -rf ./package/ssr/mosdns
 rm -rf ./package/ssr/luci-app-ssr-plus
@@ -80,25 +80,32 @@ rm -rf ./package/ssr/xray-plugin
 rm -rf ./package/ssr/naiveproxy
 
 
-rm -rf package/feeds/packages/mosdns
-rm -rf package/feeds/packages/xray-plugin
-rm -rf package/feeds/packages/v2ray-core
-rm -rf package/feeds/packages/v2ray-plugin
+#  rm -rf package/feeds/packages/mosdns
+# rm -rf package/feeds/packages/xray-plugin
+# rm -rf package/feeds/packages/v2ray-core
+# rm -rf package/feeds/packages/v2ray-plugin
 
 rm -rf ./feeds/packages/net/hysteria
-rm -rf ./feeds/packages/net/v2ray-core
-rm -rf ./feeds/packages/net/v2ray-plugin
-rm -rf ./feeds/packages/net/xray-core
-rm -rf ./feeds/packages/net/trojan-plus
+# rm -rf ./feeds/packages/net/v2ray-core
+# rm -rf ./feeds/packages/net/v2ray-plugin
+# rm -rf ./feeds/packages/net/xray-core
+# rm -rf ./feeds/packages/net/trojan-plus
 
-rm -rf package/feeds/packages/naiveproxy
-rm -rf ./feeds/packages/net/naiveproxy
+# rm -rf package/feeds/packages/naiveproxy
+# rm -rf ./feeds/packages/net/naiveproxy
 
 # rm -rf ./feeds/luci/applications/luci-app-vssr
 rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-app-ssr-plus
 
 git clone https://github.com/loso3000/other ./package/other
-mv -f ./package/other/up/pass ./package/apass 
+mv -f ./package/other/up/pass/shadow-tls ./package/apass/
+mv -f ./package/other/up/pass/lua-neturl ./package/apass/
+mv -f ./package/other/up/pass/naiveproxy ./package/apass/
+mv -f ./package/other/up/pass/redsocks2 ./package/apass/
+mv -f ./package/other/up/pass/kmod-igb-intel ./package/apass/
+
+mv -f ./package/other/up/pass/luci-app-bypass ./package/apass/
+mv -f ./package/other/up/pass/luci-app-ssr-plus ./package/apass/
 rm ./package/apass/luci-app-bypass/po/zh_Hans
 mv ./package/apass/luci-app-bypass/po/zh-cn ./package/apass/luci-app-bypass/po/zh_Hans
 rm ./package/apass/luci-app-ssr-plus/po/zh_Hans
@@ -114,20 +121,6 @@ cat  patch/sysctl.conf > ./package/base-files/files/etc/sysctl.conf
 mkdir -p files/usr/share
 mkdir -p files/etc/root
 
-# 使用默认取消自动
-# sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
-# sed -i 's/bootstrap/chuqitopd/g' feeds/luci/collections/luci/Makefile
-echo "修改默认主题"
-# sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci/Makefile
-# sed -i "s/luci-theme-bootstrap/luci-theme-$OP_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
-# sed -i 's/+luci-theme-bootstrap/+luci-theme-opentopd/g' feeds/luci/collections/luci/Makefile
-# sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
-
-rm -rf ./feeds/luci/themes/luci-theme-design
- git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
-#rm -rf ./feeds/luci/themes/luci-theme-argon
-sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
-
 
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='EzOpWrt'/g" ./package/base-files/files/bin/config_generate
@@ -139,14 +132,9 @@ sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" 
 sed -i '/echo/d' ./feeds/packages/utils/coremark/coremark
 
 git clone https://github.com/sirpdboy/luci-app-lucky ./package/lucky
-rm ./package/lucky/luci-app-lucky/po/zh_Hans
-mv ./package/lucky/luci-app-lucky/po/zh-cn ./package/ddns-go/luci-app-lucky/po/zh_Hans
-
 rm -rf ./feeds/packages/net/ddns-go
 rm -rf  ./feeds/luci/applications/luci-app-ddns-go
 git clone https://github.com/sirpdboy/luci-app-ddns-go ./package/ddns-go
-rm ./package/ddns-go/luci-app-ddns-go/po/zh_Hans
-mv ./package/ddns-go/luci-app-ddns-go/po/zh-cn ./package/ddns-go/luci-app-ddns-go/po/zh_Hans
 
 # nlbwmon
 sed -i 's/524288/16777216/g' feeds/packages/net/nlbwmon/files/nlbwmon.config
@@ -163,17 +151,16 @@ sed -i 's/luci-lib-ipkg/luci-base/g' package/istore/luci/luci-app-store/Makefile
 
 rm -rf ./feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/v2ray-geodata
+rm -rf ./feeds/packages/net/mosdns
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone https://github.com/sbwml/v2ray-geodata feeds/packages/net/v2ray-geodata
-rm -rf ./feeds/packages/net/mosdns
-rm -rf ./feeds/luci/luci-app-mosdns
 
 # alist 
-git clone https://github.com/sbwml/luci-app-alist package/alist
-sed -i 's/网络存储/存储/g' ./package/alist/luci-app-alist/po/zh-cn/alist.po
-rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/lang/golang
+# git clone https://github.com/sbwml/luci-app-alist package/alist
+# sed -i 's/网络存储/存储/g' ./package/alist/luci-app-alist/po/zh-cn/alist.po
+# rm -rf feeds/packages/lang/golang
+# git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/lang/golang
 
 #设置upnpd
 #sed -i 's/option enabled.*/option enabled 0/' feeds/*/*/*/*/upnpd.config
@@ -220,22 +207,23 @@ sed -i 's/option commit_interval.*/option commit_interval 1h/g' feeds/packages/n
 sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqbalance.config
 
 # NPS内网穿透的客户端NPC
-rm -rf  ./feeds/luci/applications/luci-app-npc
-rm -rf  ./feeds/packages/net/npc
-git clone https://github.com/yhl452493373/npc.git package/npc
-git clone https://github.com/yhl452493373/luci-app-npc.git package/luci-app-npc
+# rm -rf  ./feeds/luci/applications/luci-app-npc
+# rm -rf  ./feeds/packages/net/npc
+# git clone https://github.com/yhl452493373/npc.git package/npc
+# git clone https://github.com/yhl452493373/luci-app-npc.git package/luci-app-npc
 #luci-app-npc
-sed -i '/msgid "Nps Client"/i\msgid "Npc"\nmsgstr "NPS穿透"\n' package/luci-app-npc/po/zh_Hans/npc.po
+# sed -i '/msgid "Nps Client"/i\msgid "Npc"\nmsgstr "NPS穿透"\n' package/luci-app-npc/po/zh_Hans/npc.po
 #luci-app-upnp
 sed -i 's/msgstr "UPnP"/msgstr "即插即用"/g' feeds/luci/applications/luci-app-upnp/po/zh_Hans/upnp.po
 sed -i 's/msgstr "通用即插即用（UPnP）"/msgstr "即插即用（UPnP）"/g' feeds/luci/applications/luci-app-upnp/po/zh_Hans/upnp.po
 #luci-app-nft-qos
 sed -i 's/msgstr "QoS Nftables 版"/msgstr "服务质量"/g' feeds/luci/applications/luci-app-nft-qos/po/zh_Hans/nft-qos.po
 #luci-app-ttyd
-sed -i 's/msgstr "终端"/msgstr "网页终端"/g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
-sed -i "s/src: (ssl === '1' ? 'https' : 'http')/src: (ssl === '1' ? 'https' : window.location.protocol.replace(':',''))/g" feeds/luci/applications/luci-app-ttyd/htdocs/luci-static/resources/view/ttyd/term.js
+# sed -i 's/msgstr "终端"/msgstr "网页终端"/g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
+# sed -i "s/src: (ssl === '1' ? 'https' : 'http')/src: (ssl === '1' ? 'https' : window.location.protocol.replace(':',''))/g" feeds/luci/applications/luci-app-ttyd/htdocs/luci-static/resources/view/ttyd/term.js
 
 
+if [ ${CONFIG_S}='xxx' ]; then
 
 # Try dnsmasq v2.89 with pkg version 7
 dnsmasq_path="package/network/services/dnsmasq"
@@ -281,22 +269,37 @@ echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
 
 git clone https://github.com/yaof2/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 sed -i 's/, 1).d/, 11).d/g' ./package/luci-app-ikoolproxy/luasrc/controller/koolproxy.lua
+fi
 
 # Add OpenClash
 
 rm -rf  ./feeds/luci/applications/luci-app-openclash
 git clone --depth=1 https://github.com/vernesong/OpenClash package/openclash
-sed -i 's/+libcap /+libcap +libcap-bin /' package/openclash/luci-app-openclash/Makefile
+# sed -i 's/+libcap /+libcap +libcap-bin /' package/openclash/luci-app-openclash/Makefile
 # idea主题替换为material，否则夜间模式日志是浅色
-sed -i 's/theme: "idea",/theme: "material",/g' package/openclash/luci-app-openclash/luasrc/view/openclash/config_editor.htm
+# sed -i 's/theme: "idea",/theme: "material",/g' package/openclash/luci-app-openclash/luasrc/view/openclash/config_editor.htm
+
+# 使用默认取消自动
+# sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
+# sed -i 's/bootstrap/chuqitopd/g' feeds/luci/collections/luci/Makefile
+echo "修改默认主题"
+# sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci/Makefile
+# sed -i "s/luci-theme-bootstrap/luci-theme-$OP_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
+# sed -i 's/+luci-theme-bootstrap/+luci-theme-opentopd/g' feeds/luci/collections/luci/Makefile
+# sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
+
+rm -rf ./feeds/luci/themes/luci-theme-design
+ git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
+#rm -rf ./feeds/luci/themes/luci-theme-argon
+sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
+# 取消主题默认设置
+find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
+sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装签名
 
 
 sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
 #Add x550
 git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
-
-
-sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
 
 # 修改makefile
 # find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
@@ -304,9 +307,6 @@ sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-script
 
 # 修复 hostapd 报错
 #cp -f $GITHUB_WORKSPACE/scriptx/011-fix-mbo-modules-build.patch package/network/services/hostapd/patches/011-fix-mbo-modules-build.patch
-# 取消主题默认设置
-find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
-sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装签名
 
 # sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
 # sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
