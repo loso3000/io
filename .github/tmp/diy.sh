@@ -59,18 +59,19 @@ rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app
 
 # Passwall
 
+
 #bypass
+rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
 git clone https://github.com/sbwml/openwrt_helloworld  ./package/ssr
 #rm -rf ./package/ssr/xray-core
 rm -rf ./package/ssr/mosdns
-#rm -rf ./package/ssr/trojan-plus
+rm -rf ./package/ssr/trojan-plus
 #rm -rf ./package/ssr/xray-plugin
 rm -rf ./package/ssr/luci-app-ssr-plus
-rm -rf ./package/ssr/luci-app-passwall
-#rm -rf ./package/ssr/naiveproxy
-#rm -rf ./package/ssr/v2ray-plugin
-#rm -rf ./package/ssr/v2ray-core
-
+#rm -rf ./package/ssr/luci-app-passwall
+rm -rf ./package/ssr/naiveproxy
+rm -rf ./package/ssr/v2ray-plugin
+rm -rf ./package/ssr/v2ray-core
 
 #  rm -rf package/feeds/packages/mosdns
 # rm -rf package/feeds/packages/xray-plugin
@@ -94,6 +95,7 @@ mv -f ./package/other/up/pass/shadow-tls ./package/apass/
 mv -f ./package/other/up/pass/lua-neturl ./package/apass/
 mv -f ./package/other/up/pass/naiveproxy ./package/apass/
 mv -f ./package/other/up/pass/redsocks2 ./package/apass/
+mv -f ./package/other/up/pass/trojan-plus ./package/apass/
 mv -f ./package/other/up/pass/kmod-igb-intel ./package/apass/
 
 mv -f ./package/other/up/pass/luci-app-bypass ./package/apass/
