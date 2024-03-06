@@ -456,19 +456,19 @@ CONFIG_PCRE2_JIT_ENABLED=y
 CONFIG_PCRE_JIT_ENABLED=y
 
 CONFIG_PACKAGE_ddns-scripts=y
+CONFIG_PACKAGE_ddns-scripts-cloudflare=y
+CONFIG_PACKAGE_ddns-scripts-dnspod=y
+CONFIG_PACKAGE_ddns-scripts-dnspod-com=y
+CONFIG_PACKAGE_ddns-scripts-freedns=y
+CONFIG_PACKAGE_ddns-scripts-godaddy=y
 CONFIG_PACKAGE_ddns-scripts-services=y
+CONFIG_PACKAGE_ddns-scripts_aliyun=y
+
 CONFIG_PACKAGE_openssh-sftp-client=y
 CONFIG_PACKAGE_openssh-sftp-server=y
 CONFIG_PACKAGE_ppp-mod-pppol2tp=y
 CONFIG_PACKAGE_ppp-mod-pptp=y
 CONFIG_PACKAGE_xl2tpd=y
-
-#passwlall
-# CONFIG_PACKAGE_iptables-mod-socket=y
-### USB Audio 
-CONFIG_PACKAGE_kmod-usb-audio=y
-#Tailscale
-# CONFIG_PACKAGE_libustream-openssl=y
 
 CONFIG_LUCI_LANG_en=y
 #CONFIG_LUCI_LANG_zh-cn=y
@@ -492,7 +492,7 @@ CONFIG_PACKAGE_luci-theme-material=y
 
 ### APPS
 CONFIG_PACKAGE_luci-app-advancedplus=y
-CONFIG_PACKAGE_luci-app-eqosplus=y
+# CONFIG_PACKAGE_luci-app-eqosplus=y
 CONFIG_PACKAGE_luci-app-poweroffdevice=y
 CONFIG_PACKAGE_luci-app-chatgpt=y
 CONFIG_PACKAGE_luci-app-chatgpt-web=y
@@ -501,12 +501,12 @@ CONFIG_PACKAGE_luci-app-autotimeset=y
 CONFIG_PACKAGE_luci-app-wrtbwmon=y
 CONFIG_PACKAGE_luci-app-partexp=y
 CONFIG_PACKAGE_luci-app-store=y
-CONFIG_PACKAGE_luci-app-netspeedtest=n
-CONFIG_PACKAGE_luci-app-control-parentcontrol=y
-CONFIG_PACKAGE_luci-app-parentcontrol=y
+CONFIG_PACKAGE_luci-app-netspeedtest=y
+# CONFIG_PACKAGE_luci-app-control-parentcontrol=y
+# CONFIG_PACKAGE_luci-app-parentcontrol=y
 CONFIG_PACKAGE_luci-app-ddns-go=y
 
-CONFIG_PACKAGE_luci-app-appfilter=y
+# CONFIG_PACKAGE_luci-app-appfilter=y
 # CONFIG_PACKAGE_luci-app-appfilter=y  #del
 
 CONFIG_PACKAGE_luci-app-adguardhome=y
@@ -545,11 +545,10 @@ CONFIG_PACKAGE_luci-app-wolplus=y
 CONFIG_PACKAGE_luci-app-store=y
 CONFIG_PACKAGE_luci-app-smartdns=y
 
-CONFIG_PACKAGE_luci-app-wolplus=y
 ### ImmortalWrt Proxy - nft
 # CONFIG_PACKAGE_luci-app-homeproxy=y
 
-# CONFIG_PACKAGE_luci-app-bypass=y
+CONFIG_PACKAGE_luci-app-bypass=y
 # CONFIG_PACKAGE_luci-app-bypass_INCLUDE_Hysteria is not set
 # CONFIG_PACKAGE_luci-app-bypass_INCLUDE_Trojan is not set
 ### Passwall
@@ -572,36 +571,8 @@ CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Libev_Client=y
 # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Hysteria is not set
 # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan is not set
 
-# CONFIG_PACKAGE_luci-base=y
-# CONFIG_PACKAGE_luci-compat=y
-
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_curl=y
-# CONFIG_PACKAGE_ip6tables-extra=y
-# CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
-# CONFIG_PACKAGE_iptables-mod-extra=y
-# CONFIG_PACKAGE_iptables-mod-iprange=y
-# CONFIG_PACKAGE_iptables-mod-tproxy=y
-# CONFIG_PACKAGE_bind-host=y
 
-CONFIG_PACKAGE_ddns-scripts=y
-CONFIG_PACKAGE_ddns-scripts-cloudflare=y
-CONFIG_PACKAGE_ddns-scripts-dnspod=y
-CONFIG_PACKAGE_ddns-scripts-dnspod-com=y
-CONFIG_PACKAGE_ddns-scripts-freedns=y
-CONFIG_PACKAGE_ddns-scripts-godaddy=y
-CONFIG_PACKAGE_ddns-scripts-services=y
-CONFIG_PACKAGE_ddns-scripts_aliyun=y
-
-# CONFIG_PACKAGE_kmod-bonding=y
-# CONFIG_PACKAGE_dns2socks=y
-# CONFIG_PACKAGE_dns2tcp=y
-# CONFIG_PACKAGE_ip-full=y
-CONFIG_PACKAGE_openssh-sftp-client=y
-CONFIG_PACKAGE_openssh-sftp-server=y
-CONFIG_PACKAGE_xl2tpd=y
-# CONFIG_PACKAGE_haproxy=y
-CONFIG_PACKAGE_ipset=y
-CONFIG_PACKAGE_ipt2socks=y
 
 CONFIG_PACKAGE_zsh=y
