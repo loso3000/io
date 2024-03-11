@@ -5,7 +5,6 @@ module("luci.controller.netwizard", package.seeall)
 function index()
 	
 	entry({"admin", "system", "netwizard"}).dependent = true
-	local e 
 	if not nixio.fs.access("/etc/config/netwizard") then return end
 	if not nixio.fs.access("/etc/config/netwizard_hide") then
 	        e = entry({"admin","system", "netwizard"}, alias("admin","system", "netwizard","settings"), _("Inital Setup"), -1)
