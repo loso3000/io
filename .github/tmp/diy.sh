@@ -57,43 +57,31 @@ rm -rf  ./feeds/luci/applications/luci-app-appfilter
 rm -rf ./feeds/packages/net/aria2
 rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app-aria2
 
+
 # Passwall
 
+rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-app-ssr-plus
+rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
+rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci-app-passwall2
 
+git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 ./package/passwall2
+git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall ./package/passwall
+git clone https://github.com/sbwml/openwrt_helloworld  ./package/ssr
 #bypass
-# rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
-# git clone https://github.com/sbwml/openwrt_helloworld  ./package/ssr
-#rm -rf ./package/ssr/xray-core
+rm -rf ./package/ssr/luci-app-ssr-plus
+rm -rf ./package/ssr/luci-app-passwall
+rm -rf ./package/ssr/luci-app-passwall2
+# rm -rf ./package/ssr/xray-core
 rm -rf ./package/ssr/mosdns
 rm -rf ./package/ssr/trojan-plus
-#rm -rf ./package/ssr/xray-plugin
-rm -rf ./package/ssr/luci-app-ssr-plus
-#rm -rf ./package/ssr/luci-app-passwall
+# rm -rf ./package/ssr/xray-plugin
 rm -rf ./package/ssr/naiveproxy
-rm -rf  ./package/ssr/shadow-tls 
-rm -rf ./package/ssr/v2ray-plugin
-rm -rf ./package/ssr/v2ray-core
-
-#  rm -rf package/feeds/packages/mosdns
-# rm -rf package/feeds/packages/xray-plugin
-# rm -rf package/feeds/packages/v2ray-core
-# rm -rf package/feeds/packages/v2ray-plugin
-
-rm -rf ./feeds/packages/net/hysteria
-# rm -rf ./feeds/packages/net/v2ray-core
-# rm -rf ./feeds/packages/net/v2ray-plugin
-# rm -rf ./feeds/packages/net/xray-core
-# rm -rf ./feeds/packages/net/trojan-plus
-
-# rm -rf package/feeds/packages/naiveproxy
-# rm -rf ./feeds/packages/net/naiveproxy
-
-# rm -rf ./feeds/luci/applications/luci-app-vssr
-rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-app-ssr-plus
+# rm -rf ./package/ssr/v2ray-plugin
+# rm -rf ./package/ssr/v2ray-core
+# rm -rf ./package/ssr/pdnsd
 
 git clone https://github.com/loso3000/other ./package/other
 git clone https://github.com/sirpdboy/netspeedtest ./package/netspeedtest
-
 mv -f ./package/other/up/pass/shadow-tls ./package/apass/
 mv -f ./package/other/up/pass/lua-neturl ./package/apass/
 mv -f ./package/other/up/pass/naiveproxy ./package/apass/
@@ -101,12 +89,39 @@ mv -f ./package/other/up/pass/redsocks2 ./package/apass/
 mv -f ./package/other/up/pass/kmod-igb-intel ./package/apass/
 mv -f ./package/other/up/pass/trojan-plus ./package/apass/
 
+rm -rf ./feeds/packages/net/brook
+rm -rf ./feeds/packages/net/chinadns-ng
+rm -rf ./feeds/packages/net/dns2socks
+rm -rf ./feeds/packages/net/dns2tcp
+rm -rf ./feeds/packages/net/pdnsd-alt
+rm -rf ./feeds/packages/net/hysteria
+rm -rf ./feeds/packages/net/gn
+rm -rf ./feeds/packages/net/ipt2socks
+rm -rf ./feeds/packages/net/microsocks
+rm -rf ./feeds/packages/net/lua-neturl
+rm -rf ./feeds/packages/net/naiveproxy
+rm -rf ./feeds/packages/net/pdnsd
+rm -rf ./feeds/packages/net/redsocks2
+#rm -rf ./feeds/packages/net/shadowsocks-libev
+rm -rf ./feeds/packages/net/simple-obfs
+#rm -rf ./feeds/packages/net/shadowsocks-rust
+rm -rf ./feeds/packages/net/tcping
+rm -rf ./feeds/packages/net/sing-box
+rm -rf ./feeds/packages/net/trojan-plus
+rm -rf ./feeds/packages/net/trojan
+rm -rf ./feeds/packages/net/tuic-client
+rm -rf ./feeds/packages/net/v2ray-core
+rm -rf ./feeds/packages/net/v2ray-geodata
+rm -rf ./feeds/packages/net/v2ray-plugin
+rm -rf ./feeds/packages/net/xray-core
+rm -rf ./feeds/packages/net/xray-plugin
+
 rm -rf  ./feeds/luci/applications/luci-app-netdata
 rm -rf ./feeds/packages/admin/netdata
-
 # git clone https://github.com/muink/openwrt-netdata-ssl ./package/diy/netdata-ssl
 mv -f ./package/other/up/netdata/ ./package/apass/
 mv -f ./package/other/up/netspeedtest/ ./package/apass/
+rm -rf  ./package/js/netspeedtest
 
 mv -f ./package/other/up/pass/luci-app-bypass ./package/apass/
 mv -f ./package/other/up/pass/luci-app-ssr-plus ./package/apass/
@@ -119,6 +134,7 @@ rm -rf ./package/other
 
 rm -rf ./package/apass/xray-core
 rm -rf ./package/apass/xray-plugin
+
 cat  patch/banner > ./package/base-files/files/etc/banner
 cat  patch/profile > ./package/base-files/files/etc/profile
 cat  patch/profiles > ./package/base-files/files/etc/profiles
