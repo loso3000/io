@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $OP == amd64 ] ;then
+if [ $1 == amd64 ] ;then
 BASE_FILES=${GITHUB_WORKSPACE}/openwrt/package/base-files/files
 			singbox_version="1.8.5"
 			hysteria_version="2.2.4"
