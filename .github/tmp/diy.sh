@@ -11,6 +11,9 @@ sed -i "s/ImmortalWrt/openwrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci
 # rm -rf $(find ./feeds/luci/ -type d -regex ".*\(argon\|design\|openclash\).*")
 # rm -rf package/feeds/packages/prometheus-node-exporter-lua
 # rm -rf feeds/packages/prometheus-node-exporter-lua
+#samrtdns
+rm -rf ./feeds/luci/applications/luci-app-smartdns
+rm -rf  ./feeds/packages/net/smartdns
 
 
 case "${CONFIG_S}" in
@@ -46,10 +49,13 @@ sed -i 's/services/status/g' ./feeds/luci/applications/luci-app-nlbwmon/root/usr
 rm -rf  feeds/packages/net/wrtbwmon
 rm -rf  ./feeds/luci/applications/luci-app-wrtbwmon 
 rm -rf  ./feeds/luci/applications/luci-app-arpbind
-rm -rf  ./feeds/luci/applications/luci-app-netdata
 rm -rf  ./feeds/packages/net/open-app-filter
 rm -rf  ./feeds/packages/net/oaf
 rm -rf  ./feeds/luci/applications/luci-app-appfilter
+rm -rf  ./feeds/luci/applications/luci-app-timecontrol
+rm -rf  ./feeds/luci/applications/luci-app-socat
+rm -rf  ./feeds/luci/applications/luci-app-fileassistant
+rm -rf  ./feeds/luci/applications/luci-app-control-speedlimit
 
 # rm -rf  ./feeds/packages/net/wget
 # mv -rf ./package/wget  ./feeds/packages/net/wget
@@ -64,30 +70,43 @@ rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-
 rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci-app-passwall2
 
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 ./package/passwall2
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall ./package/passwall
+# git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 ./package/passwall2
+# git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall ./package/passwall
 git clone https://github.com/sbwml/openwrt_helloworld  ./package/ssr
+git clone https://github.com/loso3000/other ./package/other
+rm -rf ./package/ssr/luci-app-passwall2/htdocs/luci-static/resources/
 #bypass
 rm -rf ./package/ssr/luci-app-ssr-plus
-rm -rf ./package/ssr/luci-app-passwall
-rm -rf ./package/ssr/luci-app-passwall2
-# rm -rf ./package/ssr/xray-core
+# rm -rf ./package/ssr/luci-app-passwall
+# rm -rf ./package/ssr/luci-app-passwall2
+#rm -rf ./package/ssr/brook
+#rm -rf ./package/ssr/chinadns-ng
+#rm -rf ./package/ssr/dns2socks
+#rm -rf ./package/ssr/dns2tcp
+#rm -rf ./package/ssr/pdnsd-alt
+#rm -rf ./package/ssr/ipt2socks
+#rm -rf ./package/ssr/microsocks
+#rm -rf ./package/ssr/lua-neturl
+#rm -rf ./package/ssr/naiveproxy
+# rm -rf ./package/ssr/redsocks2
+# rm -rf ./package/ssr/simple-obfs
+# rm -rf ./package/ssr/tcping
+# rm -rf ./package/ssr/trojan
+# rm -rf ./package/ssr/tuic-client
+rm -rf ./package/ssr/shadowsocks-libev
+rm -rf ./package/ssr/shadowsocks-rust
 rm -rf ./package/ssr/mosdns
 rm -rf ./package/ssr/trojan-plus
-# rm -rf ./package/ssr/xray-plugin
+rm -rf ./package/ssr/xray-core
+rm -rf ./package/ssr/xray-plugin
 rm -rf ./package/ssr/naiveproxy
-# rm -rf ./package/ssr/v2ray-plugin
-# rm -rf ./package/ssr/v2ray-core
+rm -rf ./package/ssr/v2ray-plugin
+rm -rf ./package/ssr/v2ray-core
 # rm -rf ./package/ssr/pdnsd
 
-git clone https://github.com/loso3000/other ./package/other
-git clone https://github.com/sirpdboy/netspeedtest ./package/netspeedtest
-mv -f ./package/other/up/pass/shadow-tls ./package/apass/
-mv -f ./package/other/up/pass/lua-neturl ./package/apass/
-mv -f ./package/other/up/pass/naiveproxy ./package/apass/
-mv -f ./package/other/up/pass/redsocks2 ./package/apass/
-mv -f ./package/other/up/pass/kmod-igb-intel ./package/apass/
-mv -f ./package/other/up/pass/trojan-plus ./package/apass/
+rm -rf ./package/ssr/lua-neturl
+rm -rf ./package/ssr/redsocks2
+rm -rf ./package/ssr/shadow-tls
 
 rm -rf ./feeds/packages/net/brook
 rm -rf ./feeds/packages/net/chinadns-ng
@@ -102,38 +121,48 @@ rm -rf ./feeds/packages/net/lua-neturl
 rm -rf ./feeds/packages/net/naiveproxy
 rm -rf ./feeds/packages/net/pdnsd
 rm -rf ./feeds/packages/net/redsocks2
+ rm -rf ./feeds/packages/net/simple-obfs
+ rm -rf ./feeds/packages/net/tcping
+ rm -rf ./feeds/packages/net/trojan
+ rm -rf ./feeds/packages/net/tuic-client
+ rm -rf ./feeds/packages/net/v2ray-geodata
+
 #rm -rf ./feeds/packages/net/shadowsocks-libev
-rm -rf ./feeds/packages/net/simple-obfs
 #rm -rf ./feeds/packages/net/shadowsocks-rust
-rm -rf ./feeds/packages/net/tcping
-rm -rf ./feeds/packages/net/sing-box
-rm -rf ./feeds/packages/net/trojan-plus
-rm -rf ./feeds/packages/net/trojan
-rm -rf ./feeds/packages/net/tuic-client
-rm -rf ./feeds/packages/net/v2ray-core
-rm -rf ./feeds/packages/net/v2ray-geodata
-rm -rf ./feeds/packages/net/v2ray-plugin
 rm -rf ./feeds/packages/net/xray-core
 rm -rf ./feeds/packages/net/xray-plugin
+
+rm -rf ./feeds/packages/net/sing-box
+
+rm -rf ./feeds/packages/net/mosdns
+rm -rf ./feeds/packages/net/trojan-plus
+rm -rf ./feeds/packages/net/xray-core
+rm -rf ./feeds/packages/net/xray-plugin
+rm -rf ./feeds/packages/net/naiveproxy
+rm -rf ./feeds/packages/net/v2ray-plugin
+rm -rf ./feeds/packages/net/v2ray-core
+rm -rf ./feeds/packages/net/pdnsd
+rm -rf ./feeds/packages/net/lua-neturl
+rm -rf ./feeds/packages/net/redsocks2
+rm -rf ./feeds/packages/net/shadow-tls
 
 rm -rf  ./feeds/luci/applications/luci-app-netdata
 # rm -rf ./feeds/packages/admin/netdata
 # git clone https://github.com/muink/openwrt-netdata-ssl ./package/diy/netdata-ssl
 mv -f ./package/other/up/netdata/ ./package/apass/
-mv -f ./package/other/up/netspeedtest/ ./package/apass/
-rm -rf  ./package/js/netspeedtest
+rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
+mv -f ./package/other/up/tool ./package/
+mv -f ./package/other/up/pass ./package/
+# mv -f ./package/other/up/pass/luci-app-bypass ./package/apass/
+# mv -f ./package/other/up/pass/luci-app-ssr-plus ./package/apass/
+sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
 
-mv -f ./package/other/up/pass/luci-app-bypass ./package/apass/
-mv -f ./package/other/up/pass/luci-app-ssr-plus ./package/apass/
-rm ./package/apass/luci-app-bypass/po/zh_Hans
-mv ./package/apass/luci-app-bypass/po/zh-cn ./package/apass/luci-app-bypass/po/zh_Hans
-rm ./package/apass/luci-app-ssr-plus/po/zh_Hans
-mv ./package/apass/luci-app-ssr-plus/po/zh-cn ./package/apass/luci-app-ssr-plus/po/zh_Hans
-sed -i 's,default n,default y,g' package/A/luci-app-bypass/Makefile
+#dae
+#rm -rf  ./feeds/packages/net/daed
+#rm -rf  ./package/kernel/bpf-headers
+#rm -rf  ./feeds/luci/applications/luci-app-daed
+
 rm -rf ./package/other
-
-rm -rf ./package/apass/xray-core
-rm -rf ./package/apass/xray-plugin
 
 cat  patch/banner > ./package/base-files/files/etc/banner
 cat  patch/profile > ./package/base-files/files/etc/profile
@@ -188,14 +217,14 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone https://github.com/sbwml/v2ray-geodata feeds/packages/net/v2ray-geodata
 
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/lang/golang
+# git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 # alist 
- rm -rf ./feeds/packages/net/alist
- rm -rf  ./feeds/luci/applications/luci-app-alist
- git clone https://github.com/sbwml/luci-app-alist package/alist
- sed -i 's/网络存储/存储/g' ./package/alist/luci-app-alist/po/zh-cn/alist.po
- rm -rf feeds/packages/lang/golang
-# git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/lang/golang
- git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+# rm -rf ./feeds/packages/net/alist
+# rm -rf  ./feeds/luci/applications/luci-app-alist
+# git clone https://github.com/sbwml/luci-app-alist package/alist
+# sed -i 's/网络存储/存储/g' ./package/alist/luci-app-alist/po/zh-cn/alist.po
 
 #设置upnpd
 #sed -i 's/option enabled.*/option enabled 0/' feeds/*/*/*/*/upnpd.config
@@ -224,6 +253,8 @@ sed -i '/mcsub_renew.datatype/d'  ./feeds/luci/applications/luci-app-udpxy/luasr
 sed -i '/filter_/d' ./package/network/services/dnsmasq/files/dhcp.conf   #DHCP禁用IPV6问题
 sed -i 's/请输入用户名和密码。/管理登陆/g' ./feeds/luci/modules/luci-base/po/*/base.po   #用户名密码
 
+#cifs挂pan
+sed -i 's/mount -t cifs/busybox mount -t cifs/g' ./feeds/luci/applications/luci-app-cifs-mount/root/etc/init.d/cifs
 #cifs
 sed -i 's/nas/services/g' ./feeds/luci/applications/luci-app-cifs-mount/luasrc/controller/cifs.lua   #dnsfilter
 sed -i 's/a.default = "0"/a.default = "1"/g' ./feeds/luci/applications/luci-app-cifsd/luasrc/controller/cifsd.lua   #挂问题
@@ -301,21 +332,24 @@ echo "Remove hnetd depends on odhcpd*"
 sed -i "s/+libavahi-compat-libdnssd/+mdnsd/g" feeds/packages/sound/shairplay/Makefile
 echo "Set shairplay depends on mdnsd instead of libavahi-compat-libdnssd"
 
-
+fi
 git clone https://github.com/yaof2/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 sed -i 's/, 1).d/, 11).d/g' ./package/luci-app-ikoolproxy/luasrc/controller/koolproxy.lua
-fi
+
 
 # Add OpenClash
 
 rm -rf  ./feeds/luci/applications/luci-app-openclash
 git clone --depth=1 https://github.com/vernesong/OpenClash package/openclash
-# sed -i 's/+libcap /+libcap +libcap-bin /' package/openclash/luci-app-openclash/Makefile
-# idea主题替换为material，否则夜间模式日志是浅色
-# sed -i 's/theme: "idea",/theme: "material",/g' package/openclash/luci-app-openclash/luasrc/view/openclash/config_editor.htm
+sed -i 's/+libcap /+libcap +libcap-bin /' package/openclash/luci-app-openclash/Makefile
+
+rm -rf ./feeds/luci/themes/luci-theme-design
+ git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
 
 rm -rf ./feeds/luci/themes/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-argon
+sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./package/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
+sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
 # 使用默认取消自动
 # sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
 # sed -i 's/bootstrap/chuqitopd/g' feeds/luci/collections/luci/Makefile
@@ -324,6 +358,7 @@ sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci
 # sed -i "s/luci-theme-bootstrap/luci-theme-$OP_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 # sed -i 's/+luci-theme-bootstrap/+luci-theme-opentopd/g' feeds/luci/collections/luci/Makefile
 sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
+sed -i '/set luci.main.mediaurlbase/d' ./package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
 sed -i '/set luci.main.mediaurlbase/d' feeds/luci/themes/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
 sed -i '/set luci.main.mediaurlbase/d' package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
 sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-material/root/etc/uci-defaults/30_luci-theme-material
@@ -331,19 +366,9 @@ sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-design/root
 sed -i '/set luci.main.mediaurlbase=/d' package/luci-theme-design/root/etc/uci-defaults/30_luci-theme-design
 
 
-sed -i 's,media .. \"\/b,resource .. \"\/b,g' package/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
-sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
-
-
-rm -rf ./feeds/luci/themes/luci-theme-design
- git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
-#rm -rf ./feeds/luci/themes/luci-theme-argon
-sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
 # 取消主题默认设置
 find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装签名
-
-
 sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
 #Add x550
 git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
