@@ -176,14 +176,6 @@ mv -f ./package/other/up/pass ./package/
 sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
 
 
-# kernel - 5.4
-curl -s https://$mirror/tags/kernel-5.4 > include/kernel-5.4
-
-# kenrel Vermagic
-# sed -ie 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
-grep HASH include/kernel-5.4 | awk -F'HASH-' '{print $2}' | awk '{print $1}' | md5sum | awk '{print $1}' > .vermagic
-
-
 #dae
 #rm -rf  ./feeds/packages/net/daed
 #rm -rf  ./package/kernel/bpf-headers
