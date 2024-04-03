@@ -5,6 +5,8 @@ config_generate=package/base-files/files/bin/config_generate
 
 [[ -n $CONFIG_S ]] || CONFIG_S=Super
 
+export mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
+
 sed -i "s/ImmortalWrt/OpenWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "s/ImmortalWrt/openwrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js  #改登陆域名
 #删除冲突插件
@@ -14,7 +16,6 @@ sed -i "s/ImmortalWrt/openwrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci
 #samrtdns
 rm -rf ./feeds/luci/applications/luci-app-smartdns
 rm -rf  ./feeds/packages/net/smartdns
-
 
 case "${CONFIG_S}" in
 Free-Plus)
@@ -173,6 +174,15 @@ mv -f ./package/other/up/pass ./package/
 # mv -f ./package/other/up/pass/luci-app-bypass ./package/apass/
 # mv -f ./package/other/up/pass/luci-app-ssr-plus ./package/apass/
 sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
+
+
+# kernel - 5.4
+curl -s https://$mirror/tags/kernel-5.4 > include/kernel-5.4
+
+# kenrel Vermagic
+# sed -ie 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic/' include/kernel-defaults.mk
+grep HASH include/kernel-5.4 | awk -F'HASH-' '{print $2}' | awk '{print $1}' | md5sum | awk '{print $1}' > .vermagic
+
 
 #dae
 #rm -rf  ./feeds/packages/net/daed
