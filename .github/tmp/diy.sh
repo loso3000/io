@@ -533,6 +533,8 @@ opkg install $nowkmoddir/luci-i18n-dockerman*.ipk --force-depends
 		rm -rf /tmp/luci*
 		/etc/init.d/dockerd restart
 		/etc/init.d/rpcd restart
+		 /etc/init.d/avahi-daemon enabled
+		 /etc/init.d/avahi-daemon start
 	}
 }
 case "$IPK" in
