@@ -5,7 +5,8 @@ config_generate=package/base-files/files/bin/config_generate
 
 [[ -n $CONFIG_S ]] || CONFIG_S=Super
 
-export mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
+export github="github.com"
+export mirror="raw.githubusercontent.com/coolsnowwolf/lede/master"
 
 sed -i "s/ImmortalWrt/OpenWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "s/ImmortalWrt/openwrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js  #改登陆域名
@@ -228,6 +229,15 @@ git clone  https://github.com/linkease/istore ./package/istore
 sed -i 's/1/0/g' ./package/nas-packages/network/services/linkease/files/linkease.config
 sed -i 's/luci-lib-ipkg/luci-base/g' package/istore/luci/luci-app-store/Makefile
 
+
+# Add luci-app-dockerman
+rm -rf ./feeds/luci/applications/luci-app-dockerman
+# rm -rf ./feeds/luci/applications/luci-app-docker
+rm -rf ./feeds/luci/collections/luci-lib-docker
+# rm -rf ./package/diy/luci-app-dockerman
+#rm -rf ./feeds/packages/utils/docker
+git clone --depth=1 https://$github/lisaac/luci-lib-docker ./package/new/luci-lib-docker
+git clone --depth=1 https://$github/lisaac/luci-app-dockerman ./package/new/dockerman
 
 rm -rf ./feeds/packages/net/mosdns
 rm -rf ./feeds/luci/applications/luci-app-mosdns
