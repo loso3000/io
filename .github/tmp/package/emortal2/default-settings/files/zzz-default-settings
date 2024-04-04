@@ -5,10 +5,11 @@ ver=$(uci -q get base_config.@base[0].ver 2>/dev/null)
 test -n "$ver" || ver=0
 #argon
 sed -i 's,media .. \"\/b,resource .. \"\/b,g' /usr/lib/lua/luci/view/themes/argon/sysauth.htm
-uci -q set luci.main.lang='zh_cn'
+uci -q set luci.main.lang='auto'
 uci -q set luci.main.mediaurlbase='/luci-static/kucat'
+
 # stop avahi cups
-/etc/init.d/avahi-daemon disable  && /etc/init.d/avahi-daemon stop  
+# /etc/init.d/avahi-daemon disable  && /etc/init.d/avahi-daemon stop  
 debug=0
 setup_ssid()
 {
@@ -94,7 +95,8 @@ test $ver -lt 1 && {
 	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$?;echo $ver
 }
 test $ver -lt 2 && {
-   frmware=`cat /etc/ezopenwrt_version | awk -F '-' '{printf $2}'`
+frmware=`cat /etc/ezopenwrt_version | awk -F '-' '{printf $2}'`
+
     ver=2
 	[ "$(uci -q get dropbear.@dropbear[0] 2>/dev/null)" = "dropbear" ] && {
 		uci -q set dropbear.@dropbear[0].PasswordAuth='on'
@@ -110,9 +112,10 @@ set system.@system[0].timezone=CST-8
 set system.@system[0].zonename=Asia/Shanghai
 set system.@system[0].ttylogin='1'
 delete system.ntp.server
-add_list system.ntp.server=ntp.ntsc.ac.cn
-add_list system.ntp.server=ntp.aliyun.com
-add_list system.ntp.server=cn.ntp.org.cn
+add_list system.ntp.server='time1.cloud.tencent.com'
+add_list system.ntp.server='ntp1.aliyun.com'
+add_list system.ntp.server='ntp.ntsc.ac.cn'
+add_list system.ntp.server='cn.ntp.org.cn'
 set dhcp.@dnsmasq[0].min_ttl='3600'
 set dhcp.@dnsmasq[0].filter_aaaa='0'
 set dhcp.@dnsmasq[0].localservice='0'
@@ -321,6 +324,7 @@ new_DISTRIB_REVISION=`cat  /etc/ezopenwrt_version`
 if [ ` cat /etc/config/luci | grep immortalwrt` ] ;then 
 
 
+sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
 sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
 echo "DISTRIB_DESCRIPTION='OpenWrt '" >> /etc/openwrt_release
 sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
@@ -345,7 +349,6 @@ else
     sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
     # opkg mirror
     sed -i 's,downloads.immortalwrt.org,mirrors.vsean.net/openwrt,g' /etc/opkg/distfeeds.conf
-    # sed -i 's,downloads.immortalwrt.org,mirrors.vsean.net/openwrt,g' /etc/opkg/distfeeds.conf
 
 fi
 test $ver -lt 5 && {
