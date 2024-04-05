@@ -33,6 +33,14 @@ find ./package/emortal/daed-next/luci-app-daed-next/root/etc -type f -exec chmod
 rm -rf ./feeds/packages/lang/node
 git clone https://github.com/sbwml/feeds_packages_lang_node-prebuilt feeds/packages/lang/node
 
+# alist
+ rm -rf ./feeds/packages/net/alist
+ rm -rf  ./feeds/luci/applications/luci-app-alist
+# alist
+# git clone https://$github/sbwml/luci-app-alist package/alist
+git clone -b v3.32.0 --depth 1 https://$github/sbwml/luci-app-alist package/alist
+sed -i 's/网络存储/存储/g' ./package/alist/luci-app-alist/po/zh-cn/alist.po
+
 case "${CONFIG_S}" in
 Free-Plus)
 ;;
