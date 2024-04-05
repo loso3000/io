@@ -66,7 +66,7 @@ sed -i 's/services/status/g' ./feeds/luci/applications/luci-app-nlbwmon/root/usr
 #rm -rf  package/js2
 
 rm -rf  feeds/packages/net/wrtbwmon
-rm -rf  ./feeds/luci/applications/luci-app-wrtbwmon 
+rm -rf  ./feeds/luci/applications/luci-app-wrtbwmon
 rm -rf  ./feeds/luci/applications/luci-app-arpbind
 rm -rf  ./feeds/packages/net/open-app-filter
 rm -rf  ./feeds/packages/net/oaf
@@ -166,14 +166,13 @@ rm -rf ./feeds/packages/net/redsocks2
 rm -rf ./feeds/packages/net/shadow-tls
 
 rm -rf  ./feeds/luci/applications/luci-app-netdata
-# rm -rf ./feeds/packages/admin/netdata
-# git clone https://github.com/muink/openwrt-netdata-ssl ./package/diy/netdata-ssl
-mv -f ./package/other/up/netdata/ ./package/apass/
-rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
+mv -f ./package/other/up/netdata/ ./package/
+
+rm -rf ./package/other/up/tool/luci-app-socat
+# rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
+
 mv -f ./package/other/up/tool ./package/
 mv -f ./package/other/up/pass ./package/
-# mv -f ./package/other/up/pass/luci-app-bypass ./package/apass/
-# mv -f ./package/other/up/pass/luci-app-ssr-plus ./package/apass/
 sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
 
 
@@ -556,7 +555,6 @@ case "$IPK" in
 	;;
 esac
 EOF
-
 
 ./scripts/feeds update -i
 ./scripts/feeds install -i
