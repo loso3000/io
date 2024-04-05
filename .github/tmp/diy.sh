@@ -8,6 +8,13 @@ config_generate=package/base-files/files/bin/config_generate
 export github="github.com"
 export mirror="raw.githubusercontent.com/coolsnowwolf/lede/master"
 
+# 使用 O2 级别的优化
+sed -i 's/Os/O2/g' include/target.mk
+
+# 更新 Feeds
+./scripts/feeds update -a
+./scripts/feeds install -a
+
 sed -i "s/ImmortalWrt/OpenWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "s/ImmortalWrt/openwrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js  #改登陆域名
 #删除冲突插件
@@ -17,6 +24,14 @@ sed -i "s/ImmortalWrt/openwrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci
 #samrtdns
 rm -rf ./feeds/luci/applications/luci-app-smartdns
 rm -rf  ./feeds/packages/net/smartdns
+
+# daed-next
+rm -rf package/emortal/daed-next
+git clone -b rebase --depth 1 https://github.com/QiuSimons/luci-app-daed-next package/emortal/daed-next
+find ./package/emortal/daed-next/luci-app-daed-next/root/etc -type f -exec chmod +x {} \;
+# 更换 Nodejs 版本
+rm -rf ./feeds/packages/lang/node
+git clone https://github.com/sbwml/feeds_packages_lang_node-prebuilt feeds/packages/lang/node
 
 case "${CONFIG_S}" in
 Free-Plus)
@@ -555,6 +570,10 @@ case "$IPK" in
 	;;
 esac
 EOF
+
+# 清理可能因patch存在的冲突文件
+find ./ -name *.orig | xargs rm -rf
+find ./ -name *.rej | xargs rm -rf
 
 ./scripts/feeds update -i
 ./scripts/feeds install -i
