@@ -22,6 +22,17 @@ sed -i "s/ImmortalWrt/OpenWrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci
 rm -rf ./feeds/luci/applications/luci-app-smartdns
 rm -rf  ./feeds/packages/net/smartdns
 
+#istore
+rm -rf  ./feeds/jjm2473_apps/homebox
+rm -rf  ./feeds/jjm2473_apps/luci-app-homebox
+rm -rf  ./feeds/third_party/luci-app-LingTiGameAcc
+rm -rf  ./feeds/third_party/luci-app-arpbind
+rm -rf  ./feeds/third_party/luci-app-fileassistant
+rm -rf  ./feeds/third_party/luci-app-smartdns
+rm -rf  ./feeds/third_party/luci-app-socat
+rm -rf  ./feeds/third_party/smartdns
+rm -rf  ./feeds/third_party/luci-app-netdata
+
 export github=github.com
 export mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
 
