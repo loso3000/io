@@ -17,46 +17,23 @@ jobs:
   Delete-Workflow-Archive:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete Workflow Runs1
-        id: workflow
-        uses: GitRML/delete-workflow-runs@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          retain_days: 1
 
-      - name: Delete workflow runs2
-        uses: GitRML/delete-workflow-runs@main
-        with:
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
           retain_days: 1
           keep_minimum_runs: 1
-          
-      - name: Delete workflow runs3
-        uses: GitRML/delete-workflow-runs@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: 1
-          retain_days: 1
 
-      - name: Delete older releases
-        uses: dev-drprasad/delete-older-releases@master
-        if: env.DELETE_RELEASE == 'true'
-        with:
-          keep_latest: 4
+    - name: Remove old Releases
+      uses: dev-drprasad/delete-older-releases@v0.2.1
+      with:
+          keep_latest: 1
           delete_tags: true
-          delete_tag_pattern: _
-        env:
+      env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Delete older workflow runs and artifacts
-        uses: Mattraks/delete-workflow-runs@main
-        if: env.DELETE_ARTIFACTS == 'true'
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: 1
-          retain_days: 1
-          keep_minimum_runs: 1
-      - name: Remove old artifacts
-        uses: c-hive/gha-remove-artifacts@v1
-        with:
-         age: '1 day'
-         skip-recent: 1
+    - name: Delete Artifacts
+      uses: geekyeggo/delete-artifact@v2
+      with:
+         name: |
+            bin-archive
