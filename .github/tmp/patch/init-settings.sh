@@ -22,11 +22,22 @@ uci set luci.main.mediaurlbase='/luci-static/kucat'
 uci commit luci
 uci set dhcp.@dnsmasq[0].port='53'
 uci commit dhcp
-
+# Disable autostart by default for some packages
+# rm -f /etc/rc.d/S99dockerd || true
+# rm -f /etc/rc.d/S99dockerman || true
+rm -f /etc/rc.d/S30stubby || true
+rm -f /etc/rc.d/S90stunnel || true
+rm -f /etc/rc.d/S98udptools || true
+rm -f /etc/rc.d/S99nft-qos || true
+mv /etc/seccomp/umdns.json /etc/seccomp/umdns.1json
+/etc/init.d/umdns restart
 # Disable opkg signature check
 sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf
 
 sed -i '/coremark/d' /etc/crontabs/root
+# sed -i "s/releases\/18.06.9/snapshots/g" /etc/opkg/distfeeds.conf
+# ipv6
+# sed -i 's/^[^#].*option ula/#&/' /etc/config/network
 ntpd -n -q -p 1.lede.pool.ntp.org
 
 exit 0
