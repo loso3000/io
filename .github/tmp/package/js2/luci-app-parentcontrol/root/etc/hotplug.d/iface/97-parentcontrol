@@ -1,6 +1,0 @@
-#!/bin/sh
-. /lib/functions.sh
-CONFIG=parentcontrol
-
-[ "$ACTION" = ifup ] && [ "$(`uci -q get $CONFIG.@basic[0].enabled`)" == 1 ] && /etc/init.d/$CONFIG start
-
