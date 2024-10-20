@@ -40,14 +40,14 @@ jobs:
         sed -i 's/CONFIG_PACKAGE_luci-i18n-hd-idle-zh-cn=y/CONFIG_PACKAGE_luci-i18n-hd-idle-zh-cn=n/' .config
         
         #移除samba4
-        sed -i 's/CONFIG_PACKAGE_luci-i18n-samba4-zh-cn=y/CONFIG_PACKAGE_luci-i18n-samba4-zh-cn=n/' .config
-        sed -i 's/CONFIG_PACKAGE_luci-app-samba4=y/CONFIG_PACKAGE_luci-app-samba4=n/' .config
-        sed -i 's/CONFIG_SAMBA4_SERVER_AVAHI=y/CONFIG_SAMBA4_SERVER_AVAHI=n/' .config
-        sed -i 's/CONFIG_SAMBA4_SERVER_NETBIOS=y/CONFIG_SAMBA4_SERVER_NETBIOS=n/' .config
-        sed -i 's/CONFIG_SAMBA4_SERVER_VFS=y/CONFIG_SAMBA4_SERVER_VFS=n/' .config
-        sed -i 's/CONFIG_SAMBA4_SERVER_WSDD2=y/CONFIG_SAMBA4_SERVER_WSDD2=n/' .config
-        sed -i 's/CONFIG_PACKAGE_samba4-libs=y/CONFIG_PACKAGE_samba4-libs=n/' .config
-        sed -i 's/CONFIG_PACKAGE_samba4-server=y/CONFIG_PACKAGE_samba4-server=n/' .config
+        #sed -i 's/CONFIG_PACKAGE_luci-i18n-samba4-zh-cn=y/CONFIG_PACKAGE_luci-i18n-samba4-zh-cn=n/' .config
+        #sed -i 's/CONFIG_PACKAGE_luci-app-samba4=y/CONFIG_PACKAGE_luci-app-samba4=n/' .config
+        #sed -i 's/CONFIG_SAMBA4_SERVER_AVAHI=y/CONFIG_SAMBA4_SERVER_AVAHI=n/' .config
+        #sed -i 's/CONFIG_SAMBA4_SERVER_NETBIOS=y/CONFIG_SAMBA4_SERVER_NETBIOS=n/' .config
+        #sed -i 's/CONFIG_SAMBA4_SERVER_VFS=y/CONFIG_SAMBA4_SERVER_VFS=n/' .config
+        #sed -i 's/CONFIG_SAMBA4_SERVER_WSDD2=y/CONFIG_SAMBA4_SERVER_WSDD2=n/' .config
+        #sed -i 's/CONFIG_PACKAGE_samba4-libs=y/CONFIG_PACKAGE_samba4-libs=n/' .config
+        #sed -i 's/CONFIG_PACKAGE_samba4-server=y/CONFIG_PACKAGE_samba4-server=n/' .config
         
         #移除统一文件共享
         sed -i 's/CONFIG_PACKAGE_luci-app-unishare=y/CONFIG_PACKAGE_luci-app-unishare=n/' .config
@@ -80,11 +80,41 @@ jobs:
         sed -i 's/CONFIG_PACKAGE_luci-i18n-ota-zh-cn=y/CONFIG_PACKAGE_luci-i18n-ota-zh-cn=n/' .config
         
         # 移除 bootstrap 主题
-        sed -i 's/CONFIG_PACKAGE_luci-theme-bootstrap=y/CONFIG_PACKAGE_luci-theme-bootstrap=n/' .config
+        # sed -i 's/CONFIG_PACKAGE_luci-theme-bootstrap=y/CONFIG_PACKAGE_luci-theme-bootstrap=n/' .config
 
         # 移除 动态DNS
         sed -i 's/CONFIG_PACKAGE_luci-app-ddns=y/CONFIG_PACKAGE_luci-app-ddns=n/' .config
         
+        sed -i '/luci-i18n/d' .config
+        
+        #移除quickstart
+        sed -i 's/CONFIG_PACKAGE_luci-app-quickstart=y/CONFIG_PACKAGE_luci-app-quickstart=n/' .config
+        sed -i 's/CONFIG_PACKAGE_luci-i18n-quickstart-zh-cn=y/CONFIG_PACKAGE_luci-i18n-quickstart-zh-cn=n/' .config
+        
+        sed -i '/CONFIG_VERSION_DIST/d' .config 
+        
+        #移除modemmanager
+        sed -i '/modemmanager/d' .config 
+        
+        #移除linkease
+        sed -i '/linkease/d' .config 
+        
+        sed -i '/pushbot/d' .config 
+        sed -i '/jellyfin/d' .config 
+        sed -i '/ddnsto/d' .config 
+        sed -i '/filebrowser/d' .config 
+        sed -i '/AdGuardHome/d' .config 
+        sed -i '/transmission/d' .config 
+        sed -i '/aliddns/d' .config 
+        sed -i '/interfaceconfig/d' .config 
+        #移除argon-config
+        sed -i '/argon-config/d' .config 
+        
+        #移除CONFIG_TARGET_KERNEL_PARTSIZE
+        sed -i '/CONFIG_TARGET_KERNEL_PARTSIZE/d' .config 
+        
+        #移除TARGET_ROOTFS_PARTSIZE
+        sed -i '/TARGET_ROOTFS_PARTSIZE/d' .config 
     - name: 同步配置
       uses: peaceiris/actions-gh-pages@v3
       with:
