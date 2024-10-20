@@ -33,15 +33,15 @@ jobs:
       - name: Delete workflow runs3
         uses: GitRML/delete-workflow-runs@main
         with:
-          token: ${{ secrets.AUTH_PAT }}
-          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: 1
           retain_days: 1
 
       - name: Delete older releases
         uses: dev-drprasad/delete-older-releases@master
         if: env.DELETE_RELEASE == 'true'
         with:
-          keep_latest: ${{ env.KEEP_MININUM_RELEASE }}
+          keep_latest: 4
           delete_tags: true
           delete_tag_pattern: _
         env:
@@ -52,9 +52,9 @@ jobs:
         if: env.DELETE_ARTIFACTS == 'true'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          retain_days: ${{ env.KEEP_DAY }}
-          keep_minimum_runs: ${{ env.KEEP_MININUM_RUNS }}
+          repository: 1
+          retain_days: 1
+          keep_minimum_runs: 1
       - name: Remove old artifacts
         uses: c-hive/gha-remove-artifacts@v1
         with:
