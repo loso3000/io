@@ -12,7 +12,8 @@ config_generate=package/base-files/files/bin/config_generate
 [[ -n $CONFIG_S ]] || CONFIG_S=Super
 
 sed -i "s/ImmortalWrt/OpenWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
-sed -i "s/ImmortalWrt/openwrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js  #改登陆域名
+sed -i "s/iStoreOS/OpenWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
+sed -i "s/ImmortalWrt/OpenWrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js  #改登陆域名
 #删除冲突插件
 # rm -rf $(find ./feeds/luci/ -type d -regex ".*\(argon\|design\|openclash\).*")
 # rm -rf package/feeds/packages/prometheus-node-exporter-lua
@@ -732,13 +733,15 @@ fi
 
 ./scripts/feeds update -i
 ./scripts/feeds install -i
-cat  ./x86_64/${CONFIG_S}  > .config
+
+cat  ../.config  > .config
+cat  ./x86_64/${CONFIG_S}  >> .config
 case "${CONFIG_S}" in
-"Vip"*)
+Vip*)
 cat  ./x86_64/comm  >> .config
 ;;
 *)
-cat  ./x86_64/comm  >> .config
+echo 'no'
 ;;
 esac
 exit
