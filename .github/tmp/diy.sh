@@ -32,6 +32,8 @@ rm -rf  ./feeds/third_party/luci-app-smartdns
 rm -rf  ./feeds/third_party/luci-app-socat
 rm -rf  ./feeds/third_party/smartdns
 rm -rf  ./feeds/third_party/luci-app-netdata
+rm -rf  ./feeds/packages/ariang
+rm -rf  ./feeds/packages/webui-aria2
 
 export github=github.com
 export mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
