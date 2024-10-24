@@ -35,6 +35,9 @@ rm -rf  ./feeds/third_party/luci-app-netdata
 rm -rf  ./feeds/packages/ariang
 rm -rf  ./feeds/packages/webui-aria2
 
+#error
+rm -rf  ./target/linux/ath79
+
 export github=github.com
 export mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
 
