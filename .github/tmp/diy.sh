@@ -1,11 +1,31 @@
 #!/bin/bash
+#安装和更新软件包
+UPDATE_PACKAGE() {
+	local PKG_NAME=$1
+	local PKG_REPO=$2
+	local PKG_BRANCH=$3
+	local PKG_SPECIAL=$4
+	local REPO_NAME=$(echo $PKG_REPO | cut -d '/' -f 2)
 
+	rm -rf $(find ../feeds/luci/ ../feeds/packages/ -maxdepth 3 -type d -iname "*$PKG_NAME*" -prune)
+
+	git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://github.com/$PKG_REPO.git"
+
+	if [[ $PKG_SPECIAL == "pkg" ]]; then
+		cp -rf $(find ./$REPO_NAME/*/ -maxdepth 3 -type d -iname "*$PKG_NAME*" -prune) ./
+		rm -rf ./$REPO_NAME/
+	elif [[ $PKG_SPECIAL == "name" ]]; then
+		mv -f $REPO_NAME $PKG_NAME
+	fi
+}
 is_vip() {
 case "${CONFIG_S}" in
      "Vip"*) return 0 ;;
      *) return 1 ;;
 esac
 }
+
+CFG_FILE="./package/base-files/files/bin/config_generate"
 config_generate=package/base-files/files/bin/config_generate
 [ ! -d files/root ] || mkdir -p files/root
 
@@ -638,8 +658,11 @@ EOF
 
 if  is_vip ; then
 #修改默认IP地址
-sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
-
+# sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
+#修改immortalwrt.lan关联IP
+sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.10.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
+#修改默认IP地址
+sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.10.1/g" $config_generate
 cat>./package/base-files/files/etc/kmodreg<<-\EOF
 #!/bin/bash
 # EzOpenWrt By Sirpdboy
@@ -718,7 +741,13 @@ EOF
 else
 
 #修改默认IP地址
-sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
+# sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
+
+#修改immortalwrt.lan关联IP
+sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.8.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
+#修改默认IP地址
+sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.8.1/g" $config_generate
+
 cat>./package/base-files/files/etc/kmodreg<<-\EOF
 #!/bin/bash
 # EzOpenWrt By Sirpdboy
@@ -746,6 +775,31 @@ EOF
 
 fi
 
+
+#修改默认主题
+# sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
+#添加编译日期标识
+# sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ $WRT_CI-$WRT_DATE')/g" $(find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js")
+#修改默认WIFI名
+# sed -i "s/\.ssid=.*/\.ssid=$WRT_WIFI/g" $(find ./package/kernel/mac80211/ ./package/network/config/ -type f -name "mac80211.*")
+
+#修改默认主机名
+# sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $config_generate
+#修改默认时区
+# sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $config_generate
+
+#UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
+UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "master"
+UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
+UPDATE_PACKAGE "mihomo" "morytyann/OpenWrt-mihomo" "main"
+UPDATE_PACKAGE "nekoclash" "Thaolga/luci-app-nekoclash" "main"
+UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
+UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main" "pkg"
+UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
+UPDATE_PACKAGE "luci-app-gecoosac" "lwb1978/openwrt-gecoosac" "main"
+UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
+UPDATE_PACKAGE "easytier" "lazyoop/networking-artifact" "main" "pkg"
+UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 
 ./scripts/feeds update -i
 ./scripts/feeds install -i
