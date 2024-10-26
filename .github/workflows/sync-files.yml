@@ -108,6 +108,7 @@ jobs:
         sed -i '/aliddns/d' .config 
         sed -i '/interfaceconfig/d' .config 
         sed -i '/iperf3/d' .config 
+        sed -i '/ALL_KMODS/d' .config 
         
         #移除argon-config
         sed -i '/argon-config/d' .config 
