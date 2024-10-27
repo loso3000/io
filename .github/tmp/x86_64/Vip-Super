@@ -235,7 +235,7 @@ CONFIG_DRIVER_11W_SUPPORT=y
 #clash
 CONFIG_PACKAGE_ruby-yaml=y
 CONFIG_PACKAGE_libcap-bin=y
-CONFIG_PACKAGE_dnsmasq-full=y
+# CONFIG_PACKAGE_dnsmasq-full=y
 CONFIG_PACKAGE_iptables=y
 CONFIG_PACKAGE_kmod-ipt-nat=y
 # CONFIG_PACKAGE_kmod-tun=y
