@@ -155,6 +155,9 @@ test $ver -lt 1 && {
     sed -i '/set wireless.radio${devidx}.disabled/d' /lib/wifi/mac80211.sh   >/dev/null 2>&1
     [ "x$ifname" = "xdevice" ] &&  uci -q set network.@$ifname[0].ports="eth0"  || uci -q set network.lan.$ifname="eth0"
     setup_network
+
+   #sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
+   sed -i 's/root.*/root::0:0:99999:7:::/g' /etc/shadow
     sed -i '/lcp-echo/d' /etc/ppp/options
     echo "lcp-echo-failure 10" >>  /etc/ppp/options 
     echo "lcp-echo-interval 200" >>  /etc/ppp/options
