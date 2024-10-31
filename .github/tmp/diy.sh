@@ -296,6 +296,11 @@ mv -f ./package/other/up/pass ./package/pass
 sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
 rm -rf ./package/pass/naiveproxy
 
+rm -rf ./package/other/up/tool/autocore
+rm -rf ./package/other/up/tool/automount
+rm -rf ./package/other/up/tool/autosamba
+rm -rf ./package/other/up/tool/default-settings/
+
 # kernel modules
 # rm -rf  ./feeds/packages/network/utils/iptables
 rm -rf  ./package/kucat/iptables
