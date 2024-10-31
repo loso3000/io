@@ -40,6 +40,7 @@ sed -i "s/ImmortalWrt/EzopWrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci
 # rm -rf feeds/packages/prometheus-node-exporter-lua
 #samrtdns
 rm -rf ./feeds/luci/applications/luci-app-smartdns
+rm -rf ./feeds/luci/applications/luci-app-autotimeset
 rm -rf  ./feeds/packages/net/smartdns
 
 #istore
@@ -54,7 +55,6 @@ rm -rf  ./feeds/third_party/smartdns
 rm -rf  ./feeds/third_party/luci-app-netdata
 rm -rf  ./feeds/packages/ariang
 rm -rf  ./feeds/packages/webui-aria2
-
 #error
 rm -rf  ./target/linux/ath79
 
