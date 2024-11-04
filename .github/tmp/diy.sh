@@ -661,7 +661,8 @@ find ./bin/ -name "*dockerman*.ipk" | xargs -i cp -f {} $kmoddirdocker
 find ./bin/ -name "*dockerd*.ipk" | xargs -i cp -f {} $kmoddirdocker
 EOF
 
-if  is_vip ; then
+case "${CONFIG_S}" in
+     "Vip"*)  
 #修改默认IP地址
 # sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 #修改immortalwrt.lan关联IP
@@ -751,8 +752,8 @@ case "$IPK" in
 esac
 
 EOF
-
-else
+;;
+"Free"*) 
 
 #修改默认IP地址
 # sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
@@ -809,6 +810,9 @@ fi
 # sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $config_generate
 #修改默认时区
 # sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $config_generate
+;;
+esac
+
 
 #UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 UPDATE_PACKAGE "nekoclash" "Thaolga/luci-app-nekoclash" "main"
