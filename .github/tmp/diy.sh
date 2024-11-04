@@ -796,8 +796,6 @@ esac
 exit
 EOF
 
-fi
-
 
 #修改默认主题
 # sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
