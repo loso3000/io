@@ -52,6 +52,8 @@ rm -rf  ./feeds/third_party/luci-app-socat
 rm -rf  ./feeds/third_party/smartdns
 rm -rf  ./feeds/third_party/luci-app-netdata
 rm -rf  ./feeds/third_party/luci-app-autotimeset
+rm -rf ./feeds/openwrt-third/luci-app-netdata
+rm -rf ./feeds/openwrt-third/smartdns
 rm -rf ./feeds/openwrt-third/luci-app-autotimeset
 rm -rf ./feeds/luci/applications/luci-app-autotimeset
 rm -rf  ./feeds/packages/ariang
@@ -658,8 +660,8 @@ while IFS= read -r line; do
 done < "$bakkmodfile"
     # find ./bin/ -name  $file | xargs -i cp -f {}  $kmoddirdrv
     # cp -v $(find bin/targets/ -type f -name "*${FIRMWARE_TYPE}*") ../firmware
-find ./bin/ -name "*dockerman*.ipk" | xargs -i cp -f {} $kmoddirdocker
-find ./bin/ -name "*dockerd*.ipk" | xargs -i cp -f {} $kmoddirdocker
+find ./bin/ -name "*dockerman*" | xargs -i cp -f {} $kmoddirdocker
+find ./bin/ -name "*dockerd*" | xargs -i cp -f {} $kmoddirdocker
 EOF
 
 case "${CONFIG_S}" in
