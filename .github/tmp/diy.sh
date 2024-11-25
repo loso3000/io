@@ -341,7 +341,7 @@ cat  patch/sysctl.conf > ./package/base-files/files/etc/sysctl.conf
 mkdir -p files/usr/share
 mkdir -p files/etc/root
 mkdir -p ./package/emortal
-# rm -rf $(find ./package/emortal/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
+rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
 mv -rf ./package/emortal2/autocore  ./package/emortal/autocore 
 mv -rf  ./package/emortal2/default-settings   ./package/emortal/default-settings 
@@ -677,6 +677,8 @@ case "${CONFIG_S}" in
 #修改默认IP地址
 sed -i 's/192\.168\.1\.1/192\.168\.10\.1/g' package/base-files/files/bin/config_generate
 
+sed -i 's/192.168.100.1/192.168.10.1/g' package/istoreos-files/Makefile
+
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 #修改默认IP地址
@@ -770,6 +772,7 @@ EOF
 #修改默认IP地址
 sed -i 's/192\.168\.1\.1/192\.168\.8\.1/g' package/base-files/files/bin/config_generate
 
+sed -i 's/192.168.100.1/192.168.8.1/g' package/istoreos-files/Makefile
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.8\.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 #修改默认IP地址
