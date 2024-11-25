@@ -678,6 +678,7 @@ case "${CONFIG_S}" in
 sed -i 's/192\.168\.1\.1/192\.168\.10\.1/g' package/base-files/files/bin/config_generate
 
 sed -i 's/192.168.100.1/192.168.10.1/g' package/istoreos-files/Makefile
+sed -i 's/luci-theme-argon/luci-theme-kucat/g' package/istoreos-files/Makefile
 
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
@@ -772,6 +773,7 @@ EOF
 #修改默认IP地址
 sed -i 's/192\.168\.1\.1/192\.168\.8\.1/g' package/base-files/files/bin/config_generate
 
+sed -i 's/luci-theme-argon/luci-theme-kucat/g' package/istoreos-files/Makefile
 sed -i 's/192.168.100.1/192.168.8.1/g' package/istoreos-files/Makefile
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.8\.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
