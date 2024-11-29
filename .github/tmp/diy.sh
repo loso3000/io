@@ -343,7 +343,7 @@ cat  patch/sysctl.conf > ./package/base-files/files/etc/sysctl.conf
 mkdir -p files/usr/share
 mkdir -p files/etc/root
 mkdir -p ./package/emortal
-rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
+# rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
 mv -rf ./package/emortal2/autocore  ./package/emortal/autocore 
 mv -rf  ./package/emortal2/default-settings   ./package/emortal/default-settings 
