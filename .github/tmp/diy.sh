@@ -56,6 +56,7 @@ rm -rf ./feeds/openwrt-third/luci-app-netdata
 rm -rf ./feeds/openwrt-third/smartdns
 rm -rf ./feeds/openwrt-third/luci-app-autotimeset
 rm -rf ./feeds/luci/applications/luci-app-autotimeset
+rm -rf ./feeds/third/luci-app-autotimeset
 rm -rf  ./feeds/packages/ariang
 rm -rf  ./feeds/packages/webui-aria2
 #error
