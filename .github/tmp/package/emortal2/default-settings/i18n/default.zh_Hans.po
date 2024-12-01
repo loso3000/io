@@ -28,6 +28,9 @@ msgstr "CPU 负载"
 msgid "Total usage"
 msgstr "CPU 总负载"
 
+msgid "Routing"
+msgstr "路由表"
+
 msgid "RAM frequency"
 msgstr "RAM 频率"
 
