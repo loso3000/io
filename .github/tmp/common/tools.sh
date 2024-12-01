@@ -31,11 +31,11 @@ SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}'
 mkdir -p files/etc/opkg
 pushd files/etc/opkg
 cat <<-EOF > "distfeeds.conf"
-src/gz openwrt_core https://mirrors.cloud.tencent.com/snapshots/targets/$TARGET/$SUBTARGET/packages
-src/gz openwrt_base https://mirrors.cloud.tencent.com/snapshots/packages/$PLATFORM/base
-src/gz openwrt_luci https://mirrors.cloud.tencent.com/snapshots/packages/$PLATFORM/luci
-src/gz openwrt_packages https://mirrors.cloud.tencent.com/snapshots/packages/$PLATFORM/packages
-src/gz openwrt_routing https://mirrors.cloud.tencent.com/snapshots/packages/$PLATFORM/routing
-src/gz openwrt_telephony https://mirrors.cloud.tencent.com/snapshots/packages/$PLATFORM/telephony
+src/gz ezopwrt_core https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/targets/$TARGET/$SUBTARGET/packages
+src/gz ezopwrt_base https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/$PLATFORM/base
+src/gz ezopwrt_luci https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/$PLATFORM/luci
+src/gz ezopwrt_packages https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/$PLATFORM/packages
+src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/$PLATFORM/routing
+src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/$PLATFORM/telephony
 EOF
 popd
