@@ -38,4 +38,5 @@ src/gz ezopwrt_packages https://downloads.immortalwrt.org/releases/23.05-SNAPSHO
 src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/$PLATFORM/routing
 src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/$PLATFORM/telephony
 EOF
+cp distfeeds.conf distfeeds.conf.bak
 popd
