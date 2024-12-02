@@ -341,82 +341,10 @@ rm -f /usr/lib/lua/luci/view/admin_status/index/upnp.htm
 [ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$?;echo $ver
 }
 
-test $ver -lt 3 && {
-# kB
-ver=3
-memtotal=$(grep MemTotal /proc/meminfo | awk '{print $2}')
-cachesize=2048
-dnsforwardmax=2048
-nf_conntrack_max=16384
-if test $memtotal -ge 1048576; then
-	# > 1024M
-	cachesize=10000
-	dnsforwardmax=10000
-	nf_conntrack_max=524288
-elif test $memtotal -ge 524288; then
-	# <= 1024M
-	cachesize=10000
-	dnsforwardmax=10000
-	nf_conntrack_max=262144
-elif test $memtotal -ge 262144; then
-	# <= 512M
-	cachesize=8192
-	dnsforwardmax=8192
-	nf_conntrack_max=131072
-elif test $memtotal -ge 131072; then
-	# <= 256M
-	cachesize=4096
-	dnsforwardmax=4096
-	nf_conntrack_max=65536
-elif test $memtotal -ge 65536; then
-	# <= 128M
-	cachesize=2048
-	dnsforwardmax=2048
-	nf_conntrack_max=32768
-else
-	# < 64M
-	cachesize=1024
-	dnsforwardmax=1024
-	nf_conntrack_max=16384
-fi
 
-	uci -q get dhcp.@dnsmasq[0] || uci add dhcp dnsmasq
-	uci -q set dhcp.@dnsmasq[0].cachesize="$cachesize"
-	uci -q set dhcp.@dnsmasq[0].dnsforwardmax="$dnsforwardmax"
-	uci -q set dhcp.@dnsmasq[0].localservice='0'
-	uci -q set dhcp.@dnsmasq[0].localise_queries='1'
-	uci -q set dhcp.@dnsmasq[0].rebind_protection='0'
-	uci -q set dhcp.@dnsmasq[0].rebind_localhost='1'
-	uci commit dhcp
-	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$?;echo $ver
-}
-
-# fix usb auto umount bug
-# cp /usr/share/base-config/mount.hotplug /etc/hotplug.d/block/10-mount
-
-#FIXME fixup for openvpn client
-uci delete openvpn_recipes.client_tun.pkcs12 2>/dev/null && uci commit openvpn_recipes
-
-#replace wget
-test -x /usr/bin/wget && rm -f /bin/wget && ln -s /usr/bin/wget /bin/wget
-test -x /usr/bin/vim && touch /root/.vimrc
-
-#clean all log if new flash firmware
-#mount -t pstore -o noatime pstore /sys/fs/pstore 2>/dev/null
-#rm -f /sys/fs/pstore/*
-
-#usb fixup
-test -f /etc/usb-mode.json && {
-	sed -i 's/05c6:9024/05c6:0000/' /etc/usb-mode.json
-}
 #update /etc/hosts
-grep -q services.googleapis.cn /etc/hosts || echo 142.250.204.35 services.googleapis.cn >>/etc/hosts
-grep -q google.cn /etc/hosts || echo 142.250.66.131 google.cn >>/etc/hosts
-
-#usb fixup
-test -f /etc/usb-mode.json && {
-	sed -i 's/05c6:9024/05c6:0000/' /etc/usb-mode.json
-}
+#grep -q services.googleapis.cn /etc/hosts || echo 142.250.204.35 services.googleapis.cn >>/etc/hosts
+#grep -q google.cn /etc/hosts || echo 142.250.66.131 google.cn >>/etc/hosts
 
 test $ver -lt 4 && {
 	ver=4
@@ -425,9 +353,10 @@ test $ver -lt 4 && {
 	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
 }
 
-echo 'iptables -I zone_lan_forward -t filter -m conntrack --ctstate DNAT -j ACCEPT' >> /etc/firewall.user
+# echo 'iptables -I zone_lan_forward -t filter -m conntrack --ctstate DNAT -j ACCEPT' >> /etc/firewall.user
 sed -i '/coremark/d' /etc/crontabs/root
 
+[ ! -f '/etc/opkg/distfeeds.conf.bak' ] || mv -f '/etc/opkg/distfeeds.conf.bak ' '/etc/opkg/distfeeds.conf'
 ln -sf /sbin/ip /usr/bin/ip
 # Disable opkg signature check
 sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf
@@ -441,7 +370,7 @@ if [ ` cat /etc/config/luci | grep immortalwrt` ] ;then
     sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
     # opkg mirror
     sed -i 's#downloads.openwrt.org#mirrors.cloud.tencent.com/lede#g' /etc/opkg/distfeeds.conf
-    sed -i 's,downloads.immortalwrt.org,mirrors.vsean.net/openwrt,g' /etc/opkg/distfeeds.conf
+    # sed -i 's,downloads.immortalwrt.org,mirrors.vsean.net/openwrt,g' /etc/opkg/distfeeds.conf
 else
 	sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
 	sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
