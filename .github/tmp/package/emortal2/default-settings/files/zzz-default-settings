@@ -356,7 +356,7 @@ test $ver -lt 4 && {
 # echo 'iptables -I zone_lan_forward -t filter -m conntrack --ctstate DNAT -j ACCEPT' >> /etc/firewall.user
 sed -i '/coremark/d' /etc/crontabs/root
 
-[ ! -f '/etc/opkg/distfeeds.conf.bak' ] || mv -f '/etc/opkg/distfeeds.conf.bak ' '/etc/opkg/distfeeds.conf'
+[ ! -f  /etc/opkg/distfeeds.conf.bak ] || mv -f  /etc/opkg/distfeeds.conf.bak /etc/opkg/distfeeds.conf 
 ln -sf /sbin/ip /usr/bin/ip
 # Disable opkg signature check
 sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf
