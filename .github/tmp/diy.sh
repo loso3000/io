@@ -254,7 +254,8 @@ rm -rf ./package/ssr/lua-neturl
 rm -rf ./package/ssr/redsocks2
 rm -rf ./package/ssr/shadow-tls
 
-
+#istoreos-files
+rm -rf ./package/istoreos-files
 
  rm -rf ./feeds/packages/net/brook
  rm -rf ./feeds/packages/net/chinadns-ng
