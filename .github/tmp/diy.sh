@@ -293,19 +293,21 @@ rm -rf ./feeds/packages/net/lua-neturl
 rm -rf ./feeds/packages/net/redsocks2
 rm -rf ./feeds/packages/net/shadow-tls
 
-rm -rf  ./feeds/luci/applications/luci-app-netdata
-mv -f ./package/other/up/netdata ./package/
+# rm -rf  ./feeds/luci/applications/luci-app-netdata
+# mv -f ./package/other/up/netdata ./package/
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
-mv -f ./package/other/up/tool ./package/
 rm -rf ./package/other/up/pass/naiveproxy
-mv -f ./package/other/up/pass ./package/pass
 sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
-rm -rf ./package/pass/naiveproxy
+rm -rf ./package/other/up/pass/naiveproxy
 
 rm -rf ./package/other/up/tool/autocore
 rm -rf ./package/other/up/tool/automount
 rm -rf ./package/other/up/tool/autosamba
 rm -rf ./package/other/up/tool/default-settings/
+
+mv -f ./package/other/up/tool ./package/tool
+mv -f ./package/other/up/pass ./package/pass
+rm -rf ./package/other
 
 # kernel modules
 # rm -rf  ./feeds/packages/network/utils/iptables
@@ -327,7 +329,6 @@ rm -rf  ./package/kucat/iptables
 #rm -rf  ./package/kernel/bpf-headers
 #rm -rf  ./feeds/luci/applications/luci-app-daed
 
-rm -rf ./package/other
 
 # Add luci-app-dockerman
 # rm -rf ./feeds/luci/applications/luci-app-dockerman
