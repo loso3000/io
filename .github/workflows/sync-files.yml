@@ -109,7 +109,7 @@ jobs:
         sed -i '/interfaceconfig/d' .config 
         sed -i '/iperf3/d' .config 
         sed -i '/ALL_KMODS/d' .config 
-        sed -i '/istoreos/d' .config 
+        # sed -i '/istoreos/d' .config 
         
         #移除argon-config
         sed -i '/argon-config/d' .config 
