@@ -7,9 +7,13 @@ user() {
 
 archinfo() {
 . /etc/openwrt_release
-if grep -Eq "x86" "/etc/openwrt_release" ; then
-	[ ! -d /sys/firmware/efi ] &&  echo -n "BIOS" || echo -n "UEFI"
-fi
+case "$DISTRIB_TARGET" in
+"x86"/*)
+	[ ! -d /sys/firmware/efi ] &&  echo -n "BIOS" || echo -n "UEFI";;
+
+"bcm27xx"/*) echo -n "" ;;
+esac
+
 }
 
 memory() {
