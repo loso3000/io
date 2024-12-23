@@ -634,15 +634,12 @@ local methods = {
 			return { cpuinfo = cpuinfo }
 		end
 	},
-
+	
 	getArchinfo = {
 		call = function()
-			local sys = require "luci.sys"
-			local archinfo = sys.exec("/sbin/sysinfo archinfo")
-			if (archinfo == nil) or (archinfo == "") then
-				archinfo = "BIOS"
-			end
-			return { archinfo = archinfo }
+			local sys=require "luci.sys"
+			local archinfo=sys.exec("/sbin/sysinfo archinfo")
+			return { archinfo=archinfo }
 		end
 	},
 

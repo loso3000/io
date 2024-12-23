@@ -54,7 +54,7 @@ return baseclass.extend({
 			_('Hostname'),         boardinfo.hostname,
 			_('Model'),            boardinfo.model,
 			_('Architecture'),     cpuinfo.cpuinfo,
-			_('Target Platform'),  (L.isObject(boardinfo.release) ? boardinfo.release.target + ' - ' : '')  + (archinfo.archinfo || ''),
+			_('Target Platform'),  (L.isObject(boardinfo.release) ? boardinfo.release.target + ' - ' : '')  + (archinfo.archinfo || 'BIOS'),
 			_('Firmware Version'), boardinfo.release.description,
 			_('Kernel Version'),   boardinfo.kernel,
 			_('Local Time'),       datestr,
