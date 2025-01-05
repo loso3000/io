@@ -30,7 +30,18 @@ config_generate=package/base-files/files/bin/config_generate
 [ ! -d files/root ] || mkdir -p files/root
 
 [[ -n $CONFIG_S ]] || CONFIG_S=Super
+rm -rf ./feeds/luci/themes/luci-app-filter
+rm -rf ./feeds/luci/themes/luci-app-oaf
+rm -rf ./feeds/luci/themes/luci-theme-argon
+rm -rf ./feeds/packages/net/mentohust
+rm -rf ./feeds/packages/net/open-app-filter
+rm -rf  ./feeds/luci/applications/luci-app-arpbind
+rm -rf  ./feeds/packages/net/oaf
+#rm -rf  ./feeds/packages/net/wget
 
+rm -rf  ./feeds/packages/net/zsh
+rm -rf  ./feeds/packages/net/homebox
+rm -rf  ./feeds/packages/net/naiveproxy
 sed -i "s/ImmortalWrt/EzopWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "s/iStoreOS/EzopWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "s/ImmortalWrt/EzopWrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js  #改登陆域名
@@ -40,7 +51,25 @@ sed -i "s/ImmortalWrt/EzopWrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci
 # rm -rf feeds/packages/prometheus-node-exporter-lua
 #samrtdns
 rm -rf ./feeds/luci/applications/luci-app-smartdns
+rm -rf ./feeds/luci/applications/luci-app-lucky
+rm -rf ./feeds/luci/applications/luci-app-ddns-go
+rm -rf ./feeds/luci/applications/luci-app-filetransfer
+rm -rf ./feeds/luci/applications/luci-app-fileassistant
+rm -rf ./feeds/luci/applications/luci-app-msd_lite
+rm -rf ./feeds/luci/applications/luci-app-smartdns
+rm -rf ./feeds/luci/applications/luci-app-wolplus
+rm -rf ./feeds/luci/applications/luci-app-wrtbwmon
+
+rm -rf ./feeds/luci/applications/luci-app-udpxy
+rm -rf ./feeds/luci/applications/luci-app-adguardhome
+rm -rf ./feeds/luci/applications/luci-app-mosdns
+rm -rf ./feeds/luci/applications/luci-app-passwall
+rm -rf ./feeds/luci/applications/luci-app-passwall2
+
+rm -rf  ./feeds/packages/net/wrtbwmon
 rm -rf  ./feeds/packages/net/smartdns
+rm -rf  ./feeds/packages/net/lucky
+rm -rf  ./feeds/packages/net/ddns-go
 #istore
 rm -rf  ./feeds/jjm2473_apps/homebox
 rm -rf  ./feeds/jjm2473_apps/luci-app-homebox
