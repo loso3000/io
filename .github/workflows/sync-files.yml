@@ -14,10 +14,11 @@ jobs:
 
     - name: downfile
       run: |
-        curl -L --fail --show-error  --connect-timeout 5 --progress-bar -o  ./feeds.conf https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/feeds.conf
-        curl -L --fail --show-error  --connect-timeout 5 --progress-bar -o  ./.config https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/config.buildinfo
+        curl -L --fail --show-error  --connect-timeout 5 --progress-bar -o  ./feeds.conf https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/feeds.conf || true
+        curl -L --fail --show-error  --connect-timeout 5 --progress-bar -o  ./.config https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/config.buildinfo || true
         #curl -fsSL https://fw.koolcenter.com/iStoreOS/x86_64_efi/feeds.conf > ./feeds.conf
         #curl -fsSL https://fw.koolcenter.com/iStoreOS/x86_64_efi/config.buildinfo > ./.config
+    
     - name: delipk
       run: | 
         sed -i 's/^.*OpenAppFilter.*/#&/' feeds.conf
