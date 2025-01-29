@@ -15,10 +15,10 @@ jobs:
 
     - name: 下载架构编译配置文件
       run: |
-        #wget-ssl --quiet --no-check-certificate --tries 1 --timeout 10 -O  ./feeds.conf https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/feeds.conf
-        #wget-ssl --quiet --no-check-certificate --tries 1 --timeout 10 -O  ./.config https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/config.buildinfo
-        curl -fsSL https://fw.koolcenter.com/iStoreOS/x86_64_efi/feeds.conf > ./feeds.conf
-        curl -fsSL https://fw.koolcenter.com/iStoreOS/x86_64_efi/config.buildinfo > ./.config
+        curl -L --fail --show-error  --connect-timeout 5 --progress-bar -o  ./feeds.conf https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/feeds.conf
+        curl -L --fail --show-error  --connect-timeout 5 --progress-bar -o  ./.config https://fw0.koolcenter.com/iStoreOS/alpha/x86_64_efi/config.buildinfo
+        #curl -fsSL https://fw.koolcenter.com/iStoreOS/x86_64_efi/feeds.conf > ./feeds.conf
+        #curl -fsSL https://fw.koolcenter.com/iStoreOS/x86_64_efi/config.buildinfo > ./.config
     - name: 注释软件源
       run: |
         #注释应用过滤
