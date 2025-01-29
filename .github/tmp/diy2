@@ -28,8 +28,11 @@ esac
 CFG_FILE="./package/base-files/files/bin/config_generate"
 config_generate=package/base-files/files/bin/config_generate
 [ ! -d files/root ] || mkdir -p files/root
+[ ! -d files/etc/opkg ] || mkdir -p files/etc/opkg
 
-[[ -n $CONFIG_S ]] || CONFIG_S=Super
+[[ -n $TARGET_DEVICE ]] || TARGET_DEVICE="x86_64"
+[[ -n $CONFIG_S ]] || CONFIG_S=Vip-Super
+
 rm -rf ./feeds/luci/themes/luci-app-filter
 rm -rf ./feeds/luci/themes/luci-app-oaf
 rm -rf ./feeds/luci/themes/luci-theme-argon
@@ -507,7 +510,17 @@ git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550
 
 # sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
 # sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
-
+# echo '默认开启 Irqbalance'
+if  [[ $TARGET_DEVICE == 'x86_64' ]] ;then
+VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/x86/Makefile | cut -d = -f 2)"
+CLASH="amd64"
+elif  [ $TARGET_DEVICE == 'rm2100' ]  || [ $TARGET_DEVICE == 'xm2100' ] ;then
+VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/rockchip/Makefile | cut -d = -f 2)"
+CLASH="mipsle_softfloat"
+else
+VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/rockchip/Makefile | cut -d = -f 2)"
+CLASH="arm64"
+fi
 # 预处理下载相关文件，保证打包固件不用单独下载
 for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/common/*.sh`;do
     source $sh_file amd64
