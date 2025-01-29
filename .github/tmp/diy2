@@ -873,8 +873,8 @@ UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 ./scripts/feeds update -i
 ./scripts/feeds install -i
 
-cat  ../.config  > .config
-cat  ./x86_64/${CONFIG_S}  >> .config
+# cat  ../.config  > .config
+cat  ./x86_64/${CONFIG_S}  > .config
 case "${CONFIG_S}" in
 Vip*)
 cat  ./x86_64/comm  >> .config
