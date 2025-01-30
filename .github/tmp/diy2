@@ -224,7 +224,7 @@ rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci
 
 git clone https://github.com/sbwml/openwrt_helloworld  -b v5 ./package/ssr
 
-git clone https://github.com/loso3000/other ./package/other
+git clone https://github.com/loso3000/other ./package/add
 
 
 rm -rf feeds/packages/lang/golang
@@ -233,10 +233,10 @@ git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/l
 # git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 
 
-# rm -rf ./package/other/luci-app-mwan3 ./package/other/mwan3
+# rm -rf ./package/add/luci-app-mwan3 ./package/add/mwan3
 # rm -rf ./feeds/luci/applications/luci-app-mwan3
 rm -rf ./feeds/packages/net/mwan3
-mv ./package/other/up/tool/mwan3 ./feeds/packages/net/mwan3
+mv ./package/add/up/tool/mwan3 ./feeds/packages/net/mwan3
 
 
 # rm -rf ./package/ssr/luci-app-passwall2/htdocs/luci-static/resources/
@@ -318,19 +318,19 @@ rm -rf ./feeds/packages/net/redsocks2
 rm -rf ./feeds/packages/net/shadow-tls
 
 # rm -rf  ./feeds/luci/applications/luci-app-netdata
-# mv -f ./package/other/up/netdata ./package/
+# mv -f ./package/add/up/netdata ./package/
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
-rm -rf ./package/other/up/pass/naiveproxy
+rm -rf ./package/add/up/pass/naiveproxy
 sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
-rm -rf ./package/other/up/pass/naiveproxy
+rm -rf ./package/add/up/pass/naiveproxy
 
-rm -rf ./package/other/up/tool/autocore
-rm -rf ./package/other/up/tool/automount
-rm -rf ./package/other/up/tool/autosamba
-rm -rf ./package/other/up/tool/default-settings/
+rm -rf ./package/add/up/tool/autocore
+rm -rf ./package/add/up/tool/automount
+rm -rf ./package/add/up/tool/autosamba
+rm -rf ./package/add/up/tool/default-settings/
 
-mv -f ./package/other/up/tool ./package/tool
-mv -f ./package/other/up/pass ./package/pass
+mv -f ./package/add/up/tool ./package/tool
+mv -f ./package/add/up/pass ./package/pass
 rm -rf ./package/js
 rm -rf ./package/js2
 
@@ -518,17 +518,18 @@ else
 VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/rockchip/Makefile | cut -d = -f 2)"
 CLASH="arm64"
 fi
-# 预处理下载相关文件，保证打包固件不用单独下载
-for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/common/*.sh`;do
-    source $sh_file amd64
-done
-
 if [[ $DATE_S == 'default' ]]; then
    DATA=`TZ=UTC-8 date +%y%m%d%H%M -d +"12"hour`
    # DATA=`TZ=UTC-8 date +%y%m%d%H%M`
 else 
    DATA=$DATE_S
 fi
+# 预处理下载相关文件，保证打包固件不用单独下载
+for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/package/add/common/*.sh`;do
+    source $sh_file $CLASH
+done
+
+VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/x86/Makefile | cut -d = -f 2)"
 ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
 ver61=`grep "LINUX_VERSION-6.1 ="  include/kernel-6.1 | cut -d . -f 3`
@@ -549,9 +550,9 @@ fi
 echo "${date1}" > ./package/base-files/files/etc/ezopenwrt_version
 echo "${date2}" >> ./package/base-files/files/etc/banner
 echo '---------------------------------' >> ./package/base-files/files/etc/banner
-[ -f ./files/root/.zshrc ] || mv -f ./package/other/patch/z.zshrc ./files/root/.zshrc
+[ -f ./files/root/.zshrc ] || mv -f ./package/add/patch/z.zshrc ./files/root/.zshrc
 [ -f ./files/root/.zshrc ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/.zshrc > ./files/root/.zshrc
-[ -f ./files/etc/profiles ] || mv -f ./package/other/patch/profiles ./files/etc/profiles
+[ -f ./files/etc/profiles ] || mv -f ./package/add/patch/profiles ./files/etc/profiles
 [ -f ./files/etc/profiles ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/profiles > ./files/etc/profiles
 
 if [ ${TARGET_DEVICE} = "x86_64" ] ; then
@@ -648,18 +649,23 @@ rm -rf  *kernel.bin
 sleep 2
 
 if [ "$VER1" = "5.4" ]; then
-mv   *squashfs-sysupgrade.img.gz EzOpenWrt-${r_version}_${VER1}.${ver54}-${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
-mv  *ext4-sysupgrade.img.gz EzOpenWrt-${r_version}_${VER1}.${ver54}-${TARGET_DEVICE}-ext4-sysupgrade.img.gz
+mv   *squashfs-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver54}-${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
+mv  *ext4-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver54}-${TARGET_DEVICE}-ext4-sysupgrade.img.gz
 md5_EzOpWrt=*squashfs-sysupgrade.img.gz  
 md5_EzOpWrt_uefi=*ext4-sysupgrade.img.gz
 elif [ "$VER1" = "5.15" ]; then
-mv   *squashfs-sysupgrade.img.gz EzOpenWrt-${r_version}_${VER1}.${ver515}-${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
-mv   *ext4-sysupgrade.img.gz EzOpenWrt-${r_version}_${VER1}.${ver515}-${TARGET_DEVICE}-ext4-sysupgrade.img.gz
+mv   *squashfs-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver515}-${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
+mv   *ext4-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver515}-${TARGET_DEVICE}-ext4-sysupgrade.img.gz
 md5_EzOpWrt=*squashfs-sysupgrade.img.gz  
 md5_EzOpWrt_uefi=*ext4-sysupgrade.img.gz
 elif [ "$VER1" = "6.1" ]; then
-mv *squashfs-sysupgrade.img.gz EzOpenWrt-${r_version}_${VER1}.${ver61}-${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
-mv *ext4-sysupgrade.img.gz EzOpenWrt-${r_version}_${VER1}.${ver61}-${TARGET_DEVICE}-ext4-sysupgrade.img.gz
+mv *squashfs-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver61}-${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
+mv *ext4-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver61}-${TARGET_DEVICE}-ext4-sysupgrade.img.gz
+md5_EzOpWrt=*squashfs-sysupgrade.img.gz  
+md5_EzOpWrt_uefi=*ext4-sysupgrade.img.gz
+elif [ "$VER1" = "6.6" ]; then
+mv *squashfs-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver61}-${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
+mv *ext4-sysupgrade.img.gz EzOpWrt-${r_version}_${VER1}.${ver61}-${TARGET_DEVICE}-ext4-sysupgrade.img.gz
 md5_EzOpWrt=*squashfs-sysupgrade.img.gz  
 md5_EzOpWrt_uefi=*ext4-sysupgrade.img.gz
 fi
@@ -869,7 +875,7 @@ UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 ./scripts/feeds install -i
 
 cat  ../.config  > .config
-cat  ./x86_64/${CONFIG_S}  > .config
+cat  ./x86_64/${CONFIG_S}  >> .config
 case "${CONFIG_S}" in
 Vip*)
 cat  ./x86_64/comm  >> .config
