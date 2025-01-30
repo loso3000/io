@@ -616,8 +616,9 @@ md5_EzOpWrt=EzOpenWrt-${r_version}_${VER1}.${ver66}-x86-64-combined.img.gz
 md5_EzOpWrt_uefi=EzOpenWrt-${r_version}_${VER1}.${ver66}-x86-64-combined-efi.img.gz
 fi
 #md5
-md5sum ${md5_EzOpWrt} > EzOpWrt_combined.md5  || true
-md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_combined-efi.md5 || true
+ 
+[ -f ${md5_EzOpWrt}] && md5sum ${md5_EzOpWrt} > EzOpWrt_combined.md5  || true
+[ -f ${md5_EzOpWrt_uefi} ] &&md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_combined-efi.md5 || true
 popd
 
 EOF
