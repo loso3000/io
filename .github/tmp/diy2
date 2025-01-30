@@ -514,9 +514,6 @@ git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550
 if  [[ $TARGET_DEVICE == 'x86_64' ]] ;then
 VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/x86/Makefile | cut -d = -f 2)"
 CLASH="amd64"
-elif  [ $TARGET_DEVICE == 'rm2100' ]  || [ $TARGET_DEVICE == 'xm2100' ] ;then
-VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/rockchip/Makefile | cut -d = -f 2)"
-CLASH="mipsle_softfloat"
 else
 VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/rockchip/Makefile | cut -d = -f 2)"
 CLASH="arm64"
@@ -527,12 +524,11 @@ for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/common/*.sh`;do
 done
 
 if [[ $DATE_S == 'default' ]]; then
-   # DATA=`TZ=UTC-8 date +%y%m%d -d +"12"hour`
-   DATA=`TZ=UTC-8 date +%y%m%d%H%M`
+   DATA=`TZ=UTC-8 date +%y%m%d%H%M -d +"12"hour`
+   # DATA=`TZ=UTC-8 date +%y%m%d%H%M`
 else 
    DATA=$DATE_S
 fi
-
 ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
 ver61=`grep "LINUX_VERSION-6.1 ="  include/kernel-6.1 | cut -d . -f 3`
@@ -668,9 +664,8 @@ md5_EzOpWrt=*squashfs-sysupgrade.img.gz
 md5_EzOpWrt_uefi=*ext4-sysupgrade.img.gz
 fi
 #md5
-md5sum ${md5_EzOpWrt} > EzOpWrt_squashfs-sysupgrade.md5  || true
-md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_ext4-sysupgrade.md5 || true
-
+[ -f ${md5_EzOpWrt}] && md5sum ${md5_EzOpWrt} > EzOpWrt_squashfs-sysupgrade.md5  || true
+[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_ext4-sysupgrade.md5 || true 
 popd
 exit 0
 EOF
