@@ -536,12 +536,13 @@ for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/common/*.sh`;do
 done
 
 if [[ $DATE_S == 'default' ]]; then
-   DATA=`TZ=UTC-8 date +%Y.%m.%d -d +"12"hour`
+   DATA=`TZ=UTC-8 date +%y%m%d%H%M -d +"12"hour`
+   # DATA=`TZ=UTC-8 date +%y%m%d%H%M`
 else 
    DATA=$DATE_S
 fi
 
-
+VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/x86/Makefile | cut -d = -f 2)"
 ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
 ver61=`grep "LINUX_VERSION-6.1 ="  include/kernel-6.1 | cut -d . -f 3`
