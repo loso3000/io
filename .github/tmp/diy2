@@ -331,8 +331,8 @@ rm -rf ./package/add/up/tool/default-settings/
 
 mv -f ./package/add/up/tool ./package/tool
 mv -f ./package/add/up/pass ./package/pass
-# rm -rf ./package/js
-# rm -rf ./package/js2
+rm -rf ./package/js
+rm -rf ./package/js2
 
 # kernel modules
 # rm -rf  ./feeds/packages/network/utils/iptables
@@ -504,9 +504,6 @@ git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550
 # 修改makefile
 # find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
 # find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/lang\/golang\/golang\-package\.mk/include \$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang\-package\.mk/g' {}
-
-# 修复 hostapd 报错
-#cp -f $GITHUB_WORKSPACE/scriptx/011-fix-mbo-modules-build.patch package/network/services/hostapd/patches/011-fix-mbo-modules-build.patch
 
 # sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
 # sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
