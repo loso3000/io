@@ -331,8 +331,8 @@ rm -rf ./package/add/up/tool/default-settings/
 
 mv -f ./package/add/up/tool ./package/tool
 mv -f ./package/add/up/pass ./package/pass
-rm -rf ./package/js
-rm -rf ./package/js2
+# rm -rf ./package/js
+# rm -rf ./package/js2
 
 # kernel modules
 # rm -rf  ./feeds/packages/network/utils/iptables
