@@ -822,6 +822,21 @@ UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 UPDATE_PACKAGE "easytier" "lazyoop/networking-artifact" "main" "pkg"
 UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 
+sed -i '/	refresh_config();/d' scripts/feeds
+        package/base-files/files/lib/upgrade/keep.d/base-files-essential
+sed -i -e '/^\/etc\/profile/d' \
+        -e '/^\/etc\/shinit/d' \
+        package/base-files/Makefile
+sed -i "s/192.168.1/192.168.10/" package/base-files/files/bin/config_generate
+sed -i "s/^.*vermagic$/\techo '1' > \$(LINUX_DIR)\/.vermagic/" include/kernel-defaults.mk
+
+sed -i 's/option timeout 30/option timeout 60/g' package/system/rpcd/files/rpcd.config
+sed -i 's#20) \* 1000#60) \* 1000#g' feeds/luci/modules/luci-base/htdocs/luci-static/resources/rpc.js
+
+sed -i "s/tty\(0\|1\)::askfirst/tty\1::respawn/g" target/linux/*/base-files/etc/inittab
+sed -i 's/max_requests 3/max_requests 20/g' package/network/services/uhttpd/files/uhttpd.config
+sed -i "s/OpenWrt/EzOpWrt/g" package/base-files/files/bin/config_generate package/base-files/image-config.in package/network/config/wifi-scripts/files/lib/wifi/mac80211.uc config/Config-images.in Config.in include/u-boot.mk include/version.mk || true
+
 ./scripts/feeds update -i
 ./scripts/feeds install -i
 
