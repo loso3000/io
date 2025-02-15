@@ -827,7 +827,7 @@ sed -i '/	refresh_config();/d' scripts/feeds
 sed -i -e '/^\/etc\/profile/d' \
         -e '/^\/etc\/shinit/d' \
         package/base-files/Makefile
-sed -i "s/192.168.1/192.168.10/" package/base-files/files/bin/config_generate
+# sed -i "s/192.168.1/192.168.10/" package/base-files/files/bin/config_generate
 sed -i "s/^.*vermagic$/\techo '1' > \$(LINUX_DIR)\/.vermagic/" include/kernel-defaults.mk
 
 sed -i 's/option timeout 30/option timeout 60/g' package/system/rpcd/files/rpcd.config
