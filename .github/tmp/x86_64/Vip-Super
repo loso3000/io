@@ -266,6 +266,11 @@ CONFIG_PACKAGE_kmod-nvme=y
 
 CONFIG_PACKAGE_luci-lib-ipkg=y
 
+CONFIG_PACKAGE_kmod-md-mod=y
+CONFIG_PACKAGE_kmod-md-raid0=y
+CONFIG_PACKAGE_kmod-md-raid10=y
+CONFIG_PACKAGE_kmod-md-raid1=y
+
 ### ImmortalWrt Proxy - nft  firewall4
 CONFIG_PACKAGE_luci-app-homeproxy=y
 CONFIG_PACKAGE_luci-app-nikki=y
