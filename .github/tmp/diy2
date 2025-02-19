@@ -329,7 +329,6 @@ rm -rf ./package/add/up/pass/naiveproxy
 sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
 rm -rf ./package/add/up/pass/naiveproxy
 
-rm -rf ./package/add/up/tool/autocore
 rm -rf ./package/add/up/tool/automount
 rm -rf ./package/add/up/tool/autosamba
 rm -rf ./package/add/up/tool/default-settings/
@@ -377,11 +376,12 @@ mkdir -p files/etc/root
 mkdir -p ./package/emortal
 # rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
-mv -rf ./package/emortal2/autocore  ./package/emortal/autocore 
+# mv -rf ./package/emortal2/autocore  ./package/emortal/autocore 
 mv -rf  ./package/emortal2/default-settings   ./package/emortal/default-settings 
 mv -rf  ./package/emortal2/automount   ./package/emortal/automount
 mv -rf  ./package/emortal2/autosamba   ./package/emortal/autosamba
-
+rm -rf ./package/emortal2/autocore 
+# rm -rf ./package/add/up/tool/autocore
 
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='EzOpWrt'/g" ./package/base-files/files/bin/config_generate
