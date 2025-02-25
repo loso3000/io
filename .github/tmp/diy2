@@ -590,14 +590,18 @@ rm -rf  profiles.json
 rm -rf  *kernel.bin
 # BINDIR=`pwd`
 sleep 2
+
+ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 mv  *generic-squashfs-combined.img.gz       EzOpWrt-${r_version}-${TARGET_DEVICE}-dev.img.gz   
 mv  *generic-squashfs-combined-efi.img.gz   EzOpWrt-${r_version}-${TARGET_DEVICE}-dev-efi.img.gz
 md5_EzOpWrt=EzOpWrt-${r_version}-${TARGET_DEVICE}-dev.img.gz   
 md5_EzOpWrt_uefi=EzOpWrt-${r_version}-${TARGET_DEVICE}-dev-efi.img.gz
 
 #md5
-[ -f ${md5_EzOpWrt}] && md5sum ${md5_EzOpWrt} > EzOpWrt_dev.md5
-[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5
+[ -f ${md5_EzOpWrt}] && md5sum ${md5_EzOpWrt} > EzOpWrt_dev.md5 &&echo "ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`" >> EzOpWrt_dev.md5
+[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5 &&echo "ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`" >> EzOpWrt_dev-efi.md5
+cp ../../../../ezotafooter  ./ota.footer
+cp ../../../../ezverlatest   ./ver.latest 
 popd
 
 EOF
