@@ -252,7 +252,7 @@ rm -rf ./package/ssr/luci-app-ssr-plus
 # rm -rf ./package/ssr/luci-app-passwall2
 
 
-rm -rf ./package/ssr/brook
+#rm -rf ./package/ssr/brook
 #rm -rf ./package/ssr/chinadns-ng
 #rm -rf ./package/ssr/dns2socks
 #rm -rf ./package/ssr/dns2tcp
@@ -267,20 +267,20 @@ rm -rf ./package/ssr/brook
 # rm -rf ./package/ssr/trojan
 # rm -rf ./package/ssr/tuic-client
 
-rm -rf ./package/ssr/shadowsocks-libev
-rm -rf ./package/ssr/shadowsocks-rust
+#rm -rf ./package/ssr/shadowsocks-libev
+#rm -rf ./package/ssr/shadowsocks-rust
 
 rm -rf ./package/ssr/mosdns
 rm -rf ./package/ssr/trojan-plus
-rm -rf ./package/ssr/xray-core
-rm -rf ./package/ssr/xray-plugin
+#rm -rf ./package/ssr/xray-core
+#rm -rf ./package/ssr/xray-plugin
 # rm -rf ./package/ssr/naiveproxy
-rm -rf ./package/ssr/v2ray-plugin
-rm -rf ./package/ssr/v2ray-core
+#rm -rf ./package/ssr/v2ray-plugin
+#rm -rf ./package/ssr/v2ray-core
 # rm -rf ./package/ssr/pdnsd
-rm -rf ./package/ssr/lua-neturl
-rm -rf ./package/ssr/redsocks2
-rm -rf ./package/ssr/shadow-tls
+#rm -rf ./package/ssr/lua-neturl
+#rm -rf ./package/ssr/redsocks2
+#rm -rf ./package/ssr/shadow-tls
 
 #istoreos-files
 rm -rf ./package/istoreos-files
