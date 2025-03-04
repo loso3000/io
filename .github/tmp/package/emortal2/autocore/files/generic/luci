@@ -1,5 +1,6 @@
 // Copyright 2022 Jo-Philipp Wich <jo@mein.io>
 // Licensed to the public under the Apache License 2.0.
+// console.error('ethlist sysinfo:', ethlist);
 
 'use strict';
 
@@ -677,7 +678,6 @@ const methods = {
 				return {};
 
 			const fd = popen('/sbin/sysinfo ethlist');
-			 console.error('ethlist sysinfo:', fd);
 			if (fd) {
 				let ethlist = fd.read('all');
 				if (!ethlist)
@@ -685,7 +685,6 @@ const methods = {
 				ethlist = json(ethlist);
 				fd.close();
 
-			 console.error('ethlist sysinfo:', ethlist);
 				return { result: ethlist };
 			} else {
 				return { result: error() };
