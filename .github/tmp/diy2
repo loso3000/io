@@ -4,7 +4,7 @@
 gitea=git.cooluc.com
 github="github.com"
 mirror=https://init.cooluc.com
-mirror2=raw.githubusercontent.com/coolsnowwolf/lede/master
+mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
 
 #安装和更新软件包
 UPDATE_PACKAGE() {
