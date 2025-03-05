@@ -350,10 +350,20 @@ test $ver -lt 4 && {
 	uci commit ucitrack
 	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
 }
-
-# echo 'iptables -I zone_lan_forward -t filter -m conntrack --ctstate DNAT -j ACCEPT' >> /etc/firewall.user
 sed -i '/coremark/d' /etc/crontabs/root
+ln -sf /sbin/ip /usr/bin/ip
+# Disable opkg signature check
+sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf
+new_DISTRIB_REVISION=`cat  /etc/ezopenwrt_version`
+sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
+sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='EzOpWrt "${new_DISTRIB_REVISION}"'" >> /etc/openwrt_release
+sed -i '/OPENWRT_RELEASE/d' /etc/os-release
+echo "OPENWRT_RELEASE='EzOpWrt "${new_DISTRIB_REVISION}"'" >> /etc/os-release
+sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
 
+test $ver -lt 5 && {
+ver=5
 eval $(cat /etc/os-release | grep -o -e "VERSION=\S*")
 if `echo $VERSION | cut -d . -f 1`=24 then
 cat <<-EOF > "/etc/opkg/distfeeds.conf"
@@ -374,29 +384,10 @@ src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT
 src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/packages/x86_64/telephony
 EOF
 fi
-
-ln -sf /sbin/ip /usr/bin/ip
-# Disable opkg signature check
-sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf
-new_DISTRIB_REVISION=`cat  /etc/ezopenwrt_version`
-sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
-sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='EzOpWrt "${new_DISTRIB_REVISION}"'" >> /etc/openwrt_release
-
-sed -i '/OPENWRT_RELEASE/d' /etc/os-release
-echo "OPENWRT_RELEASE='EzOpWrt "${new_DISTRIB_REVISION}"'" >> /etc/os-release
-
-sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
-
-test $ver -lt 5 && {
-	ver=5
-	# rm -f /etc/nginx/conf.d/_lan.crt  /etc/nginx/conf.d/_lan.key
-	# test -e /etc/nginx/conf.d/_lan.conf && \
-	# /usr/bin/nginx-util 'add_ssl' '_lan'
-	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
+[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
 }
 test $ver -lt 6 && {
-	ver=6
+ver=6
 HOSTNAME="samsungTV"
 TAG="googleDNS"
 MAC=""
@@ -416,7 +407,7 @@ EOF
 
 uci commit && cd /etc/init.d && \
 ./dnsmasq restart
-	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
+[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
 }
 uci -q set base_config.@base[0].ver=$ver
 uci commit base_config
