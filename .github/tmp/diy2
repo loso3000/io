@@ -34,8 +34,11 @@ esac
 
 CFG_FILE="./package/base-files/files/bin/config_generate"
 config_generate=package/base-files/files/bin/config_generate
+
 [ ! -d files/root ] || mkdir -p files/root
 [ ! -d files/etc/opkg ] || mkdir -p files/etc/opkg
+[ ! -d files/usr/share ] ||mkdir -p files/usr/share
+[ ! -d ./package/emortal ] ||mkdir -p ./package/emortal
 
 [[ -n $TARGET_DEVICE ]] || TARGET_DEVICE="x86_64"
 [[ -n $CONFIG_S ]] || CONFIG_S=Vip-Super
@@ -304,9 +307,6 @@ cat  patch/profile > ./package/base-files/files/etc/profile
 cat  patch/profiles > ./package/base-files/files/etc/profiles
 cat  patch/sysctl.conf > ./package/base-files/files/etc/sysctl.conf
 
-mkdir -p files/usr/share
-mkdir -p files/etc/root
-mkdir -p ./package/emortal
 
 # rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
