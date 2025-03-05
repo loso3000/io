@@ -1,14 +1,10 @@
 'use strict';
 'require baseclass';
-'require fs';
-'require ui';
-'require uci';
 'require rpc';
 
 var callLuciETHList = rpc.declare({
 	object: 'luci',
-	method: 'getETHList',
-	expect: { result: [] }
+	method: 'getETHList'
 });
 
 return baseclass.extend({
@@ -21,9 +17,11 @@ return baseclass.extend({
     },
 
     render: function(data) {
-		var list = Array.isArray(data[0].ethlist) ? data[0].ethlist : [];
+		if(!data) return;
+
+		var ethinfo = Array.isArray(data[0].ethinfo) ? data[0].ethinfo : [];
 		
-		// console.error('eth:', list);
+		//console.error('eth:', ethinfo);
 		var table = E('table', { 'class': 'table' }, [
 			E('tr', { 'class': 'tr table-titles' }, [
 				E('th', { 'class': 'th' }, _('Ethernet Name')),
@@ -34,7 +32,7 @@ return baseclass.extend({
 			])
 		]);
 
-		cbi_update_table(table, ethlist.map(function(info) {
+		cbi_update_table(table, ethinfo.map(function(info) {
 			var exp1;
 			var exp2;
 
@@ -61,6 +59,8 @@ return baseclass.extend({
 			];
 		}));
 
-      return E([table]);
+		return E([
+			table
+		]);
 	}
 });

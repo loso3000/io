@@ -11,8 +11,7 @@ PKG_RELEASE:=$(COMMITCOUNT)
 
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_TARGET_bcm27xx \
-	CONFIG_TARGET_bcm53xx \
-	CONFIG_TARGET_mvebu
+	CONFIG_TARGET_bcm53xx
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/target.mk
@@ -29,7 +28,7 @@ endef
 define Package/autocore-x86
   TITLE:=x86/x64 auto core loadbalance script.
   MAINTAINER:=Lean / CN_SZTL
-  DEPENDS:=@TARGET_x86 +lm-sensors +ethtool +lscpu
+  DEPENDS:=@TARGET_x86 +lm-sensors +ethtool
   VARIANT:=x86
 endef
 
@@ -43,6 +42,7 @@ define Package/autocore/install/Default
 	$(CP) ./files/generic/21_ethinfo.js $(1)/etc/rpcd_21_ethinfo.js
 
 	$(CP) ./files/generic/luci $(1)/etc/rpcd_luci
+	$(CP) ./files/generic/sys.uc $(1)/etc/ucode_sys
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/generic/090-cover-index_files $(1)/etc/uci-defaults/
 

@@ -1,6 +1,5 @@
 // Copyright 2022 Jo-Philipp Wich <jo@mein.io>
 // Licensed to the public under the Apache License 2.0.
-// console.error('ethlist sysinfo:', ethlist);
 
 'use strict';
 
@@ -673,28 +672,7 @@ const methods = {
 
 	getETHList: {
 		call: function() {
-
-			if (!access('/sbin/sysinfo ethlist'))
-				return {};
-
-			const fd = popen('/sbin/sysinfo ethlist');
-			if (fd) {
-				let ethlist = fd.read('all');
-				if (!ethlist)
-					ethlist = '{}';
-				ethlist = json(ethlist);
-				fd.close();
-
-				return { result: ethlist };
-			} else {
-				return { result: error() };
-			}
-		}
-	},
-	getETHInfo: {
-		call: function() {
-
-			if (!access('/sbin/sysinfo ethinfo'))
+			if (!access('/sbin/sysinfo'))
 				return {};
 
 			const fd = popen('/sbin/sysinfo ethinfo');
@@ -705,9 +683,31 @@ const methods = {
 				ethinfo = json(ethinfo);
 				fd.close();
 
-				return { result: ethinfo };
+				return { ethinfo: ethinfo };
 			} else {
-				return { result: error() };
+				return { ethinfo: error() };
+			}
+		}
+	}
+
+	},
+	getETHInfo: {
+		call: function() {
+
+			if (!access('/sbin/sysinfo'))
+				return {};
+
+			const fd = popen('/sbin/sysinfo ethinfo');
+			if (fd) {
+				let ethinfo = fd.read('all');
+				if (!ethinfo)
+					ethinfo = '{}';
+				ethinfo = json(ethinfo);
+				fd.close();
+
+				return { ethinfo: ethinfo };
+			} else {
+				return { ethinfo: error() };
 			}
 		}
 	}
