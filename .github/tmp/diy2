@@ -352,6 +352,11 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 git clone https://github.com/sbwml/v2ray-geodata feeds/packages/net/v2ray-geodata
 
+# TTYD设置
+sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' ./feeds/packages/utils/ttyd/files/ttyd.init
+sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' ./feeds/packages/utils/ttyd/files/ttyd.init
+sed -i 's|/bin/login|/bin/login -f root|' ./feeds/packages/utils/ttyd/files/ttyd.config
+
 
 rm -rf ./package/add/up/luci-app-upnp
 # rm -rf ./feeds/luci/applications/luci-app-upnp
@@ -359,8 +364,6 @@ rm -rf ./package/add/up/luci-app-upnp
 #sed -i 's/option enabled.*/option enabled 0/' feeds/*/*/*/*/upnpd.config
 #sed -i 's/option dports.*/option enabled 2/' feeds/*/*/*/*/upnpd.config
 
-sed -i "s/ImmortalWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
-sed -i "s/OpenWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "/listen_https/ {s/^/#/g}" package/*/*/*/files/uhttpd.config
 sed -i 's/msgstr "Socat"/msgstr "端口转发"/g' ./feeds/luci/applications/luci-app-socat/po/*/socat.po
 
@@ -667,6 +670,8 @@ find ./bin/ -name "*dockerman*" | xargs -i cp -f {} $kmoddirdocker
 find ./bin/ -name "*dockerd*" | xargs -i cp -f {} $kmoddirdocker
 EOF
 
+sed -i "s/ImmortalWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
+sed -i "s/OpenWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 case "${CONFIG_S}" in
      "Vip"*)  
 #修改默认IP地址
