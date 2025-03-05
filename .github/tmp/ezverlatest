@@ -1,10 +1,11 @@
 <ul>
 <li>下面是具体更新内容：</li>
 </ul>
-1.升级 流量监控，适配FW4版本。。
-2.升级酷猫主题，优化一些显示问题。
-3.升级极致版，采用6.6内核集成BYPASS，PASSWALL，SSR，OPENWTCLASH和nikki。
-4.增加一些常用插件，如流量监控，网速控制等常用插件，不保证有效。等有时间适配FW4专用版本。
+1.升级进阶设置，KUCAT主题设置增加颜色选择工具，修复argon主题设置工具背景参数错误问题。
+2.升级酷猫主题，适配方件管理工具，解决手机模式一些显示排版等问题。
+3.升级极致版到24.10，采用6.6内核带HomeProxy、OPENCLASH和nikki【Mihomo 】，加入应用过滤最新版本。
+4.适配24.10分支的预览状态，网口信息，CPU使用率，温度显示等。
+5.升级文件管理工具，取消一些不适应FW4的插件，专用于FW4系列。介意者勿升级。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/534" target="_blank">点击这里</a>查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/539" target="_blank">点击这里</a>查看详情</li>
 </ul>
