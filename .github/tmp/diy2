@@ -476,6 +476,7 @@ popd
 rm -rf feeds/luci/applications/luci-app-filemanager
 git clone https://$github/sbwml/luci-app-filemanager package/new/luci-app-filemanager
 
+git clone https://github.com/sirpdboy/netspeedtest ./package/netspeedtest
 
 # curl - fix passwall `time_pretransfer` check
 rm -rf feeds/packages/net/curl
