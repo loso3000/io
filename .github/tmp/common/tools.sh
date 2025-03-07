@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #=================================================
 # File name: preset-terminal-tools.sh
 # System Required: Linux
