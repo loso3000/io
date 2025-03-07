@@ -5,7 +5,6 @@ gitea=git.cooluc.com
 github="github.com"
 mirror=https://init.cooluc.com
 mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
-CFG_FILE="./package/base-files/files/bin/config_generate"
 
 #安装和更新软件包
 UPDATE_PACKAGE() {
@@ -273,13 +272,8 @@ rm -rf ./package/add/up/tool/autocore
 rm -rf ./package/add/other/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
-mv -f  ./package/emortal2/default-settings   ./package/emortal/default-settings 
-mv -f  ./package/emortal2/automount   ./package/emortal/automount
-mv -f  ./package/emortal2/autosamba   ./package/emortal/autosamba
 
 rm -rf ./package/add/up/tool/default-settings
-rm -rf ./package/js
-rm -rf ./package/js2
 
 cat  patch/banner > ./package/base-files/files/etc/banner
 cat  patch/profile > ./package/base-files/files/etc/profile
@@ -327,9 +321,6 @@ rm -rf feeds/{packages/net/miniupnpd,luci/applications/luci-app-upnp}
 git clone https://$gitea/sbwml/miniupnpd feeds/packages/net/miniupnpd -b v2.3.7
 git clone https://$gitea/sbwml/luci-app-upnp feeds/luci/applications/luci-app-upnp -b main
 rm -rf ./feeds/luci/applications/luci-app-upnp
-#设置upnpd
-#sed -i 's/option enabled.*/option enabled 0/' feeds/*/*/*/*/upnpd.config
-#sed -i 's/option dports.*/option enabled 2/' feeds/*/*/*/*/upnpd.config
 
 sed -i "/listen_https/ {s/^/#/g}" package/*/*/*/files/uhttpd.config
 
@@ -357,7 +348,7 @@ sed -i 's/q reload/q restart/g' ./package/network/config/firewall/files/firewall
 # echo '默认开启 Irqbalance'
 sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqbalance.config
 # nlbwmon - disable syslog
-sed -i 's/stderr 1/stderr 0/g' feeds/packages/net/nlbwmon/files/nlbwmon.init
+# sed -i 's/stderr 1/stderr 0/g' feeds/packages/net/nlbwmon/files/nlbwmon.init
 
 git clone https://github.com/yaof2/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 sed -i 's/, 1).d/, 11).d/g' ./package/luci-app-ikoolproxy/luasrc/controller/koolproxy.lua
@@ -371,8 +362,6 @@ rm -rf ./feeds/luci/themes/luci-theme-design
 rm -rf ./feeds/luci/themes/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-argon
 
-# sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./package/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
-# sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
 # 使用默认取消自动
 # sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
 # sed -i 's/bootstrap/chuqitopd/g' feeds/luci/collections/luci/Makefile
@@ -380,17 +369,20 @@ git clone https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-
 sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci/Makefile
 # sed -i "s/luci-theme-bootstrap/luci-theme-$OP_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 # sed -i 's/+luci-theme-bootstrap/+luci-theme-opentopd/g' feeds/luci/collections/luci/Makefile
-sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
-sed -i '/set luci.main.mediaurlbase/d' ./package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
-sed -i '/set luci.main.mediaurlbase/d' feeds/luci/themes/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
-sed -i '/set luci.main.mediaurlbase/d' package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
-sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-material/root/etc/uci-defaults/30_luci-theme-material
-sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-design/root/etc/uci-defaults/30_luci-luci-theme-design
-sed -i '/set luci.main.mediaurlbase=/d' package/luci-theme-design/root/etc/uci-defaults/30_luci-theme-design
+# sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
+# sed -i '/set luci.main.mediaurlbase/d' ./package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
+# sed -i '/set luci.main.mediaurlbase/d' feeds/luci/themes/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
+# sed -i '/set luci.main.mediaurlbase/d' package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
+# sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-material/root/etc/uci-defaults/30_luci-theme-material
+# sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-design/root/etc/uci-defaults/30_luci-luci-theme-design
+# sed -i '/set luci.main.mediaurlbase=/d' package/luci-theme-design/root/etc/uci-defaults/30_luci-theme-design
 
-# linux-firmware
-# rm -rf package/firmware/linux-firmware
-# git clone https://$github/sbwml/package_firmware_linux-firmware package/firmware/linux-firmware
+# 取消主题默认设置
+# find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
+sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装签名
+sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
+#Add x550
+git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
 
 
     # firewall4
@@ -438,12 +430,10 @@ pushd feeds/luci
     curl -s $mirror/openwrt/patch/firewall4/luci-24.10/0006-luci-app-firewall-enable-hardware-offload-only-on-de.patch | patch -p1
     curl -s $mirror/openwrt/patch/firewall4/luci-24.10/0007-luci-app-firewall-add-fullcone6-option-for-nftables-.patch | patch -p1
 popd
+
 # luci-app-filemanager
 rm -rf feeds/luci/applications/luci-app-filemanager
 git clone https://$github/sbwml/luci-app-filemanager package/new/luci-app-filemanager
-
-git clone https://github.com/sirpdboy/netspeedtest ./package/netspeedtest
-
 # curl - fix passwall `time_pretransfer` check
 rm -rf feeds/packages/net/curl
 git clone https://$github/sbwml/feeds_packages_net_curl feeds/packages/net/curl
@@ -464,13 +454,6 @@ pushd feeds/packages
     curl -s $mirror/openwrt/patch/docker/0002-docker-add-buildkit-experimental-support.patch | patch -p1
     curl -s $mirror/openwrt/patch/docker/0003-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch | patch -p1
 popd
-
-# 取消主题默认设置
-find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
-sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装签名
-sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
-#Add x550
-git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
 
 # 修改makefile
 # find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
