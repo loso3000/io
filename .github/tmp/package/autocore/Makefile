@@ -41,6 +41,7 @@ define Package/autocore/install/Default
 	$(CP) ./files/generic/21_ethinfo.js $(1)/etc/rpcd_21_ethinfo.js
 	$(CP) ./files/generic/19_cpu.js $(1)/etc/rpcd_19_cpu.js
 	$(CP) ./files/generic/29_ports.js $(1)/etc/rpcd_29_ports.js
+	$(CP) ./files/generic/30_network.js $(1)/etc/rpcd_30_network.js
 	$(CP) ./files/generic/luci $(1)/etc/rpcd_luci
 	$(CP) ./files/generic/sys.uc $(1)/etc/ucode_sys
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
