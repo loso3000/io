@@ -18,7 +18,9 @@ return baseclass.extend({
 	},
 
 	render: function(data) {
-		var ethlist = Array.isArray(data[0].ethlist) ? data[0].ethlist : [];
+        if (!data || data.length === 0) return;
+	//console.error(data);
+		var ethlist = Array.isArray(data[0]) ? data[0] : [];
 		var table = E('table', { 'class': 'table' }, [
 			E('tr', { 'class': 'tr table-titles' }, [
 				E('th', { 'class': 'th' }, _('Ethernet Name')),
@@ -47,6 +49,7 @@ return baseclass.extend({
 
 			if (info.name == "lan[eth0]"  &&  info.duplex == "Half")
 			       info.speed='10 G/s';
+
 			return [
 				info.name,
 				exp1,

@@ -673,10 +673,10 @@ const methods = {
 
 	getETHList:  {
 		call: function() {
-			if (!access('/sbin/sysinfo'))
+			if (!access('/sbin/ethlist'))
 				return {};
 
-			const fd = popen('/sbin/sysinfo ethlist');
+			const fd = popen('/sbin/ethlist');
 			if (fd) {
 				let ethlist = fd.read('all');
 				if (!ethlist)
