@@ -529,12 +529,15 @@ if [[ $DATE_S == 'default' ]]; then
 else 
    DATA=$DATE_S
 fi
+ls 
+
 # 预处理下载相关文件，保证打包固件不用单独下载
 #for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/package/common/*.sh`;do
 #    source $sh_file $CLASH
 # done
-source common/clash.sh $CLASH
-source common/tools.sh 
+source package/common/clash.sh $CLASH
+source package/common/tools.sh 
+ls package/common
 
 ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
