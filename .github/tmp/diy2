@@ -596,8 +596,8 @@ md5_EzOpWrt_uefi=EzOpWrt-${r_version}-${TARGET_DEVICE}-dev-efi.img.gz
 
 ip=192.168.10.1
 #md5
-[ -f ${md5_EzOpWrt}] && md5sum ${md5_EzOpWrt} > EzOpWrt_dev.md5 && echo "ip=$ip" >> EzOpWrt_dev.md5
-[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5 && echo "ip=$ip" >> EzOpWrt_dev.md5
+[ -f ${md5_EzOpWrt}] && md5sum ${md5_EzOpWrt} > EzOpWrt_dev.md5 ; echo "ip=$ip" >> EzOpWrt_dev.md5
+[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5 ; echo "ip=$ip" >> EzOpWrt_dev-efi.md5
 cp ../../../../ezotafooter  ./ota.footer
 cp ../../../../ezverlatest   ./ver.latest 
 popd
@@ -633,8 +633,8 @@ mv   *squashfs-sysupgrade.img.gz EzOpWrt-${r_version}_${TARGET_DEVICE}-squashfs-
 mv  *ext4-sysupgrade.img.gz EzOpWrt-${r_version}_${TARGET_DEVICE}-ext4-sysupgrade.img.gz
 md5_EzOpWrt=EzOpWrt-${r_version}_${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
 md5_EzOpWrt_uefi=EzOpWrt-${r_version}_${TARGET_DEVICE}-ext4-sysupgrade.img.gz
-[ -f ${md5_EzOpWrt} ] && md5sum ${md5_EzOpWrt} > EzOpWrt_dev.md5 && echo "ip=$ip" >> EzOpWrt_dev.md5
-[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5 && echo "ip=$ip" >> EzOpWrt_dev-efi.md5
+[ -f ${md5_EzOpWrt} ] && md5sum ${md5_EzOpWrt} > EzOpWrt_dev.md5 ; echo "ip=$ip" >> EzOpWrt_dev.md5
+[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5; echo "ip=$ip" >> EzOpWrt_dev-efi.md5
 cp ../../../../ezotafooter  ./ota.footer
 cp ../../../../ezverlatest   ./ver.latest 
 popd
