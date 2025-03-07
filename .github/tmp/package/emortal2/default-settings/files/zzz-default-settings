@@ -365,7 +365,7 @@ sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
 test $ver -lt 5 && {
 ver=5
 eval $(cat /etc/os-release | grep -o -e "VERSION=\S*")
-if `echo $VERSION | cut -d . -f 1`=24 then
+if [ "$(echo $VERSION | cut -d . -f 1)" = "24" ]; then
 cat <<-EOF > "/etc/opkg/distfeeds.conf"
 src/gz ezopwrt_core https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/x86/64/packages
 src/gz ezopwrt_base https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/base
