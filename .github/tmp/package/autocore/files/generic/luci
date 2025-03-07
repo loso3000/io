@@ -635,10 +635,10 @@ const methods = {
 	},
 	getTempInfo: {
 		call: function() {
-			if (!access('/sbin/tempinfo'))
+			if (!access('/sbin/sysinfo'))
+				return {};
+
 			   const fd = popen('/sbin/sysinfo tempinfo');
-			else
-		    	   const fd = popen('/sbin/tempinfo');
 			if (fd) {
 				let tempinfo = fd.read('all');
 				if (!tempinfo)
@@ -654,14 +654,11 @@ const methods = {
 
 	getOnlineUsers: {
 		call: function() {
-			const fd = open('/proc/net/arp', 'r');
+			const fd = popen('/sbin/sysinfo user');
 			if (fd) {
-				let onlineusers = 0;
-
-				for (let line = fd.read('line'); length(line); line = fd.read('line'))
-					if (match(trim(line), /^.*(0x2).*(br-lan)$/))
-						onlineusers++;
-
+				let onlineusers = fd.read('all');
+				if (!onlineusers)
+					onlineusers = '0';
 				fd.close();
 
 				return { onlineusers: onlineusers };
@@ -674,8 +671,8 @@ const methods = {
 	getETHList:  {
 		call: function() {
 			if (!access('/sbin/ethlist'))
-			   const fd = popen('/sbin/sysinfo ethlist');
-			else
+				return {};
+
 			const fd = popen('/sbin/ethlist');
 			if (fd) {
 				let ethlist = fd.read('all');
@@ -694,8 +691,8 @@ const methods = {
 	getETHInfo: {
 		call: function() {
 			if (!access('/sbin/ethinfo'))
-	 		  const fd = popen('/sbin/sysinfo ethinfo');
-			else
+				return {};
+
 			const fd = popen('/sbin/ethinfo');
 			if (fd) {
 				let ethinfo = fd.read('all');
