@@ -296,10 +296,20 @@ sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
 rm -rf ./package/add/up/pass/naiveproxy
 
 rm -rf ./package/add/up/tool/OpenAppFilter
+
+# rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
+rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
+rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamba  ./package/lean/default-settings 
+# rm -rf ./package/emortal2/autocore 
+rm -rf ./package/add/up/tool/autocore
+rm -rf ./package/add/other/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
-rm -rf ./package/add/up/tool/default-settings/
+mv -rf  ./package/emortal2/default-settings   ./package/emortal/default-settings 
+mv -rf  ./package/emortal2/automount   ./package/emortal/automount
+mv -rf  ./package/emortal2/autosamba   ./package/emortal/autosamba
 
+rm -rf ./package/add/up/tool/default-settings
 mv -f ./package/add/up/tool ./package/tool
 mv -f ./package/add/up/pass ./package/pass
 rm -rf ./package/js
@@ -310,16 +320,6 @@ cat  patch/profile > ./package/base-files/files/etc/profile
 cat  patch/profiles > ./package/base-files/files/etc/profiles
 cat  patch/sysctl.conf > ./package/base-files/files/etc/sysctl.conf
 
-
-# rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
-rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
-rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamba  ./package/lean/default-settings 
-mv -rf  ./package/emortal2/default-settings   ./package/emortal/default-settings 
-mv -rf  ./package/emortal2/automount   ./package/emortal/automount
-mv -rf  ./package/emortal2/autosamba   ./package/emortal/autosamba
-# rm -rf ./package/emortal2/autocore 
-rm -rf ./package/add/up/tool/autocore
-rm -rf ./package/add/other/up/tool/autocore
 
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='EzOpWrt'/g" ./package/base-files/files/bin/config_generate
