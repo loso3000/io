@@ -310,8 +310,6 @@ mv -rf  ./package/emortal2/automount   ./package/emortal/automount
 mv -rf  ./package/emortal2/autosamba   ./package/emortal/autosamba
 
 rm -rf ./package/add/up/tool/default-settings
-mv -f ./package/add/up/tool ./package/tool
-mv -f ./package/add/up/pass ./package/pass
 rm -rf ./package/js
 rm -rf ./package/js2
 
