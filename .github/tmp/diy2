@@ -5,6 +5,7 @@ gitea=git.cooluc.com
 github="github.com"
 mirror=https://init.cooluc.com
 mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
+CFG_FILE="./package/base-files/files/bin/config_generate"
 
 #安装和更新软件包
 UPDATE_PACKAGE() {
@@ -32,8 +33,6 @@ case "${CONFIG_S}" in
 esac
 }
 
-CFG_FILE="./package/base-files/files/bin/config_generate"
-config_generate=package/base-files/files/bin/config_generate
 
 [ ! -d files/root ] || mkdir -p files/root
 [ ! -d files/etc/opkg ] || mkdir -p files/etc/opkg
@@ -58,9 +57,30 @@ rm -rf  ./feeds/packages/net/oaf
 rm -rf  ./feeds/packages/net/zsh
 rm -rf  ./feeds/packages/net/homebox
 rm -rf  ./feeds/packages/net/naiveproxy
-sed -i "s/ImmortalWrt/EzopWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
+
+#修改默认时区
+sed -i "s/timezone='.*'/timezone='CST-8'/g" ./package/base-files/files/bin/config_generate
+# sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" ./package/base-files/files/bin/config_generate
+
+#修改默认主机名
+sed -i "s/hostname='.*'/hostname='EzOpWrt'/g" ./package/base-files/files/bin/config_generate
+sed -i "s/ImmortalWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
+sed -i "s/OpenWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "s/iStoreOS/EzopWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 sed -i "s/ImmortalWrt/EzopWrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js  #改登陆域名
+
+#修改默认主题
+# sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
+#添加编译日期标识
+# sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ $WRT_CI-$WRT_DATE')/g" $(find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js")
+#修改默认WIFI名
+# sed -i "s/\.ssid=.*/\.ssid=$WRT_WIFI/g" $(find ./package/kernel/mac80211/ ./package/network/config/ -type f -name "mac80211.*")
+
+#修改默认主机名
+# sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $config_generate
+#修改默认时区
+# sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $config_generate
+
 #删除冲突插件
 # rm -rf $(find ./feeds/luci/ -type d -regex ".*\(argon\|design\|openclash\).*")
 # rm -rf package/feeds/packages/prometheus-node-exporter-lua
@@ -187,11 +207,7 @@ rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci
 
 git clone https://github.com/sbwml/openwrt_helloworld  -b v5 ./package/ssr
 
-echo -------------------------
 git clone https://github.com/loso3000/other ./package/add
-ls ./package
-echo --------add-----------------
-ls ./package/add
 
 # alist
 # rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
@@ -292,8 +308,6 @@ rm -rf ./feeds/packages/net/shadow-tls
 # mv -f ./package/add/up/netdata ./package/
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
-sed -i 's,default n,default y,g' ./package/pass/luci-app-bypass/Makefile
-rm -rf ./package/add/up/pass/naiveproxy
 
 rm -rf ./package/add/up/tool/OpenAppFilter
 
@@ -317,13 +331,6 @@ cat  patch/banner > ./package/base-files/files/etc/banner
 cat  patch/profile > ./package/base-files/files/etc/profile
 cat  patch/profiles > ./package/base-files/files/etc/profiles
 cat  patch/sysctl.conf > ./package/base-files/files/etc/sysctl.conf
-
-
-#修改默认主机名
-sed -i "s/hostname='.*'/hostname='EzOpWrt'/g" ./package/base-files/files/bin/config_generate
-#修改默认时区
-sed -i "s/timezone='.*'/timezone='CST-8'/g" ./package/base-files/files/bin/config_generate
-# sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" ./package/base-files/files/bin/config_generate
 
 #  coremark
 # sed -i '/echo/d' ./feeds/packages/utils/coremark/coremark
@@ -360,9 +367,12 @@ sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' ./feeds/packages/
 sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' ./feeds/packages/utils/ttyd/files/ttyd.init
 sed -i 's|/bin/login|/bin/login -f root|' ./feeds/packages/utils/ttyd/files/ttyd.config
 
-
+# UPnP
 rm -rf ./package/add/up/luci-app-upnp
-# rm -rf ./feeds/luci/applications/luci-app-upnp
+rm -rf feeds/{packages/net/miniupnpd,luci/applications/luci-app-upnp}
+git clone https://$gitea/sbwml/miniupnpd feeds/packages/net/miniupnpd -b v2.3.7
+git clone https://$gitea/sbwml/luci-app-upnp feeds/luci/applications/luci-app-upnp -b main
+rm -rf ./feeds/luci/applications/luci-app-upnp
 #设置upnpd
 #sed -i 's/option enabled.*/option enabled 0/' feeds/*/*/*/*/upnpd.config
 #sed -i 's/option dports.*/option enabled 2/' feeds/*/*/*/*/upnpd.config
@@ -408,12 +418,12 @@ rm -rf ./feeds/luci/themes/luci-theme-design
 rm -rf ./feeds/luci/themes/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-argon
 
-sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./package/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
-sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
+# sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./package/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
+# sed -i 's,media .. \"\/b,resource .. \"\/b,g' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
 # 使用默认取消自动
 # sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
 # sed -i 's/bootstrap/chuqitopd/g' feeds/luci/collections/luci/Makefile
-echo "修改默认主题"
+# echo "修改默认主题"
 sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci/Makefile
 # sed -i "s/luci-theme-bootstrap/luci-theme-$OP_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 # sed -i 's/+luci-theme-bootstrap/+luci-theme-opentopd/g' feeds/luci/collections/luci/Makefile
@@ -529,7 +539,6 @@ if [[ $DATE_S == 'default' ]]; then
 else 
    DATA=$DATE_S
 fi
-ls 
 
 # 预处理下载相关文件，保证打包固件不用单独下载
 #for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/package/common/*.sh`;do
@@ -537,7 +546,6 @@ ls
 # done
 source package/common/clash.sh $CLASH
 source package/common/tools.sh 
-ls package/common
 
 ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
@@ -678,9 +686,6 @@ done < "$bakkmodfile"
 find ./bin/ -name "*dockerman*" | xargs -i cp -f {} $kmoddirdocker
 find ./bin/ -name "*dockerd*" | xargs -i cp -f {} $kmoddirdocker
 EOF
-
-sed -i "s/ImmortalWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
-sed -i "s/OpenWrt/EzOpWrt/" {package/base-files/files/bin/config_generate,include/version.mk}
 case "${CONFIG_S}" in
      "Vip"*)  
 #修改默认IP地址
@@ -821,18 +826,6 @@ esac
 exit
 EOF
 
-
-#修改默认主题
-# sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
-#添加编译日期标识
-# sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ $WRT_CI-$WRT_DATE')/g" $(find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js")
-#修改默认WIFI名
-# sed -i "s/\.ssid=.*/\.ssid=$WRT_WIFI/g" $(find ./package/kernel/mac80211/ ./package/network/config/ -type f -name "mac80211.*")
-
-#修改默认主机名
-# sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $config_generate
-#修改默认时区
-# sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $config_generate
 ;;
 esac
 
@@ -857,7 +850,6 @@ sed -i 's#20) \* 1000#60) \* 1000#g' feeds/luci/modules/luci-base/htdocs/luci-st
 
 sed -i "s/tty\(0\|1\)::askfirst/tty\1::respawn/g" target/linux/*/base-files/etc/inittab
 sed -i 's/max_requests 3/max_requests 20/g' package/network/services/uhttpd/files/uhttpd.config
-sed -i "s/OpenWrt/EzOpWrt/g" package/base-files/files/bin/config_generate package/base-files/image-config.in package/network/config/wifi-scripts/files/lib/wifi/mac80211.uc config/Config-images.in Config.in include/u-boot.mk include/version.mk || true
 
 ./scripts/feeds update -i
 ./scripts/feeds install -i
