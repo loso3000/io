@@ -19,7 +19,6 @@ return baseclass.extend({
 
 	render: function(data) {
         if (!data || data.length === 0) return;
-	//console.error(data);
 		var ethlist = Array.isArray(data[0]) ? data[0] : [];
 		var table = E('table', { 'class': 'table' }, [
 			E('tr', { 'class': 'tr table-titles' }, [
