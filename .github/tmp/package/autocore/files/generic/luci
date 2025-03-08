@@ -3,7 +3,7 @@
 
 'use strict';
 
-import { stdin, access, dirname, basename, open, popen, glob, lsdir, readfile, readlink, error } from 'fs';
+import { stdin, access, dirname, basename, open, popen , glob, lsdir, readfile, readlink, error } from 'fs';
 import { cursor } from 'uci';
 
 import { init_list, init_index, init_enabled, init_action, conntrack_list, process_list } from 'luci.sys';
@@ -665,6 +665,33 @@ const methods = {
 			} else {
 				return { onlineusers: error() };
 			}
+		}
+	},
+	getOnlineUserlist: {
+		call: function() {
+   	  	   let rv = [];
+   	  	   const fd = popen('/usr/bin/awk \'BEGIN{while ((getline < "/tmp/dhcp.leases") > 0){a[$2]=$4;}while ((getline < "/proc/net/arp") > 0){if (!a[$4]){a[$4]="?";}if (match($3,"0x[26]")){"ping -q -c 1 "$1" &";if (b[$4]){b[$4]=b[$4]"/"$1;}else{b[$4]=$1;}c[$4]=$6;}}while (("ip -6 neighbor show | grep -v fe80" | getline) > 0){if (b[$5]) {"ping -q -c 1 "$1" &";b[$5]=b[$5]"/"$1;}}for (mac in b){print(a[mac],b[mac],mac,c[mac]);}}\'');
+
+   	  	   for (let line = fd.readLine(); line !== null; line = fd.readLine()) {
+   	  	       let match = line.match(/^(\S+) (\S+) (\S+) (\S+)/);
+    	  	      if (match) {
+     	  	         let name = match[1];
+     	  	         let ip = match[2];
+     	  	         let mac = match[3];
+     	  	         let dev = match[4];
+
+      	  	        if (mac && ip && name && dev) {
+       	  	           rv.push({
+        	  	              hostname: name,
+        	  	              device: dev,
+        	  	              macaddr: mac,
+        	  	              ipaddr: ip
+      	  	            });
+       	  	       }
+     	  	     }
+   	  	   }
+		fd.close();
+		return rv;
 		}
 	},
 
