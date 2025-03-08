@@ -1,10 +1,10 @@
 <ul>
 <li>下面是具体更新内容：</li>
 </ul>
-1.升级酷猫主题，适配最新版文件管理器和应用过滤，修复已经所有问题。力争做最好用的主题！
+1.升级酷猫主题，修复非清爽模式下手机菜单白底问题,修复已经所有问题。力争做最好用的主题！感谢Mr_Jimes提交BUG信息。
 2.升级进阶设置，并且开放专用KUCAT主题设置工具，有需要去sirpdboy官网下载【进阶设置优先于KUCAT主题设置工具】！
 3.修复分区扩容插件，修复扩容执行无效问题，适配爱快虚拟磁盘。
-4.此版集成FW3和FW4，集成PASSWALL，bypass,openclash,Nikki和HomeProxy,下个版本出24.10专用FW4版。
+4.此版采用24.10分支纯FW4版，解决防火墙编辑错误，集成PASSWALL,openclash,Nikki和HomeProxy，某些不支持插件暂没集成。
 5.经过几个月的测试研究，适配24.10分支的预览状态，网口信息，CPU使用率，温度显示等。
 <ul>
     <li><a href="https://github.com/sirpdboy/openwrt/discussions/542" target="_blank">点击这里</a>查看详情</li>
