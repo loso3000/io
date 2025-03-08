@@ -167,9 +167,7 @@ git clone https://github.com/loso3000/other ./package/add
 # git clone https://$github/sbwml/openwrt-alist package/new/alist
 
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
-# git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/lang/golang
-# git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
 
 
 # rm -rf ./package/add/luci-app-mwan3 ./package/add/mwan3
@@ -206,7 +204,7 @@ rm -rf ./package/ssr/luci-app-ssr-plus
 
 rm -rf ./package/ssr/mosdns
 rm -rf ./package/ssr/trojan-plus
-rm -rf ./package/ssr/xray-core
+# rm -rf ./package/ssr/xray-core
 
 #rm -rf ./package/ssr/xray-plugin
 # rm -rf ./package/ssr/naiveproxy
@@ -242,12 +240,8 @@ rm -rf ./package/istoreos-files
 #rm -rf ./feeds/packages/net/shadowsocks-libev
 #rm -rf ./feeds/packages/net/shadowsocks-rust
 rm -rf ./feeds/packages/net/xray-core
-rm -rf ./feeds/packages/net/xray-plugin
-
 rm -rf ./feeds/packages/net/sing-box
-
 rm -rf ./feeds/packages/net/trojan-plus
-rm -rf ./feeds/packages/net/xray-core
 rm -rf ./feeds/packages/net/xray-plugin
 rm -rf ./feeds/packages/net/naiveproxy
 rm -rf ./feeds/packages/net/v2ray-plugin
@@ -261,6 +255,7 @@ rm -rf ./feeds/packages/net/shadow-tls
 # mv -f ./package/add/up/netdata ./package/
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
+rm -rf ./package/add/up/pass/xray-core
 
 rm -rf ./package/add/up/tool/OpenAppFilter
 
@@ -272,6 +267,8 @@ rm -rf ./package/add/up/tool/autocore
 rm -rf ./package/add/other/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
+
+rm -rf ./package/add/up/pass/xray-core
 
 rm -rf ./package/add/up/tool/default-settings
 
@@ -324,7 +321,7 @@ rm -rf ./feeds/luci/applications/luci-app-upnp
 
 sed -i "/listen_https/ {s/^/#/g}" package/*/*/*/files/uhttpd.config
 
-sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
+sed -i 's/"Arn 主题设置"/"Arn设置"/g' `grep "Arn 主题设置" -rl ./`
 sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
 sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
 sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
@@ -359,8 +356,8 @@ sed -i 's/+libcap /+libcap +libcap-bin /' package/openclash/luci-app-openclash/M
 
 rm -rf ./feeds/luci/themes/luci-theme-design
  git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
-rm -rf ./feeds/luci/themes/luci-theme-argon
-git clone https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-argon
+rm -rf ./feeds/luci/themes/luci-theme-arn
+git clone https://github.com/jerrykuku/luci-theme-arn.git  package/luci-theme-arn
 
 # 使用默认取消自动
 # sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
@@ -370,9 +367,9 @@ sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci
 # sed -i "s/luci-theme-bootstrap/luci-theme-$OP_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 # sed -i 's/+luci-theme-bootstrap/+luci-theme-opentopd/g' feeds/luci/collections/luci/Makefile
 # sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
-# sed -i '/set luci.main.mediaurlbase/d' ./package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
-# sed -i '/set luci.main.mediaurlbase/d' feeds/luci/themes/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
-# sed -i '/set luci.main.mediaurlbase/d' package/luci-theme-argon/root/etc/uci-defaults/30_luci-theme-argon
+# sed -i '/set luci.main.mediaurlbase/d' ./package/luci-theme-arn/root/etc/uci-defaults/30_luci-theme-arn
+# sed -i '/set luci.main.mediaurlbase/d' feeds/luci/themes/luci-theme-arn/root/etc/uci-defaults/30_luci-theme-arn
+# sed -i '/set luci.main.mediaurlbase/d' package/luci-theme-arn/root/etc/uci-defaults/30_luci-theme-arn
 # sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-material/root/etc/uci-defaults/30_luci-theme-material
 # sed -i '/set luci.main.mediaurlbase=/d' feeds/luci/themes/luci-theme-design/root/etc/uci-defaults/30_luci-luci-theme-design
 # sed -i '/set luci.main.mediaurlbase=/d' package/luci-theme-design/root/etc/uci-defaults/30_luci-theme-design
@@ -457,7 +454,7 @@ popd
 
 # 修改makefile
 # find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
-# find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/lang\/golang\/golang\-package\.mk/include \$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang\-package\.mk/g' {}
+# find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/lang\/lang\/lang\-package\.mk/include \$(TOPDIR)\/feeds\/packages\/lang\/lang\/golang\-package\.mk/g' {}
 
 # sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
 # sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
