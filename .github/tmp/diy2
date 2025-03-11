@@ -131,12 +131,7 @@ rm -rf  feeds/packages/net/wrtbwmon
 rm -rf  ./feeds/luci/applications/luci-app-wrtbwmon 
 rm -rf  ./feeds/luci/applications/luci-app-arpbind
 
-rm -rf  ./feeds/packages/net/oaf
-rm -rf ./feeds/luci/themes/luci-app-filter
-rm -rf ./feeds/luci/themes/luci-app-oaf
-rm -rf ./feeds/packages/net/open-app-filter
-git clone https://github.com/destan19/OpenAppFilter.git ./package/OpenAppFilter
-
+rm -rf  ./feeds/packages/devel/binutils   #2410error
 
 rm -rf  ./feeds/luci/applications/luci-app-timecontrol
 rm -rf  ./feeds/luci/applications/luci-app-socat
@@ -166,6 +161,12 @@ git clone https://github.com/loso3000/other ./package/add
 # rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
 # git clone https://$github/sbwml/openwrt-alist package/new/alist
 
+rm -rf  ./feeds/packages/net/oaf
+rm -rf ./feeds/luci/themes/luci-app-filter
+rm -rf ./feeds/luci/themes/luci-app-oaf
+rm -rf ./feeds/packages/net/open-app-filter
+rm -rf ./package/add/up/tool/OpenAppFilter
+# git clone https://github.com/destan19/OpenAppFilter.git ./package/OpenAppFilter
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
 
@@ -324,7 +325,7 @@ sed -i 's|/bin/login|/bin/login -f root|' ./feeds/packages/utils/ttyd/files/ttyd
 
 sed -i "/listen_https/ {s/^/#/g}" package/*/*/*/files/uhttpd.config
 
-sed -i 's/"Arn 主题设置"/"Arn设置"/g' `grep "Arn 主题设置" -rl ./`
+sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
 sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
 sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
 sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
@@ -359,8 +360,8 @@ sed -i 's/+libcap /+libcap +libcap-bin /' package/openclash/luci-app-openclash/M
 
 rm -rf ./feeds/luci/themes/luci-theme-design
  git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
-rm -rf ./feeds/luci/themes/luci-theme-arn
-git clone https://github.com/jerrykuku/luci-theme-arn.git  package/luci-theme-arn
+rm -rf ./feeds/luci/themes/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-argon
 
 # 使用默认取消自动
 # sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
@@ -739,7 +740,7 @@ UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 ./scripts/feeds install -i
 
 cat  ../.config  > .config
-cat  ./x86_64/${CONFIG_S}  >> .config
+cat  ./x86_64/${CONFIG_S}  > .config
 case "${CONFIG_S}" in
 Vip*)
 cat  ./x86_64/comm  >> .config
