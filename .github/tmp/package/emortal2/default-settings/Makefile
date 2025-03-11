@@ -33,7 +33,6 @@ endef
 define Package/default-settings/conffiles
 /etc/config/base_config
 endef
-
 define Package/default-settings/postinst
 #!/bin/sh
 if [ -z "$$IPKG_INSTROOT" ]; then
@@ -42,7 +41,6 @@ if [ -z "$$IPKG_INSTROOT" ]; then
 fi
 exit 0
 endef
-
 define Build/Compile
 endef
 

@@ -28,9 +28,6 @@ msgstr "CPU 负载"
 msgid "Total usage"
 msgstr "CPU 总负载"
 
-msgid "Routing"
-msgstr "路由表"
-
 msgid "RAM frequency"
 msgstr "RAM 频率"
 
@@ -81,6 +78,9 @@ msgstr "TG聊天群"
 
 msgid "Log"
 msgstr "日志"
+
+msgid "Routing"
+msgstr "路由表"
 
 msgid "NAS"
 msgstr "存储"
