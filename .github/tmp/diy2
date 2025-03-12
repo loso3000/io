@@ -449,11 +449,9 @@ echo '---------------------------------' >> ./package/base-files/files/etc/banne
 [ -f ./files/root/.zshrc ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/z.zshrc > ./files/root/.zshrc
 [ -f ./files/etc/profiles ] || mv -f ./package/add/patch/profiles ./files/etc/profiles
 [ -f ./files/etc/profiles ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/profiles > ./files/etc/profiles
+
 [ -f ./files/etc/opkg/distfeeds.conf ] || mv -f ./package/add/patch/distfeeds.conf ./files/etc/opkg/distfeeds.conf
 [ -f ./files/etc/opkg/distfeeds.conf ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/distfeeds.conf > ./files/etc/opkg/distfeeds.conf
-
-if [ ${TARGET_DEVICE} = "x86_64" ] ; then
-
 
 cat>buildmd5.sh<<-\EOF
 #!/bin/bash
@@ -498,52 +496,7 @@ fi
 popd
 
 EOF
-else
 
-
-cat>buildmd5.sh<<-\EOF
-#!/bin/bash
-
-r_version=`cat ./package/base-files/files/etc/ezopenwrt_version`
-# gzip bin/targets/*/*/*.img | true
-
-VER1="$(grep "KERNEL_PATCHVER:=" ./target/linux/rockchip/Makefile | cut -d = -f 2)"
-pushd bin/targets/*/*/
-rm -rf   config.buildinfo
-rm -rf   feeds.buildinfo
-rm -rf   *.manifest
-rm -rf   *rootfs.tar.gz
-rm -rf   *generic-squashfs-rootfs.img*
-rm -rf   *generic-rootfs*
-rm -rf  *generic.manifest
-rm -rf  sha256sums
-rm -rf version.buildinfo
-rm -rf *generic-ext4-rootfs.img*
-rm -rf  *generic-ext4-combined-efi.img*
-rm -rf  *generic-ext4-combined.img*
-rm -rf  profiles.json
-rm -rf  *kernel.bin
-# BINDIR=`pwd`
-sleep 2
-
-ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
-echo ip:----------------- $ip
-ip=192.168.10.1
-mv   *squashfs-sysupgrade.img.gz EzOpWrt-${r_version}_${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
-mv  *ext4-sysupgrade.img.gz EzOpWrt-${r_version}_${TARGET_DEVICE}-ext4-sysupgrade.img.gz
-md5_EzOpWrt=EzOpWrt-${r_version}_${TARGET_DEVICE}-squashfs-sysupgrade.img.gz 
-md5_EzOpWrt_uefi=EzOpWrt-${r_version}_${TARGET_DEVICE}-ext4-sysupgrade.img.gz
-[ -f ${md5_EzOpWrt} ] && md5sum ${md5_EzOpWrt} > EzOpWrt_dev.md5  &&echo "ip=$ip" >> EzOpWrt_dev.md5
-[ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5 &&echo "ip=$ip" >> EzOpWrt_dev-efi.md5
-
-if [ ${CONFIG_S} = "Vip-Super" ] ; then
-cp ../../../../ezotafooter  ./ota.footer
-cp ../../../../ezverlatest   ./ver.latest 
-fi
-popd
-exit 0
-EOF
-fi
 cat>bakkmod.sh<<-\EOF
 #!/bin/bash
 kmoddirdrv=./files/etc/kmod.d/drv
@@ -602,7 +555,9 @@ IPK=$1
 nowkmoddir=/etc/kmod.d/$IPK
 [ -d $nowkmoddir ]  || exit
 is_docker() {
-    [ -s "/usr/lib/lua/luci/controller/dockerman.lua" ] && return 0  || return 1
+     if [ -f "/usr/bin/docker" ] || [ -f "/usr/sbin/dockerd" ] || [ -d "/etc/docker" ]; then
+        return 0
+    fi
 }
 
 run_drv() {
@@ -673,21 +628,7 @@ EOF
 "Free"*) 
 
 #修改默认IP地址
-# sed -i 's/192.168.1.1/192.168.8.1/g' package/base-files/files/bin/config_generate
-
-#修改immortalwrt.lan关联IP
-#sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.8.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
-#修改默认IP地址
-#sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.8.1/g" package/base-files/files/bin/config_generate
-
-#修改默认IP地址
-sed -i 's/192\.168\.1\.1/192\.168\.8\.1/g' package/base-files/files/bin/config_generate
-
-#sed -i 's/luci-theme-argon/luci-theme-kucat/g' package/istoreos-files/Makefile
-#sed -i 's/192.168.100.1/192.168.8.1/g' package/istoreos-files/Makefile
-#修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.8\.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
-#修改默认IP地址
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.8\.1/g" package/base-files/files/bin/config_generate
 
 cat>./package/base-files/files/etc/kmodreg<<-\EOF
