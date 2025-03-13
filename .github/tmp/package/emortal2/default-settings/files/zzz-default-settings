@@ -28,24 +28,6 @@ is_vip() {
     fi
 }
 
-if is_x86_64; then
-curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/distfeeds.conf > /etc/opkg/distfeeds.conf
-[ -f ./files/etc/opkg/distfeeds.conf ] || {
-cat <<-EOF > /etc/opkgdistfeeds.conf
-src/gz ezopwrt_core https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/x86/64/packages
-src/gz ezopwrt_base https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/base
-src/gz ezopwrt_luci https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/luci
-src/gz ezopwrt_packages https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/packages
-src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/routing
-src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/telephony
-EOF
-}
-echo "src/gz is_store https://istore.linkease.com/repo/all/store" >/etc/opkg/customfeeds.conf
-else
-curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/distfeeds2.conf > /etc/opkg/distfeeds.conf
-echo "src/gz is_store https://istore.linkease.com/repo/all/store" >/etc/opkg/customfeeds.conf
-
-fi
 # stop avahi cups
 # /etc/init.d/avahi-daemon disable  && /etc/init.d/avahi-daemon stop  
 debug=0
@@ -347,7 +329,7 @@ echo "OPENWRT_RELEASE='"${new_DISTRIB_REVISION}"'" >> /etc/os-release
 sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
 
 test $ver -lt 4 && {
-ver=5
+ver=4
 HOSTNAME="samsungTV"
 TAG="googleDNS"
 MAC=""
@@ -368,6 +350,34 @@ EOF
 uci commit && cd /etc/init.d && \
 ./dnsmasq restart
 [ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
+}
+
+test $ver -lt 5 && {
+ver=5
+
+if is_x86_64; then
+cat <<-EOF > /etc/opkg/distfeeds.conf
+src/gz ezopwrt_core https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/x86/64/packages
+src/gz ezopwrt_base https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/base
+src/gz ezopwrt_luci https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/luci
+src/gz ezopwrt_packages https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/packages
+src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/routing
+src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/telephony
+
+}
+
+else
+cat <<-EOF > /etc/opkg/distfeeds.conf
+src/gz ezopwrt_core https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/rockchip/armv8/packages
+src/gz ezopwrt_base https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/base
+src/gz ezopwrt_luci https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/luci
+src/gz ezopwrt_packages https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/packages
+src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/routing
+src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/telephony
+}
+echo "src/gz is_store https://istore.linkease.com/repo/all/store" >/etc/opkg/customfeeds.conf
+
+fi
 }
 uci -q set base_config.@base[0].ver=$ver
 uci commit base_config
