@@ -118,6 +118,7 @@ sed -i '/option disabled/d' /etc/config/wireless  >/dev/null 2>&1
 sed -i '/set wireless.radio${devidx}.disabled/d' /lib/wifi/mac80211.sh   >/dev/null 2>&1
 wifi up
 
+#wifi net
 test $ver -lt 1 && {
     ver=1
     if [ `find /sys/class/net/ -name wlan* | wc -l` -gt 0 ]; then
@@ -132,13 +133,17 @@ test $ver -lt 1 && {
     uci -q set network.@device[0].ports="eth0"
     uci -q set network.wan.device="eth1"
     uci -q set network.wan6.device="eth1"
+    uci -q set network.lan.ipaddr='192.168.10.1'
     uci commit network
     setup_network $ifname
     sed -i '/lcp-echo/d' /etc/ppp/options
     echo "lcp-echo-failure 10" >>  /etc/ppp/options 
     echo "lcp-echo-interval 200" >>  /etc/ppp/options
+    /etc/init.d/network restart
 	[ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$?;echo $ver
 }
+
+#ssh link
 test $ver -lt 2 && {
 frmware=`cat /etc/ezopenwrt_version | awk -F '-' '{printf $2}'`
 
@@ -328,6 +333,7 @@ sed -i '/OPENWRT_RELEASE/d' /etc/os-release
 echo "OPENWRT_RELEASE='"${new_DISTRIB_REVISION}"'" >> /etc/os-release
 sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
 
+#tv
 test $ver -lt 4 && {
 ver=4
 HOSTNAME="samsungTV"
@@ -352,9 +358,12 @@ uci commit && cd /etc/init.d && \
 [ x$debug = x1 ] && uci -q set base_config.@base[0].base$ver=$? ; echo $ver
 }
 
-test $ver -lt 5 && {
+
+#distfeeds
+test $ver -lt 5 && { 
 ver=5
 
+echo "src/gz is_store https://istore.linkease.com/repo/all/store" >/etc/opkg/customfeeds.conf
 if is_x86_64; then
 cat <<-EOF > /etc/opkg/distfeeds.conf
 src/gz ezopwrt_core https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/x86/64/packages
@@ -363,9 +372,7 @@ src/gz ezopwrt_luci https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/pa
 src/gz ezopwrt_packages https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/packages
 src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/routing
 src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/x86_64/telephony
-
-}
-
+EOF
 else
 cat <<-EOF > /etc/opkg/distfeeds.conf
 src/gz ezopwrt_core https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/targets/rockchip/armv8/packages
@@ -374,8 +381,7 @@ src/gz ezopwrt_luci https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/pa
 src/gz ezopwrt_packages https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/packages
 src/gz ezopwrt_routing https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/routing
 src/gz ezopwrt_telephony https://downloads.immortalwrt.org/releases/24.10-SNAPSHOT/packages/aarch64_generic/telephony
-}
-echo "src/gz is_store https://istore.linkease.com/repo/all/store" >/etc/opkg/customfeeds.conf
+EOF
 
 fi
 }
