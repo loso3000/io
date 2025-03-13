@@ -5,6 +5,7 @@ touch /etc/config/base_config
 uci add base_config base >/dev/null 2>&1
 ver=0
 }
+[ `mount | grep /boot |wc -l` -gt 1 ] && umount /boot
 #argon
 sed -i 's,media .. \"\/b,resource .. \"\/b,g' /usr/lib/lua/luci/view/themes/argon/sysauth.htm
 uci -q set luci.main.lang='auto'
