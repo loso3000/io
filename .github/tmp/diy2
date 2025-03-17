@@ -276,6 +276,10 @@ rm -rf ./package/add/up/pass/xray-core
 
 rm -rf ./package/add/up/tool/default-settings
 
+#istoreos
+rm -rf ./package/diy/luci-app-ota
+rm -rf ./package/istoreos-files
+
 cat  patch/banner > ./package/base-files/files/etc/banner
 cat  patch/profile > ./package/base-files/files/etc/profile
 cat  patch/profiles > ./package/base-files/files/etc/profiles
@@ -290,6 +294,9 @@ git clone https://github.com/sirpdboy/luci-app-lucky ./package/lucky
 rm -rf ./feeds/packages/net/ddns-go
 rm -rf  ./feeds/luci/applications/luci-app-ddns-go
 git clone https://github.com/sirpdboy/luci-app-ddns-go ./package/ddns-go
+
+
+
 
 # nlbwmon
 # sed -i 's/524288/16777216/g' feeds/packages/net/nlbwmon/files/nlbwmon.config
