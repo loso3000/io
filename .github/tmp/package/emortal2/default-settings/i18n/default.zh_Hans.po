@@ -7,6 +7,12 @@ msgstr "架构"
 msgid "Target Platform"
 msgstr "目标平台"
 
+msgid "NFtables Firewall"
+msgstr "NFtables 防火墙"
+
+msgid "IPtables Firewall"
+msgstr "IPtables 防火墙"
+
 msgid "CPU Temperature"
 msgstr "CPU 温度"
 
