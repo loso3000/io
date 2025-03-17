@@ -108,30 +108,30 @@ CONFIG_PACKAGE_luci-app-bypass=n
 # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_v2ray-plugin is not set
 ### Passwall
 CONFIG_PACKAGE_luci-app-openclash=y
+
 CONFIG_PACKAGE_luci-app-passwall=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y
-# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client is not set
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray_Plugin=y
-# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Hysteria is not set
-# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-plugin is not set
-# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_v2ray-core is not set
-# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_sing-box is not set
+CONFIG_PACKAGE_luci-app-passwall2=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Haproxy=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Hysteria=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_ShadowsocksR_Libev_Client=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_ShadowsocksR_Libev_Server=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Shadowsocks_Libev_Client=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Shadowsocks_Libev_Server=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Simple_Obfs=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_SingBox=y
+CONFIG_PACKAGE_luci-app-passwall2_Nftables_Transparent_Proxy=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Hysteria=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Simple_Obfs=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y
+CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
+CONFIG_PACKAGE_luci-app-passwall_Nftables_Transparent_Proxy=y
 
-### SSR Plus
-# CONFIG_PACKAGE_luci-app-ssr-plus is not set
-CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_IPT2Socks=y
-CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
-CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
-CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Simple_Obfs=y
-CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray=y
-CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks_Xray_Plugin=y
-CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Libev_Client=y
-# CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Hysteria is not set
-# CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_v2ray-plugin is not set
-# CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan is not set
-
-CONFIG_PACKAGE_luci-app-vnstat2=y
+# CONFIG_PACKAGE_luci-app-vnstat2=y
 # CONFIG_PACKAGE_luci-app-nft-qos=y
 CONFIG_PACKAGE_luci-app-nft-timecontrol=y
 
