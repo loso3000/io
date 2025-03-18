@@ -40,11 +40,6 @@ mkdir -p ./package/emortal
 [[ -n $TARGET_DEVICE ]] || TARGET_DEVICE="x86_64"
 [[ -n $CONFIG_S ]] || CONFIG_S=Vip-Super
 
-#net eth0
-rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
-rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
-
 rm -rf ./feeds/luci/themes/luci-app-filter
 rm -rf ./feeds/luci/themes/luci-app-oaf
 rm -rf ./feeds/luci/themes/luci-theme-argon
@@ -268,21 +263,25 @@ rm -rf ./package/add/up/pass/xray-core
 
 rm -rf ./package/add/up/tool/OpenAppFilter
 
+
+#net eth0
+rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
+rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
+curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
+curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+
 # rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
 rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamba  ./package/lean/default-settings 
-# rm -rf ./package/emortal2/autocore 
 
-rm -rf ./package/emortal2/istoreos-files
 rm -rf ./package/add/up/tool/autocore
-rm -rf ./package/add/other/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
+# rm -rf ./package/add/up/tool/default-settings
 
 
 rm -rf ./package/add/up/pass/xray-core
 
-rm -rf ./package/add/up/tool/default-settings
 
 #istoreos
 rm -rf ./package/diy/luci-app-ota
