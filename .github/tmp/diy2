@@ -267,10 +267,13 @@ rm -rf ./package/add/up/tool/OpenAppFilter
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
 rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamba  ./package/lean/default-settings 
 # rm -rf ./package/emortal2/autocore 
+
+rm -rf ./package/emortal2/istoreos-files
 rm -rf ./package/add/up/tool/autocore
 rm -rf ./package/add/other/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
+
 
 rm -rf ./package/add/up/pass/xray-core
 
