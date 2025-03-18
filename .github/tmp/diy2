@@ -40,8 +40,9 @@ mkdir -p ./package/emortal
 [[ -n $TARGET_DEVICE ]] || TARGET_DEVICE="x86_64"
 [[ -n $CONFIG_S ]] || CONFIG_S=Vip-Super
 
-rm -rf ./feeds/luci/themes/luci-app-filter
-rm -rf ./feeds/luci/themes/luci-app-oaf
+rm -rf ./feeds/luci/luci-app-appfilter
+rm -rf ./feeds/luci/luci-app-filter
+rm -rf ./feeds/luci/luci-app-oaf
 rm -rf ./feeds/luci/themes/luci-theme-argon
 rm -rf ./feeds/packages/net/mentohust
 rm -rf ./feeds/packages/net/open-app-filter
@@ -410,10 +411,14 @@ sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci
 # 取消主题默认设置
 # find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装签名
+# ddns - fix boot
+sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
 sed -i 's/START=95/START=99/' `find package/ -follow -type f -path */ddns-scripts/files/ddns.init`
 #Add x550
 git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
 
+# netdata
+sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 
 # luci-app-filemanager
 rm -rf feeds/luci/applications/luci-app-filemanager
@@ -704,4 +709,6 @@ cat  ./x86_64/comm  >> .config
 echo 'no'
 ;;
 esac
+./scripts/feeds update -a
+./scripts/feeds install -a
 exit
