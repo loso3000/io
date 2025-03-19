@@ -141,6 +141,7 @@ rm -rf  ./feeds/luci/applications/luci-app-arpbind
 
 rm -rf  ./feeds/packages/devel/binutils   #2410error
 
+rm -rf  ./feeds/luci/applications/luci-app-upnp
 rm -rf  ./feeds/luci/applications/luci-app-timecontrol
 rm -rf  ./feeds/luci/applications/luci-app-socat
 rm -rf  ./feeds/luci/applications/luci-app-fileassistant
