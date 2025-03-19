@@ -171,7 +171,7 @@ rm -rf ./feeds/luci/themes/luci-app-filter
 rm -rf ./feeds/luci/themes/luci-app-oaf
 rm -rf ./feeds/packages/net/open-app-filter
 rm -rf ./package/add/up/tool/OpenAppFilter
-# git clone https://github.com/destan19/OpenAppFilter.git ./package/OpenAppFilter
+git clone https://github.com/destan19/OpenAppFilter.git ./package/OpenAppFilter
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
 
