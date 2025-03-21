@@ -40,6 +40,9 @@ mkdir -p ./package/emortal
 [[ -n $TARGET_DEVICE ]] || TARGET_DEVICE="x86_64"
 [[ -n $CONFIG_S ]] || CONFIG_S=Vip-Super
 
+rm -rf ./feeds/luci/applications/luci-app-appfilter
+rm -rf ./feeds/luci/applications/luci-app-filter
+rm -rf ./feeds/luci/applications/luci-app-oaf
 rm -rf ./feeds/luci/luci-app-appfilter
 rm -rf ./feeds/luci/luci-app-filter
 rm -rf ./feeds/luci/luci-app-oaf
