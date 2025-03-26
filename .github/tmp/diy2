@@ -411,9 +411,9 @@ sed -i 's/cheaper = 1/cheaper = 2/g' feeds/packages/net/uwsgi/files-luci-support
 
 # UPnP
 rm -rf ./package/add/up/luci-app-upnp
-# rm -rf feeds/{packages/net/miniupnpd,luci/applications/luci-app-upnp}
-# git clone https://$gitea/sbwml/miniupnpd feeds/packages/net/miniupnpd -b v2.3.7
-# git clone https://$gitea/sbwml/luci-app-upnp feeds/luci/applications/luci-app-upnp -b main
+rm -rf feeds/{packages/net/miniupnpd,luci/applications/luci-app-upnp}
+git clone https://$gitea/sbwml/miniupnpd feeds/packages/net/miniupnpd -b v2.3.7
+git clone https://$gitea/sbwml/luci-app-upnp feeds/luci/applications/luci-app-upnp -b main
 
 sed -i "/listen_https/ {s/^/#/g}" package/*/*/*/files/uhttpd.config
 
