@@ -5,9 +5,10 @@
 2.升级在线升级插件，解决因网络原因导致的检测更新经常失败问题【独家研发】。
 3.升级应用过滤插件，增加应用特征库存中，增加自定义规则更方便操作。
 4.增加ddns-go插件，及增加阿里云和腾讯域名DDNS解析，应TG群友提议，集成CIFS和wireguard等相关依赖。
-5.同步更新至最新官方24.10及全部插件更新到最新版本，解决目前已经所有问题。
+5.升级优化kucat主题，着重优化适配手机显示效果。
+6.同步更新至最新官方24.10及全部插件更新到最新版本，解决目前已经所有问题，更多细节优化请自行刷机体验。
 
 【注意】从2025年3月22日起更改WAN口绑定方案：单网口时eth0为LAN口，多网口时eth0为WAN其余是LAN口;彻底解决单网卡时无法正常使用DHCP服务等一系列问题。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/554" target="_blank">点击这里</a>查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/555" target="_blank">点击这里</a>查看详情</li>
 </ul>
