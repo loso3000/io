@@ -317,8 +317,6 @@ rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-s
 rm -rf ./package/add/up/pass/naiveproxy
 rm -rf ./package/add/up/pass/xray-core
 
-rm -rf ./package/add/up/tool/OpenAppFilter
-
 # 全能推送
 rm -rf ./feeds/luci/applications/luci-app-pushbot
 git clone https://github.com/zzsj0928/luci-app-pushbot package/luci-app-pushbot
