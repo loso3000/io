@@ -77,6 +77,41 @@ sed -i "s/ImmortalWrt/EzopWrt/" ./feeds/luci/modules/luci-mod-system/htdocs/luci
 #修改默认时区
 # sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $config_generate
 
+# 移除 SNAPSHOT 标签
+sed -i 's,-SNAPSHOT,,g' include/version.mk
+sed -i 's,-SNAPSHOT,,g' package/base-files/image-config.in
+sed -i '/CONFIG_BUILDBOT/d' include/feeds.mk
+sed -i 's/;)\s*\\/; \\/' include/feeds.mk
+
+# make olddefconfig
+wget -qO - https://github.com/openwrt/openwrt/commit/c21a3570.patch | patch -p1
+
+
+# 更换为 ImmortalWrt Uboot 以及 Target
+git clone --depth=1 -b openwrt-24.10 https://github.com/immortalwrt/immortalwrt immortalwrt_24
+rm -rf ./target/linux/rockchip
+cp -rf immortalwrt_24/target/linux/rockchip ./target/linux/rockchip
+wget -O ./target/linux/rockchip/patches-6.6/014-rockchip-add-pwm-fan-controller-for-nanopi-r2s-r4s.patch https://git.kejizero.online/zhao/files/raw/branch/main/patch/kernel/rockchip/014-rockchip-add-pwm-fan-controller-for-nanopi-r2s-r4s.patch
+wget -O ./target/linux/rockchip/patches-6.6/702-general-rk3328-dtsi-trb-ent-quirk.patch https://git.kejizero.online/zhao/files/raw/branch/main/patch/kernel/rockchip/702-general-rk3328-dtsi-trb-ent-quirk.patch
+wget -O ./target/linux/rockchip/patches-6.6/703-rk3399-enable-dwc3-xhci-usb-trb-quirk.patch https://git.kejizero.online/zhao/files/raw/branch/main/patch/kernel/rockchip/703-rk3399-enable-dwc3-xhci-usb-trb-quirk.patch
+#wget https://github.com/immortalwrt/immortalwrt/raw/refs/tags/v23.05.4/target/linux/rockchip/patches-5.15/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch -O target/linux/rockchip/patches-6.6/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
+rm -rf package/boot/{rkbin,uboot-rockchip,arm-trusted-firmware-rockchip}
+cp -rf immortalwrt_24/package/boot/uboot-rockchip ./package/boot/uboot-rockchip
+cp -rf immortalwrt_24/package/boot/arm-trusted-firmware-rockchip ./package/boot/arm-trusted-firmware-rockchip
+sed -i '/REQUIRE_IMAGE_METADATA/d' target/linux/rockchip/armv8/base-files/lib/upgrade/platform.sh
+
+# x86 - disable mitigations
+sed -i 's/noinitrd/noinitrd mitigations=off/g' target/linux/x86/image/grub-efi.cfg
+
+# Disable Mitigations
+# sed -i 's,rootwait,rootwait mitigations=off,g' target/linux/rockchip/image/default.bootscript
+# sed -i 's,@CMDLINE@ noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-efi.cfg
+# sed -i 's,@CMDLINE@ noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-iso.cfg
+# sed -i 's,@CMDLINE@ noinitrd,noinitrd mitigations=off,g' target/linux/x86/image/grub-pc.cfg
+
+# fstool
+wget -qO - https://github.com/coolsnowwolf/lede/commit/8a4db76.patch | patch -p1
+
 # Realtek 网卡 - R8168 & R8125 & R8126 & R8152 & R8101
 rm -rf package/kernel/r8168 package/kernel/r8101 package/kernel/r8125 package/kernel/r8126
 git clone https://git.kejizero.online/zhao/package_kernel_r8168 package/kernel/r8168
@@ -280,13 +315,41 @@ curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/board.
 # rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
 rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamba  ./package/lean/default-settings 
-# rm -rf ./package/emortal2/autocore 
+
 rm -rf ./package/add/up/tool/autocore
-rm -rf ./package/add/other/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
+# rm -rf ./package/add/up/tool/default-settings
 
 rm -rf ./package/add/up/pass/xray-core
+
+
+# Add luci-app-dockerman
+rm -rf ./feeds/luci/applications/luci-app-dockerman
+# rm -rf ./feeds/luci/applications/luci-app-docker
+# rm -rf ./feeds/luci/collections/luci-lib-docker
+# mv ./package/add/add/up/docker/docker ./feeds/packages/utils/docker
+# mv ./package/add/add/up/docker/dockerd  ./feeds/packages/utils/dockerd 
+# mv ./package/add/add/up/docker/docker-compose ./feeds/packages/utils/docker-compose
+# sed -i '/sysctl.d/d' feeds/packages/utils/dockerd/Makefile
+# sed -i 's,# CONFIG_BLK_CGROUP_IOCOST is not set,CONFIG_BLK_CGROUP_IOCOST=y,g' target/linux/generic/config-5.10
+# sed -i 's,# CONFIG_BLK_CGROUP_IOCOST is not set,CONFIG_BLK_CGROUP_IOCOST=y,g' target/linux/generic/config-5.15
+# sed -i 's/+dockerd/+dockerd +cgroupfs-mount/' ./package/new/luci-app-dockerman/Makefile
+# sed -i '$i /etc/init.d/dockerd restart &' ./package/new/luci-app-dockerman/root/etc/uci-defaults/*
+# Docker
+rm -rf feeds/luci/applications/luci-app-dockerman
+git clone https://git.kejizero.online/zhao/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
+rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
+git clone https://git.kejizero.online/zhao/packages_utils_docker feeds/packages/utils/docker
+git clone https://git.kejizero.online/zhao/packages_utils_dockerd feeds/packages/utils/dockerd
+git clone https://git.kejizero.online/zhao/packages_utils_containerd feeds/packages/utils/containerd
+git clone https://git.kejizero.online/zhao/packages_utils_runc feeds/packages/utils/runc
+sed -i '/sysctl.d/d' feeds/packages/utils/dockerd/Makefile
+pushd feeds/packages
+    curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0001-dockerd-fix-bridge-network.patch | patch -p1
+    curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0002-docker-add-buildkit-experimental-support.patch | patch -p1
+    curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0003-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch | patch -p1
+popd
 
 rm -rf ./package/add/up/docke
 
@@ -421,34 +484,8 @@ sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装�
 #Add x550
 git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
 
-# Add luci-app-dockerman
-rm -rf ./feeds/luci/applications/luci-app-dockerman
-# rm -rf ./feeds/luci/applications/luci-app-docker
-# rm -rf ./feeds/luci/collections/luci-lib-docker
-# mv ./package/add/add/up/docker/docker ./feeds/packages/utils/docker
-# mv ./package/add/add/up/docker/dockerd  ./feeds/packages/utils/dockerd 
-# mv ./package/add/add/up/docker/docker-compose ./feeds/packages/utils/docker-compose
-# sed -i '/sysctl.d/d' feeds/packages/utils/dockerd/Makefile
-# sed -i 's,# CONFIG_BLK_CGROUP_IOCOST is not set,CONFIG_BLK_CGROUP_IOCOST=y,g' target/linux/generic/config-5.10
-# sed -i 's,# CONFIG_BLK_CGROUP_IOCOST is not set,CONFIG_BLK_CGROUP_IOCOST=y,g' target/linux/generic/config-5.15
-# sed -i 's/+dockerd/+dockerd +cgroupfs-mount/' ./package/new/luci-app-dockerman/Makefile
-# sed -i '$i /etc/init.d/dockerd restart &' ./package/new/luci-app-dockerman/root/etc/uci-defaults/*
-# Docker
-rm -rf feeds/luci/applications/luci-app-dockerman
-git clone https://git.kejizero.online/zhao/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
-rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
-git clone https://git.kejizero.online/zhao/packages_utils_docker feeds/packages/utils/docker
-git clone https://git.kejizero.online/zhao/packages_utils_dockerd feeds/packages/utils/dockerd
-git clone https://git.kejizero.online/zhao/packages_utils_containerd feeds/packages/utils/containerd
-git clone https://git.kejizero.online/zhao/packages_utils_runc feeds/packages/utils/runc
-sed -i '/sysctl.d/d' feeds/packages/utils/dockerd/Makefile
-pushd feeds/packages
-    curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0001-dockerd-fix-bridge-network.patch | patch -p1
-    curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0002-docker-add-buildkit-experimental-support.patch | patch -p1
-    curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0003-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch | patch -p1
-popd
-rm -rf ./package/add/up/docke
-
+# netdata
+sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 
 # luci-app-filemanager
 rm -rf feeds/luci/applications/luci-app-filemanager
