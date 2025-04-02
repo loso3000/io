@@ -246,7 +246,7 @@ rm -rf ./package/ssr/luci-app-ssr-plus
 
 
 rm -rf ./package/ssr/mosdns
-rm -rf ./package/ssr/trojan-plus
+# rm -rf ./package/ssr/trojan-plus
 # rm -rf ./package/ssr/xray-core
 
 #rm -rf ./package/ssr/xray-plugin
@@ -297,6 +297,7 @@ rm -rf ./feeds/packages/net/shadow-tls
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
 rm -rf ./package/add/up/pass/xray-core
+rm -rf ./package/add/up/pass/trojan-plus
 
 # 全能推送
 rm -rf ./feeds/luci/applications/luci-app-pushbot
