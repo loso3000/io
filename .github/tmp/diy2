@@ -766,12 +766,15 @@ UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 
 ./scripts/feeds update -i
 ./scripts/feeds install -i
-
+if [ $REPO_BRANCH = istoreos-24.10 ] ;then
 cat  ../.config  > .config
+cat  ./x86_64/${CONFIG_S}  >> .config
+else
 cat  ./x86_64/${CONFIG_S}  > .config
+fi
 case "${CONFIG_S}" in
 Vip*)
-cat  ./x86_64/comm  >> .config
+# cat  ./x86_64/comm  >> .config
 ;;
 *)
 echo 'no'
