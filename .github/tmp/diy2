@@ -764,8 +764,6 @@ UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 UPDATE_PACKAGE "easytier" "lazyoop/networking-artifact" "main" "pkg"
 UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 
-./scripts/feeds update -i
-./scripts/feeds install -i
 if [ $REPO_BRANCH = istoreos-24.10 ] ;then
 cat  ../.config  > .config
 cat  ./x86_64/${CONFIG_S}  >> .config
@@ -780,6 +778,6 @@ Vip*)
 echo 'no'
 ;;
 esac
-./scripts/feeds update -a
-./scripts/feeds install -a
+./scripts/feeds update -i
+./scripts/feeds install -i
 exit
