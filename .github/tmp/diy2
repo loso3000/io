@@ -613,11 +613,11 @@ while IFS= read -r line; do
     else
         cp -f $a $kmoddirdrv
 	echo $line >> $nowkmodfile
-        if [ $? -eq 0 ]; then
-            echo "cp ok: $line"
-        else
-            echo "no cp:$line"
-        fi
+        # if [ $? -eq 0 ]; then
+        #     echo "cp ok: $line"
+        # else
+        #     echo "no cp:$line"
+        # fi
     fi
 done < "$bakkmodfile"
     # find ./bin/ -name  $file | xargs -i cp -f {}  $kmoddirdrv
