@@ -593,7 +593,7 @@ cat>bakkmod.sh<<-\EOF
 kmoddirdrv=./files/etc/kmod.d/drv
 kmoddirdocker=./files/etc/kmod.d/docker
 bakkmodfile=./kmod.source
-cat ./patch/list.txt >$bakkmodfile
+cat ./patch/kmod.source >$bakkmodfile
 [ ! -f "$bakkmodfile" ] && cat ./package/add/patch/kmod.source >$bakkmodfile
 nowkmodfile=./files/etc/kmod.now
 mkdir -p $kmoddirdrv 2>/dev/null
@@ -607,12 +607,13 @@ while IFS= read -r line || [[ -n "$line" ]]; do
         continue
     fi
     echo "找到模块文件: $found"
-    if cp -fv "$found" "$kmoddirdrv"; then
-        echo "$line" >> "$nowkmodfile"
-        echo "成功复制: $line"
-    else
-        echo "错误: 复制 $line 失败"
-    fi
+    find bin/ -type f  *${line}* -exec cp -fv {} "$kmoddirdocker" \;
+    #if cp -fv "$found" "$kmoddirdrv"; then
+    #    echo "$line" >> "$nowkmodfile"
+    #    echo "成功复制: $line"
+   # else
+   #     echo "错误: 复制 $line 失败"
+   # fi
 done < "$bakkmodfile"
 
 find bin/ -type f \( -name "*dockerman*" -o -name "*dockerd*" \) -exec cp -fv {} "$kmoddirdocker" \;
