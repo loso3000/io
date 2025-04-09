@@ -16,7 +16,7 @@ UPDATE_PACKAGE() {
 
 	rm -rf $(find ../feeds/luci/ ../feeds/packages/ -maxdepth 3 -type d -iname "*$PKG_NAME*" -prune)
 
-	git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://github.com/$PKG_REPO.git"
+	git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://$github/$PKG_REPO.git"
 
 	if [[ $PKG_SPECIAL == "pkg" ]]; then
 		cp -rf $(find ./$REPO_NAME/*/ -maxdepth 3 -type d -iname "*$PKG_NAME*" -prune) ./
@@ -84,17 +84,17 @@ sed -i '/CONFIG_BUILDBOT/d' include/feeds.mk
 sed -i 's/;)\s*\\/; \\/' include/feeds.mk
 
 # make olddefconfig
-wget -qO - https://github.com/openwrt/openwrt/commit/c21a3570.patch | patch -p1
+wget -qO - https://$github/openwrt/openwrt/commit/c21a3570.patch | patch -p1
 
 
 # 更换为 ImmortalWrt Uboot 以及 Target
-git clone --depth=1 -b openwrt-24.10 https://github.com/immortalwrt/immortalwrt immortalwrt_24
+git clone --depth=1 -b openwrt-24.10 https://$github/immortalwrt/immortalwrt immortalwrt_24
 rm -rf ./target/linux/rockchip
 cp -rf immortalwrt_24/target/linux/rockchip ./target/linux/rockchip
 wget -O ./target/linux/rockchip/patches-6.6/014-rockchip-add-pwm-fan-controller-for-nanopi-r2s-r4s.patch https://git.kejizero.online/zhao/files/raw/branch/main/patch/kernel/rockchip/014-rockchip-add-pwm-fan-controller-for-nanopi-r2s-r4s.patch
 wget -O ./target/linux/rockchip/patches-6.6/702-general-rk3328-dtsi-trb-ent-quirk.patch https://git.kejizero.online/zhao/files/raw/branch/main/patch/kernel/rockchip/702-general-rk3328-dtsi-trb-ent-quirk.patch
 wget -O ./target/linux/rockchip/patches-6.6/703-rk3399-enable-dwc3-xhci-usb-trb-quirk.patch https://git.kejizero.online/zhao/files/raw/branch/main/patch/kernel/rockchip/703-rk3399-enable-dwc3-xhci-usb-trb-quirk.patch
-#wget https://github.com/immortalwrt/immortalwrt/raw/refs/tags/v23.05.4/target/linux/rockchip/patches-5.15/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch -O target/linux/rockchip/patches-6.6/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
+#wget https://$github/immortalwrt/immortalwrt/raw/refs/tags/v23.05.4/target/linux/rockchip/patches-5.15/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch -O target/linux/rockchip/patches-6.6/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 rm -rf package/boot/{rkbin,uboot-rockchip,arm-trusted-firmware-rockchip}
 cp -rf immortalwrt_24/package/boot/uboot-rockchip ./package/boot/uboot-rockchip
 cp -rf immortalwrt_24/package/boot/arm-trusted-firmware-rockchip ./package/boot/arm-trusted-firmware-rockchip
@@ -185,9 +185,9 @@ rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-
 rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci-app-passwall2
 
-git clone https://github.com/sbwml/openwrt_helloworld  -b v5 ./package/ssr
+git clone https://$github/sbwml/openwrt_helloworld  -b v5 ./package/ssr
 
-git clone https://github.com/loso3000/other ./package/add
+git clone https://$github/loso3000/other ./package/add
 
 # alist
 # rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
@@ -200,9 +200,9 @@ rm -rf ./feeds/luci/applications/luci-app-oaf
 rm -rf ./feeds/packages/net/open-app-filter
 rm -rf  ./feeds/packages/net/oaf
 # rm -rf ./package/add/up/tool/OpenAppFilter
-# git clone https://github.com/destan19/OpenAppFilter.git ./package/OpenAppFilter
+# git clone https://$github/destan19/OpenAppFilter.git ./package/OpenAppFilter
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
+git clone https://$github/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
 
 # rm -rf ./feeds/luci/applications/luci-app-smartdns
 # rm -rf  ./feeds/packages/net/smartdns
@@ -295,11 +295,11 @@ rm -rf ./package/add/up/pass/trojan-plus
 
 # 全能推送
 rm -rf ./feeds/luci/applications/luci-app-pushbot
-git clone https://github.com/zzsj0928/luci-app-pushbot package/luci-app-pushbot
+git clone https://$github/zzsj0928/luci-app-pushbot package/luci-app-pushbot
 rm -rf ./feeds/luci/applications/luci-app-wechatpush 
 git clone https://$github/tty228/luci-app-wechatpush ./feeds/luci/applications/luci-app-wechatpush
 
-git clone  https://github.com/EasyTier/luci-app-easytier ./package/luci-app-easytier
+git clone  https://$github/EasyTier/luci-app-easytier ./package/luci-app-easytier
 #net eth0
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
@@ -361,10 +361,11 @@ cat  patch/sysctl.conf > ./package/base-files/files/etc/sysctl.conf
 
 rm -rf ./feeds/packages/net/lucky
 rm -rf  ./feeds/luci/applications/luci-app-lucky
-git clone https://github.com/sirpdboy/luci-app-lucky ./package/lucky
+git clone https://$github/sirpdboy/luci-app-lucky ./package/lucky
+
 rm -rf ./feeds/packages/net/ddns-go
 rm -rf  ./feeds/luci/applications/luci-app-ddns-go
-git clone https://github.com/sirpdboy/luci-app-ddns-go ./package/ddns-go
+git clone https://$github/sirpdboy/luci-app-ddns-go ./package/ddns-go
 
 # nlbwmon
 # sed -i 's/524288/16777216/g' feeds/packages/net/nlbwmon/files/nlbwmon.config
@@ -372,19 +373,19 @@ git clone https://github.com/sirpdboy/luci-app-ddns-go ./package/ddns-go
 # sed -i '/o.datatype = "hostname"/d' feeds/luci/modules/luci-mod-admin-full/luasrc/model/cbi/admin_system/system.lua
 # sed -i '/= "hostname"/d' /usr/lib/lua/luci/model/cbi/admin_system/system.lua
 
-git clone  https://github.com/linkease/nas-packages-luci ./package/nas-packages-luci
-git clone  https://github.com/linkease/nas-packages ./package/nas-packages
-git clone  https://github.com/linkease/istore ./package/istore
+git clone  https://$github/linkease/nas-packages-luci ./package/nas-packages-luci
+git clone  https://$github/linkease/nas-packages ./package/nas-packages
+git clone  https://$github/linkease/istore ./package/istore
 sed -i 's/1/0/g' ./package/nas-packages/network/services/linkease/files/linkease.config
 sed -i 's/luci-lib-ipkg/luci-base/g' package/istore/luci/luci-app-store/Makefile
 
 rm -rf ./feeds/packages/net/mosdns
 # rm -rf  ./feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/net/v2ray-geodata
-git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
-# git clone https://github.com/sbwml/luci-app-mosdns -b v5-lua package/mosdns
-git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
-git clone https://github.com/sbwml/v2ray-geodata feeds/packages/net/v2ray-geodata
+git clone https://$github/sbwml/luci-app-mosdns -b v5 package/mosdns
+# git clone https://$github/sbwml/luci-app-mosdns -b v5-lua package/mosdns
+git clone https://$github/sbwml/v2ray-geodata package/v2ray-geodata
+git clone https://$github/sbwml/v2ray-geodata feeds/packages/net/v2ray-geodata
 
 # luci-compat - fix translation
 sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
@@ -416,8 +417,6 @@ rm -rf feeds/{packages/net/miniupnpd,luci/applications/luci-app-upnp}
 git clone https://$gitea/sbwml/miniupnpd feeds/packages/net/miniupnpd -b v2.3.7
 git clone https://$gitea/sbwml/luci-app-upnp feeds/luci/applications/luci-app-upnp -b main
 
-sed -i "/listen_https/ {s/^/#/g}" package/*/*/*/files/uhttpd.config
-
 sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
 sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
 sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
@@ -443,17 +442,17 @@ sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqba
 # nlbwmon - disable syslog
 # sed -i 's/stderr 1/stderr 0/g' feeds/packages/net/nlbwmon/files/nlbwmon.init
 
-git clone https://github.com/yaof2/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
+git clone https://$github/yaof2/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 sed -i 's/, 1).d/, 11).d/g' ./package/luci-app-ikoolproxy/luasrc/controller/koolproxy.lua
 # Add OpenClash
 rm -rf  ./feeds/luci/applications/luci-app-openclash
-git clone --depth=1 https://github.com/vernesong/OpenClash package/openclash
+git clone --depth=1 https://$github/vernesong/OpenClash package/openclash
 sed -i 's/+libcap /+libcap +libcap-bin /' package/openclash/luci-app-openclash/Makefile
 
 rm -rf ./feeds/luci/themes/luci-theme-design
- git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
+ git clone -b js https://$github/gngpp/luci-theme-design.git  package/luci-theme-design
 rm -rf ./feeds/luci/themes/luci-theme-argon
-git clone https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-argon
+git clone https://$github/jerrykuku/luci-theme-argon.git  package/luci-theme-argon
 
 # 使用默认取消自动
 # sed -i "s/bootstrap/chuqitopd/g" feeds/luci/modules/luci-base/root/etc/config/luci
@@ -475,7 +474,7 @@ sed -i 's/+luci-theme-bootstrap/+luci-theme-kucat/g' feeds/luci/collections/luci
 sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装签名
 
 #Add x550
-git clone https://github.com/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
+git clone https://$github/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
 
 # netdata
 sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
