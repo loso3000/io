@@ -600,7 +600,6 @@ nowkmodfile=./files/etc/kmod.now
 mkdir -p $kmoddirdrv 2>/dev/null
 mkdir -p $kmoddirdocker 2>/dev/null
 while IFS= read -r line || [[ -n "$line" ]]; do
-    echo "正在处理模块: $line"
     found=$(find bin/ -type f -name  "${line}" | head -n 1)
     if [ -z "$found" ]; then
         echo "警告: 找不到模块 $line"
@@ -608,7 +607,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
     fi
     cp -fv "$found" "$kmoddirdrv"
 done < "$bakkmodfile"
-
+echo 'GITHUB_TOKEN="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 "' > ./files/etc/ezgithub
+chmod 600 ./files/etc/ezgithub
 find bin/ -type f \( -name "*dockerman*" -o -name "*dockerd*" \) -exec cp -fv {} "$kmoddirdocker" \;
 
 EOF
