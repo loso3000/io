@@ -584,20 +584,22 @@ md5_EzOpWrt_uefi=EzOpWrt-${r_version}-${TARGET_DEVICE}-dev-efi.img.gz
 ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 [[ -n $ip ]] || ip=` cat package/base-files/luci2/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 [[ -n $ip ]] || ip=192.168.10.1
-
 OTA_URL="https://$github/$auth/releases/download"
-[ -f ${md5_EzOpWrt} ] && {  
+[ -f ${md5_EzOpWrt} ] && {
+
+file_size=$(du -m  ${md5_EzOpWrt} | cut -f1)
 SHA256=$(sha256sum ${md5_EzOpWrt} | awk '{print $1}')
 cat > ezota.json <<EOF
 {
   "${TARGET_DEVICE}": [
     {
-      "build_date": "$DATA",
-      "sha256sum": "$SHA256",
       "ver": "${r_version}",
-      "ip": "${$ip}",
-      "name": "${md5_EzOpWrt}"
-      "url": "$OTA_URL/v$VERSION/${md5_EzOpWrt}"
+      "name": "${md5_EzOpWrt}",
+      "size": "${file_size}",
+      "date": "$DATA",
+      "sha256": "$SHA256",
+      "ip": "${ip}",
+      "url": "$OTA_URL/${r_version}/${md5_EzOpWrt}"
     }
   ]
 }
@@ -606,17 +608,19 @@ EOF
 }
 
 [ -f ${md5_EzOpWrt_uefi} ] && {
+file_size=$(du -m  ${md5_EzOpWrt_uefi} | cut -f1)
 SHA256=$(sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}')
-cat >> ezota.json <<EOF
+cat > ezota.json <<EOF
 {
   "${TARGET_DEVICE}": [
     {
-      "build_date": "$DATA",
-      "sha256sum": "$SHA256",
       "ver": "${r_version}",
-      "ip": "${$ip}",
-      "name": "${md5_EzOpWrt_uefi}"
-      "url": "$OTA_URL/v$VERSION/${md5_EzOpWrt_uefi}"
+      "name": "${md5_EzOpWrt_uefi}",
+      "size": "${file_size}",
+      "date": "$DATA",
+      "sha256": "$SHA256",
+      "ip": "${ip}",
+      "url": "$OTA_URL/${r_version}/${md5_EzOpWrt_uefi}"
     }
   ]
 }
