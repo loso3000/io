@@ -594,12 +594,13 @@ md5_EzOpWrt_uefi=EzOpWrt-${EZVER}-${TARGET_DEVICE}-dev-efi.img.gz
 
 ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 [[ -n $ip ]] || ip=` cat package/base-files/luci2/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
-[[ -n $ip ]] || ip=192.168.10.1
+[[ -n $ip ]] || ip="192.168.10.1"
 OTA_URL="https://$github/$auth/releases/download"
-if [ -f ${md5_EzOpWrt} ] ;then
 
-file_size=$(du -m  ${md5_EzOpWrt} | cut -f1)
-SHA256=$(sha256sum ${md5_EzOpWrt} | awk '{print $1}')
+if [[ -f ${md5_EzOpWrt} ]]; then
+
+file_size=`du -m  ${md5_EzOpWrt} | cut -f1`
+SHA256=`sha256sum ${md5_EzOpWrt} | awk '{print $1}'`
 
 cat>ezota.json<<EOF
 {
@@ -619,7 +620,7 @@ EOF
 
 fi
 
-if [ -f ${md5_EzOpWrt_uefi} ] ;then
+if [ -f ${md5_EzOpWrt_uefi} ]]; then
 
 file_size=`du -m  ${md5_EzOpWrt_uefi} | cut -f1`
 SHA256=`sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
@@ -639,6 +640,7 @@ cat>>ezota.json<<EOF
   ]
 }
 EOF
+
 fi
 
 cp ./ezota.json ../../../../files/etc/ezota.json
@@ -648,6 +650,7 @@ if [ ${CONFIG_S} = "Vip-Super" ] ; then
 fi
 
 popd
+
 EOF
 
 cat>bakkmod.sh<<\EOF
