@@ -554,7 +554,8 @@ echo '---------------------------------' >> ./package/base-files/files/etc/banne
 [ -f ./files/etc/profiles ] || mv -f ./package/add/patch/profiles ./files/etc/profiles
 [ -f ./files/etc/profiles ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/profiles > ./files/etc/profiles
 
-cat>buildmd5.sh<<-\EOF
+
+cat>buildmd5.sh<<\EOF
 #!/bin/bash
 
 github="github.com"
@@ -589,11 +590,13 @@ ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F 
 [[ -n $ip ]] || ip=` cat package/base-files/luci2/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 [[ -n $ip ]] || ip=192.168.10.1
 OTA_URL="https://$github/$auth/releases/download"
-[ -f ${md5_EzOpWrt} ] && {
+
+if [ -f ${md5_EzOpWrt} ] ;then
 
 file_size=$(du -m  ${md5_EzOpWrt} | cut -f1)
 SHA256=$(sha256sum ${md5_EzOpWrt} | awk '{print $1}')
-cat > ezota.json <<EOF
+
+cat>ezota.json<<EOF
 {
   "${TARGET_DEVICE}": [
     {
@@ -608,13 +611,13 @@ cat > ezota.json <<EOF
   ]
 }
 EOF
+fi
 
-}
-
-[ -f ${md5_EzOpWrt_uefi} ] && {
+if [ -f ${md5_EzOpWrt_uefi} ] ;then
 file_size=$(du -m  ${md5_EzOpWrt_uefi} | cut -f1)
 SHA256=$(sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}')
-cat >> ezota.json <<EOF
+
+cat>ezota.json<<EOF
 {
   "${TARGET_DEVICE}": [
     {
@@ -629,7 +632,7 @@ cat >> ezota.json <<EOF
   ]
 }
 EOF
-}
+fi
 
 cp ./ezota.json ../../../../files/etc/ezota.json
 if [ ${CONFIG_S} = "Vip-Super" ] ; then
@@ -641,7 +644,7 @@ popd
 cat ./package/base-files/files/etc/ezopenwrt_version  ../ezopenwrt_version
 EOF
 
-cat>bakkmod.sh<<-\EOF
+cat>bakkmod.sh<<\EOF
 #!/bin/bash
 kmoddirdrv=./files/etc/kmod.d/drv
 kmoddirdocker=./files/etc/kmod.d/docker
@@ -667,8 +670,7 @@ find bin/ -type f \( -name "*dockerman*" -o -name "*dockerd*" \) -exec cp -fv {}
 
 EOF
 
-case "${CONFIG_S}" in
-     "Vip"*)  
+
 #修改默认IP地址
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 #修改immortalwrt.lan关联IP
@@ -687,7 +689,7 @@ sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" $(find ./feeds/luci/module
 #修改默认IP地址
 # sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" package/base-files/files/bin/config_generate
 
-cat>./package/base-files/files/etc/kmodreg<<-\EOF
+cat>./package/base-files/files/etc/kmodreg<<\EOF
 #!/bin/bash
 # EzOpWrt By Sirpdboy
 IPK=$1
@@ -763,40 +765,6 @@ case "$IPK" in
 esac
 
 EOF
-;;
-"Free"*) 
-
-#修改默认IP地址
-sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.8\.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
-sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.8\.1/g" package/base-files/files/bin/config_generate
-
-cat>./package/base-files/files/etc/kmodreg<<-\EOF
-#!/bin/bash
-# EzOpWrt By Sirpdboy
-IPK=$1
-nowkmoddir=/etc/kmod.d/$IPK
-[ -d $nowkmoddir ]  || exit
-run_drv() {
-echo "目前此功能仅限VIP版本提供！ "
-exit
-}
-run_docker() {
-echo "目前此功能仅限VIP版本提供！ "
-exit
-}
-case "$IPK" in
-	"drv")
-		run_drv
-	;;
-	"docker")
-		run_docker
-	;;
-esac
-exit
-EOF
-
-;;
-esac
 
 
 #UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
