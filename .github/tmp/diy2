@@ -629,9 +629,8 @@ cp ../../../../ezverlatest  ./ver.latest
 
 fi
 
-
 popd
-
+cat ./package/base-files/files/etc/ezopenwrt_version  ../ezopenwrt_version
 EOF
 
 cat>bakkmod.sh<<-\EOF
