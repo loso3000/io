@@ -566,7 +566,7 @@ cat>buildmd5.sh<<\EOF
 
 github="github.com"
 auth="sirpdboy/openwrt"
-. ../ezopenwrt_version`
+. ../ezopenwrt_version
 # gzip bin/targets/*/*/*.img | true
 
 pushd bin/targets/*/*/
@@ -597,7 +597,7 @@ ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F 
 [[ -n $ip ]] || ip="192.168.10.1"
 OTA_URL="https://$github/$auth/releases/download"
 
-if [[ -f ${md5_EzOpWrt} ]]; then
+if [ -f ${md5_EzOpWrt} ] ;then
 
 file_size=`du -m  ${md5_EzOpWrt} | cut -f1`
 SHA256=`sha256sum ${md5_EzOpWrt} | awk '{print $1}'`
@@ -620,7 +620,7 @@ EOF
 
 fi
 
-if [ -f ${md5_EzOpWrt_uefi} ]]; then
+if [ -f ${md5_EzOpWrt_uefi} ] ;then
 
 file_size=`du -m  ${md5_EzOpWrt_uefi} | cut -f1`
 SHA256=`sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
