@@ -125,6 +125,10 @@ git clone https://git.kejizero.online/zhao/package_kernel_r8126 package/kernel/r
 
 rm -rf ./feeds/luci/applications/luci-app-lucky
 rm -rf ./feeds/luci/applications/luci-app-ddns-go
+
+rm -rf  ./feeds/packages/net/AdGuardHome
+rm -rf  ./feeds/packages/net/adguardhome
+rm -rf ./feeds/luci/applications/luci-app-adguardhome
 rm -rf ./feeds/luci/applications/luci-app-filetransfer
 rm -rf ./feeds/luci/applications/luci-app-fileassistant
 rm -rf ./feeds/luci/applications/luci-app-msd_lite
@@ -711,21 +715,20 @@ else
     sed -i '/option check_signature/d' "$opkg_conf"
 	opkg update
 	echo "正在安装Docker及相关服务...请耐心等待...大约需要1-5分钟 "
-	# opkg install $nowkmoddir/dockerd*.ipk --force-depends >/dev/null 2>&1
-	# opkg install $nowkmoddir/luci-app-dockerman*.ipk --force-depends  >/dev/null 2>&1
-	# opkg install $nowkmoddir/luci-i18n-dockerman*.ipk --force-depends  >/dev/null 2>&1
-	opkg install --force-depends luci-app-dockerman >/dev/null 2>&1
+
+   	opkg install --force-depends dockerd >/dev/null 2>&1
     	opkg install --force-depends luci-i18n-dockerman-zh-cn	 >/dev/null 2>&1
+	opkg install --force-depends luci-app-dockerman >/dev/null 2>&1
     	opkg install --force-depends avahi-daemon >/dev/null 2>&1
 	if is_docker; then
 		echo "本地成功安装Docker及相关服务！"
 	else
    		echo "本地安装失败！"
    		echo "在线重新安装Docker及相关服务...请耐心等待...大约需要1-5分钟"
-   		opkg install dockerd --force-depends >/dev/null 2>&1
-    		opkg install luci-app-dockerman >/dev/null 2>&1
-    		opkg install luci-i18n-dockerman* >/dev/null 2>&1
-    		opkg install avahi-daemon >/dev/null 2>&1
+   		opkg install --force-depends dockerd >/dev/null 2>&1
+    		opkg install --force-depends luci-i18n-dockerman* >/dev/null 2>&1
+    		opkg install --force-depends luci-app-dockerman >/dev/null 2>&1
+    		opkg install --force-depends avahi-daemon >/dev/null 2>&1
     		if is_docker; then 
     		    echo "在线成功安装Docker及相关服务！" 
     		fi
@@ -735,6 +738,7 @@ fi
 if is_docker; then
       		echo "设置Docker服务自动启动成功！"
       		echo "Docker菜单注销重新登陆才能看到！"
+      		echo "[注意]请用分区扩容工具扩容挂载/opt/docker盘，否则无法正常使用！"
 		uci -q get dockerd.globals 2>/dev/null && {
 		uci -q set dockerd.globals.data_root='/opt/docker/'
 		uci -q set dockerd.globals.auto_start='1'
