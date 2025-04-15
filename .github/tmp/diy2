@@ -610,7 +610,7 @@ EOF
 [ -f ${md5_EzOpWrt_uefi} ] && {
 file_size=$(du -m  ${md5_EzOpWrt_uefi} | cut -f1)
 SHA256=$(sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}')
-cat > ezota.json <<EOF
+cat >> ezota.json <<EOF
 {
   "${TARGET_DEVICE}": [
     {
@@ -627,10 +627,10 @@ cat > ezota.json <<EOF
 EOF
 }
 
+cp ./ezota.json ../../../../files/etc/ezota.json
 if [ ${CONFIG_S} = "Vip-Super" ] ; then
-cp ../../../../ezotafooter  ./ota.footer
-cp ../../../../ezverlatest  ./ver.latest 
-
+    cp ../../../../ezotafooter  ./ota.footer
+    cp ../../../../ezverlatest  ./ver.latest 
 fi
 
 popd
