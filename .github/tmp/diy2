@@ -617,7 +617,7 @@ if [ -f ${md5_EzOpWrt_uefi} ] ;then
 file_size=$(du -m  ${md5_EzOpWrt_uefi} | cut -f1)
 SHA256=$(sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}')
 
-cat>ezota.json<<EOF
+cat>>ezota.json<<EOF
 {
   "${TARGET_DEVICE}": [
     {
@@ -673,10 +673,6 @@ EOF
 
 #修改默认IP地址
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
-#修改immortalwrt.lan关联IP
-#sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.10.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
-#修改默认IP地址
-#sed -i "s/192\.168\.[0-9]*\.[0-9]*/192.168.10.1/g" package/base-files/files/bin/config_generate    #config_generate
 
 #修改默认IP地址
 sed -i 's/192\.168\.1\.1/192\.168\.10\.1/g' package/base-files/files/bin/config_generate
@@ -718,9 +714,11 @@ else
 	opkg update
 	echo "正在安装Docker及相关服务...请耐心等待...大约需要1-5分钟 "
 
-   	opkg install --force-depends dockerd >/dev/null 2>&1
-    	opkg install --force-depends luci-i18n-dockerman-zh-cn	 >/dev/null 2>&1
+	# opkg install $nowkmoddir/dockerd*.ipk --force-depends >/dev/null 2>&1
+	# opkg install $nowkmoddir/luci-app-dockerman*.ipk --force-depends  >/dev/null 2>&1
+	# opkg install $nowkmoddir/luci-i18n-dockerman*.ipk --force-depends  >/dev/null 2>&1
 	opkg install --force-depends luci-app-dockerman >/dev/null 2>&1
+    	opkg install --force-depends luci-i18n-dockerman-zh-cn	 >/dev/null 2>&1
     	opkg install --force-depends avahi-daemon >/dev/null 2>&1
 	if is_docker; then
 		echo "本地成功安装Docker及相关服务！"
