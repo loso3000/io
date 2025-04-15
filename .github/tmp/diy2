@@ -546,7 +546,9 @@ elif [ "$VER1" = "6.12" ]; then
 date2="EzOpWrt ${CONFIG_S}-${DATA}-${VER1}.${ver612}_by Sirpdboy"
 date1="${CONFIG_S}-${DATA}-${VER1}.${ver612}"
 fi
-echo "${date1}" > ./package/base-files/files/etc/ezopenwrt_version
+echo "EZVER=${date1}" > ./package/base-files/files/etc/ezopenwrt_version
+echo "EZDATE=$DATA" >> ./package/base-files/files/etc/ezopenwrt_version
+cp -r ./package/base-files/files/etc/ezopenwrt_version ../ezopenwrt_version
 echo "${date2}" >> ./package/base-files/files/etc/banner
 echo '---------------------------------' >> ./package/base-files/files/etc/banner
 [ -f ./files/root/.zshrc ] || mv -f ./package/add/patch/z.zshrc ./files/root/.zshrc
@@ -590,7 +592,7 @@ ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F 
 [[ -n $ip ]] || ip=` cat package/base-files/luci2/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 [[ -n $ip ]] || ip=192.168.10.1
 OTA_URL="https://$github/$auth/releases/download"
-
+. ../ezopenwrt_version
 if [ -f ${md5_EzOpWrt} ] ;then
 
 file_size=$(du -m  ${md5_EzOpWrt} | cut -f1)
@@ -600,20 +602,22 @@ cat>ezota.json<<EOF
 {
   "${TARGET_DEVICE}": [
     {
-      "ver": "${r_version}",
+      "ver": "${EZVER}",
       "name": "${md5_EzOpWrt}",
       "size": "${file_size}",
-      "date": "$DATA",
+      "date": "$EZDATE",
       "sha256": "$SHA256",
       "ip": "${ip}",
-      "url": "$OTA_URL/${r_version}/${md5_EzOpWrt}"
+      "url": "${OTA_URL}/${r_version}/${md5_EzOpWrt}"
     }
   ]
 }
 EOF
+
 fi
 
 if [ -f ${md5_EzOpWrt_uefi} ] ;then
+
 file_size=$(du -m  ${md5_EzOpWrt_uefi} | cut -f1)
 SHA256=$(sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}')
 
@@ -621,13 +625,13 @@ cat>>ezota.json<<EOF
 {
   "${TARGET_DEVICE}": [
     {
-      "ver": "${r_version}",
+      "ver": "${EZVER}",
       "name": "${md5_EzOpWrt_uefi}",
       "size": "${file_size}",
-      "date": "$DATA",
+      "date": "$EZDATE",
       "sha256": "$SHA256",
       "ip": "${ip}",
-      "url": "$OTA_URL/${r_version}/${md5_EzOpWrt_uefi}"
+      "url": "${OTA_URL}/${r_version}/${md5_EzOpWrt_uefi}"
     }
   ]
 }
@@ -641,7 +645,6 @@ if [ ${CONFIG_S} = "Vip-Super" ] ; then
 fi
 
 popd
-cat ./package/base-files/files/etc/ezopenwrt_version  ../ezopenwrt_version
 EOF
 
 cat>bakkmod.sh<<\EOF
