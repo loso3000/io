@@ -603,7 +603,7 @@ file_size=`du -m  ${md5_EzOpWrt} | cut -f1`
 SHA256=`sha256sum ${md5_EzOpWrt} | awk '{print $1}'`
 
 [ -f ${md5_EzOpWrt} ] && {
-    cat>ezota.json<<'JSONEOF'
+    cat>ezota.json<<JSONEOF
     {
         "${TARGET_DEVICE}": [
         {
@@ -621,7 +621,7 @@ JSONEOF
 }
 
 if [ -f ${md5_EzOpWrt_uefi} ] ;then
-    cat>>ezota.json<<'JSONEOF'
+    cat>>ezota.json<<JSONEOF
     {
         "${TARGET_DEVICE}": [
             {
@@ -640,7 +640,7 @@ fi
 
 popd
 EOF
-fi
+
 
 
 cat>bakkmod.sh<<\EOF
