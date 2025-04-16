@@ -584,32 +584,50 @@ ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F 
 [[ -n $ip ]] || ip="192.168.10.1"
 OTA_URL="https://$github/$auth/releases/download"
 
-[ -f "${md5_EzOpWrt_uefi}" ] && {
-file_size=`du -m  ${md5_EzOpWrt_uefi} | cut -f1`
-SHA256=`sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
-    printf '{
-    "%s": [
+[ -f ${md5_EzOpWrt} ] && {
+
+file_size=`du -m  ${md5_EzOpWrt} | cut -f1`
+SHA256=`sha256sum ${md5_EzOpWrt} | awk '{print $1}'`
+
+
+    cat>ezota.json<<'JSONEOF'
     {
-        "ver": "%s",
-        "name": "%s",
-        "size": "%s",
-        "date": "%s",
-        "sha256": "%s",
-        "ip": "%s",
-        "url": "%s/%s/%s"
+        "${TARGET_DEVICE}": [
+        {
+            "ver": "${EZVER}",
+            "name": "${md5_EzOpWrt}",
+            "size": "${file_size}",
+            "date": "$EZDATE",
+            "sha256": "$SHA256",
+            "ip": "${ip}",
+            "url": "${OTA_URL}/${EZVER}/${md5_EzOpWrt}"
+        }
+        ]
     }
-    ]
-}\n' \
-    "${TARGET_DEVICE}" \
-    "${EZVER}" \
-    "${md5_EzOpWrt_uefi}" \
-    "${file_size}" \
-    "${EZDATE}" \
-    "${SHA256}" \
-    "${ip}" \
-    "${OTA_URL}" "${EZVER}" "${md5_EzOpWrt_uefi}" > ezota.json
+JSONEOF
 }
 
+
+[ -f ${md5_EzOpWrt_uefi} ]  && {
+
+file_size=`du -m  ${md5_EzOpWrt_uefi} | cut -f1`
+SHA256=`sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
+    cat>>ezota.json<<'JSONEOF'
+    {
+        "${TARGET_DEVICE}": [
+            {
+                "ver": "${EZVER}",
+                "name": "${md5_EzOpWrt_uefi}",
+                "size": "${file_size}",
+                "date": "$EZDATE",
+                "sha256": "$SHA256",
+                "ip": "${ip}",
+                "url": "${OTA_URL}/${EZVER}/${md5_EzOpWrt_uefi}"
+            }
+        ]
+    }
+JSONEOF
+}
 
 if [ ${CONFIG_S} = "Vip-Super" ] ; then
 cp ../../../../ezotafooter  ./ota.footer
