@@ -585,6 +585,8 @@ ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F 
 OTA_URL="https://$github/$auth/releases/download"
 
 [ -f "${md5_EzOpWrt_uefi}" ] && {
+file_size=`du -m  ${md5_EzOpWrt_uefi} | cut -f1`
+SHA256=`sha256sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
     printf '{
     "%s": [
     {
