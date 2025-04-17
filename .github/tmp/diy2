@@ -113,8 +113,7 @@ git clone https://git.kejizero.online/zhao/package_kernel_r8126 package/kernel/r
 rm -rf ./feeds/luci/applications/luci-app-lucky
 rm -rf ./feeds/luci/applications/luci-app-ddns-go
 
-rm -rf  ./feeds/packages/net/AdGuardHome
-rm -rf  ./feeds/packages/net/adguardhome
+#rm -rf  ./feeds/packages/net/adguardhome
 rm -rf ./feeds/luci/applications/luci-app-adguardhome
 rm -rf ./feeds/luci/applications/luci-app-filetransfer
 rm -rf ./feeds/luci/applications/luci-app-fileassistant
