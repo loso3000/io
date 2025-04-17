@@ -6,6 +6,7 @@ github="github.com"
 auth="sirpdboy/openwrt"
 mirror=https://init.cooluc.com
 mirror=raw.githubusercontent.com/coolsnowwolf/lede/master
+ezapi=https://api.github.com/repositories/256094735/releases
 
 #安装和更新软件包
 UPDATE_PACKAGE() {
@@ -536,6 +537,7 @@ fi
 echo "EZVER=${date1}" > ./files/etc/ezopenwrt_version
 echo "EZDATE=$DATA" >> ./files/etc/ezopenwrt_version
 cat ./files/etc/ezopenwrt_version >  /builder/ezopenwrt_version
+echo EZAPI="$ezapi" >>  /builder/ezopenwrt_version
 echo "${date2}" >> ./files/etc/banner
 #tokenfile
 cp -r  ./package/add/patch/GithubvToken ./files/etc/ezgithub
