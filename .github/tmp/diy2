@@ -549,7 +549,7 @@ echo '---------------------------------' >> ./files/etc/banner
 [ -f ./files/etc/profiles ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/profiles > ./files/etc/profiles
 
 
-cat>buildmd5.sh<<EOF
+cat>buildmd5.sh<<\EOF
 #!/bin/bash
 
 github="github.com"
@@ -613,23 +613,29 @@ JSONEOF
 
 file_size=`du -m  ${md5_EzOpWrt_uefi} | cut -f1`
 md5=`md5sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
-
-cat>>ezota.json<<JSONEOF
+    printf '{
+    "%s": [
     {
-        "${TARGET_DEVICE}": [
-            {
-                "ver": "${EZVER}",
-                "name": "${md5_EzOpWrt_uefi}",
-                "size": "${file_size}",
-                "date": "$EZDATE",
-                "md5": "$md5",
-                "ip": "${ip}",
-                "url": "${OTA_URL}/${EZVER}/${md5_EzOpWrt_uefi}"
-            }
-        ]
+        "ver": "%s",
+        "name": "%s",
+        "size": "%s",
+        "date": "%s",
+        "md5": "%s",
+        "ip": "%s",
+        "url": "%s/%s/%s"
     }
-JSONEOF
+    ]
+}\n' \
+    "${TARGET_DEVICE}" \
+    "${EZVER}" \
+    "${md5_EzOpWrt_uefi}" \
+    "${file_size}" \
+    "${EZDATE}" \
+    "${md5}" \
+    "${ip}" \
+    "${OTA_URL}" "${EZVER}" "${md5_EzOpWrt_uefi}" > ezota.json
 }
+
 
 if [ ${CONFIG_S} = "Vip-Super" ] ; then
 cp ../../../../ezotafooter  ./ota.footer
@@ -641,7 +647,7 @@ EOF
 
 
 
-cat>bakkmod.sh<<EOF
+cat>bakkmod.sh<<\EOF
 #!/bin/bash
 kmoddirdrv=./files/etc/kmod.d/drv
 kmoddirdocker=./files/etc/kmod.d/docker
@@ -681,7 +687,7 @@ sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" $(find ./feeds/luci/module
 #修改默认IP地址
 # sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" package/base-files/files/bin/config_generate
 
-cat>./package/base-files/files/etc/kmodreg<<EOF
+cat>./package/base-files/files/etc/kmodreg<<\EOF
 #!/bin/bash
 # EzOpWrt By Sirpdboy
 IPK=$1
