@@ -282,7 +282,6 @@ rm -rf ./feeds/packages/net/shadow-tls
 # mv -f ./package/add/up/netdata ./package/
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
-rm -rf ./package/add/up/pass/xray-core
 rm -rf ./package/add/up/pass/trojan-plus
 
 # 全能推送
@@ -305,9 +304,6 @@ rm -rf ./package/add/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
 # rm -rf ./package/add/up/tool/default-settings
-
-rm -rf ./package/add/up/pass/xray-core
-
 
 # Add luci-app-dockerman
 rm -rf ./feeds/luci/applications/luci-app-dockerman
@@ -335,8 +331,6 @@ pushd feeds/packages
     curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0002-docker-add-buildkit-experimental-support.patch | patch -p1
     curl -s https://raw.githubusercontent.com/oppen321/OpenWrt-Patch/refs/heads/kernel-6.6/docker/0003-dockerd-disable-ip6tables-for-bridge-network-by-defa.patch | patch -p1
 popd
-
-rm -rf ./package/add/up/docke
 
 
 #istoreos-files
