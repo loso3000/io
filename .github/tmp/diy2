@@ -781,7 +781,7 @@ else
 cat  ./x86_64/${CONFIG_S}  > .config
 fi
 case "${CONFIG_S}" in
-Vip*)
+Vip-Super|Vip-Mini)
 cat  ./x86_64/comm  >> .config
 ;;
 *)
