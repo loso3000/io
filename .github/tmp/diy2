@@ -170,7 +170,10 @@ rm -rf  ./feeds/luci/applications/luci-app-syncdial
 rm -rf ./feeds/packages/net/aria2
 rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app-aria2
 
+#cloudreve
 
+rm -rf ./feeds/packages/net/cloudreve
+rm -rf ./feeds/luci/applications/luci-app-cloudreve  package/feeds/packages/luci-app-cloudreve
 # Passwall
 
 rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-app-ssr-plus
