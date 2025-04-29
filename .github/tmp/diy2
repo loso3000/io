@@ -425,6 +425,10 @@ sed -i 's/家庭云//g'  `grep "家庭云" -rl ./`
 
 sed -i 's/msgstr "挂载 SMB 网络共享"/msgstr "挂载网络共享"/g'  `grep "挂载 SMB 网络共享" -rl ./`
 
+# 网易云
+rm -rf ./feeds/luci/applications/luci-app-unblockmusic
+git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git  ./package/luci-app-unblockneteasemusic
+sed -i 's/解除网易云音乐播放限制/解锁灰色歌曲/g' ./package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
 
 #cifs挂pan
 # sed -i '/mcsub_renew.datatype/d'  ./feeds/luci/applications/luci-app-udpxy/luasrc/model/cbi/udpxy.lua  #修复UDPXY设置延时55的错误
