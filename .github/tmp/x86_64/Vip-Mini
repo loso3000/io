@@ -161,6 +161,7 @@ CONFIG_PACKAGE_luci-app-vnstat2=y
 CONFIG_PACKAGE_luci-app-nft-timecontrol=y
 CONFIG_PACKAGE_luci-app-wechatpush=y
 
+CONFIG_PACKAGE_luci-app-watchdog=y
 ### ImmortalWrt Proxy - nft  firewall4
 CONFIG_PACKAGE_luci-app-homeproxy=y
 CONFIG_PACKAGE_luci-app-nikki=y
