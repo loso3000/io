@@ -1,7 +1,7 @@
 下面是具体更新内容：
 
-1.增加luci-app-watchdog【看门狗】插件，解决OPENWRT 安全登陆管控问题【独家研发】。
-2.增加luci-app-chatgpt-web插件，可选择deepseek,openwai,gemini等5大常用平台。
+1.升级安全登陆管控luci-app-watchdog【看门狗】插件1.0.2版，修复汉化不全问题【独家研发】。
+2.增加luci-app-chatgpt-web插件，可选择deepseek,openwai,gemini等5大常用平台【独家研发】。
 3.修复保留配置升级，软件源导致不正常的问题。
 4.解决目前已知所有问题，更多细节优化请自行刷机体验。
 
