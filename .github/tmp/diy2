@@ -34,9 +34,9 @@ case "${CONFIG_S}" in
 esac
 }
 
-mkdir -p files/root
-mkdir -p files/etc/opkg
-mkdir -p files/usr/share
+mkdir -p ./files/root
+mkdir -p ./files/etc/opkg
+mkdir -p ./files/usr/share
 mkdir -p ./package/emortal
 
 [[ -n $TARGET_DEVICE ]] || TARGET_DEVICE="x86_64"
@@ -549,6 +549,7 @@ echo '---------------------------------' >> ./files/etc/banner
 [ -f ./files/root/.zshrc ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/z.zshrc > ./files/root/.zshrc
 [ -f ./files/etc/profiles ] || mv -f ./package/add/patch/profiles ./files/etc/profiles
 [ -f ./files/etc/profiles ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/profiles > ./files/etc/profiles
+[ -f ./files/etc/opkg/distfeeds.conf.server ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/feeds/distfeeds.conf.server > ./files/etc/opkg/distfeeds.conf.server
 
 
 cat>buildmd5.sh<<\EOF
