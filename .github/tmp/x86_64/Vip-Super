@@ -82,7 +82,6 @@ CONFIG_PACKAGE_luci-theme-edge=y
 ### APPS
 CONFIG_PACKAGE_luci-app-advancedplus=y
 
-CONFIG_PACKAGE_luci-app-nft-timecontrol=y
 CONFIG_PACKAGE_luci-app-eqosplus=y
 CONFIG_PACKAGE_luci-app-poweroffdevice=y
 CONFIG_PACKAGE_luci-app-chatgpt=y
@@ -115,7 +114,7 @@ CONFIG_PACKAGE_luci-app-mosdns=y
 # CONFIG_PACKAGE_luci-app-qbittorrent=y
 # CONFIG_PACKAGE_luci-app-ramfree=y
 CONFIG_PACKAGE_luci-app-samba4=y
-CONFIG_PACKAGE_luci-app-socat=y
+# CONFIG_PACKAGE_luci-app-socat=y
 CONFIG_PACKAGE_luci-app-sqm=n
 CONFIG_PACKAGE_luci-app-ttyd=y
 CONFIG_PACKAGE_luci-app-upnp=y
@@ -152,20 +151,20 @@ CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y
 CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
 CONFIG_PACKAGE_luci-app-passwall_Nftables_Transparent_Proxy=y
 
-CONFIG_PACKAGE_luci-app-filetransfer=y
+# CONFIG_PACKAGE_luci-app-filetransfer=y
 CONFIG_PACKAGE_luci-app-openclash=y
 # CONFIG_PACKAGE_luci-mod-dashboard=y 没用。
 # CONFIG_PACKAGE_luci-app-beardropper=y
 
 CONFIG_PACKAGE_kmod-fs-cifs=y
 # CONFIG_PACKAGE_luci-app-easytier=y
-CONFIG_PACKAGE_luci-app-vnstat2=y
+# CONFIG_PACKAGE_luci-app-vnstat2=y
+CONFIG_PACKAGE_luci-app-statistics=y
 # CONFIG_PACKAGE_luci-app-nft-qos=y
 CONFIG_PACKAGE_luci-app-nft-timecontrol=y
 # CONFIG_PACKAGE_luci-app-wechatpush=y
 CONFIG_PACKAGE_luci-app-watchdog=y
 
-CONFIG_PACKAGE_luci-app-statistics=y
 ### ImmortalWrt Proxy - nft  firewall4
 CONFIG_PACKAGE_luci-app-homeproxy=y
 CONFIG_PACKAGE_luci-app-nikki=y
@@ -196,11 +195,11 @@ CONFIG_PACKAGE_luci-proto-wireguard=y
 CONFIG_PACKAGE_luci-proto-bonding=y
 CONFIG_PACKAGE_luci-proto-relay=y
 CONFIG_PACKAGE_kmod-wireguard=y
-# CONFIG_PACKAGE_kmod-pptp=y
-# CONFIG_PACKAGE_xl2tpd=y
-# CONFIG_PACKAGE_ppp-mod-pppol2tp=y
-# CONFIG_PACKAGE_kmod-pppol2tp=y
-# CONFIG_PACKAGE_ppp-mod-pptp=y
+CONFIG_PACKAGE_kmod-pptp=y
+CONFIG_PACKAGE_xl2tpd=y
+CONFIG_PACKAGE_ppp-mod-pppol2tp=y
+CONFIG_PACKAGE_kmod-pppol2tp=y
+CONFIG_PACKAGE_ppp-mod-pptp=y
 
 #组件调整
 CONFIG_PACKAGE_openssh-sftp-client=y
