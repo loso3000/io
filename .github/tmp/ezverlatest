@@ -1,14 +1,13 @@
 下面是具体更新内容：
 
-1.升级安全登陆管控luci-app-watchdog【看门狗】插件1.0.3版，优化代码【独家研发】。
-2.增加luci-app-chatgpt-web插件，可选择deepseek,openwai,gemini等5大常用平台【独家研发】。
+1.所有版本增加KMS 服务器插件。
+2.修复软件源不配套，导致的更新问题。
 3.升级luci-app-DDNS-GO插件，JS版在OPENWRT24.10上效果更好。
 4.升级luci-app-netspeedtest插件，JS版支持Ookla SpeedTest测速更准确！
-5.修复保留配置升级，软件源导致不正常的问题。
-6.解决目前已知所有问题，更多细节优化请自行刷机体验。
+5.解决目前已知所有问题，更多细节优化请自行刷机体验。
 
 【注意】根据虚拟机和实际情况出发，WAN口绑定方案：单网口时eth0为LAN口，多网口最后一个口为WAN其余是LAN口
 【公告】欢迎定制各种特殊驱动固件和特殊需要插件以及各种路由器固件。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/575" target="_blank">点击这里</a> 查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/577" target="_blank">点击这里</a> 查看详情</li>
 </ul>
