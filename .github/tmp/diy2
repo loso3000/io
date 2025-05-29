@@ -312,10 +312,10 @@ rm -rf ./package/add/up/tool/autocore
 # Add luci-app-dockerman
 
 dockerman_repo="https://github.com/oppen321/luci-app-dockerman"
-docker_repo="https://git.kejizero.online/zhao/packages_utils_docker"
-dockerd_repo="https://git.kejizero.online/zhao/packages_utils_dockerd"
-containerd_repo="https://git.kejizero.online/zhao/packages_utils_containerd"
-runc_repo="https://git.kejizero.online/zhao/packages_utils_runc"
+docker_repo="https://github.com/sbwml/packages_utils_docker"
+dockerd_repo="https://github.com/sbwml/packages_utils_dockerd"
+containerd_repo="https://github.com/sbwml/packages_utils_containerd"
+runc_repo="https://github.com/sbwml/packages_utils_runc"
 
 rm -rf ./feeds/luci/applications/luci-app-dockerman
 git clone $dockerman_repo feeds/luci/applications/luci-app-dockerman
