@@ -207,7 +207,7 @@ git clone https://$github/sbwml/packages_lang_golang -b 24.x feeds/packages/lang
 rm -rf ./feeds/packages/net/mwan3
 mv ./package/add/up/tool/mwan3 ./feeds/packages/net/mwan3
 
-rm -rf ./add/up/ddns-scripts
+rm -rf ./package/add/up/ddns-scripts
 # rm -rf  ./feeds/packages/net/ddns-scripts
 
 # rm -rf ./package/ssr/luci-app-passwall2/htdocs/luci-static/resources/
