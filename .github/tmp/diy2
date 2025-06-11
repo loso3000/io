@@ -248,6 +248,8 @@ rm -rf ./package/ssr/mosdns
 #rm -rf ./package/ssr/redsocks2
 #rm -rf ./package/ssr/shadow-tls
 
+#istoreos-files
+rm -rf ./package/istoreos-files
 
  rm -rf ./feeds/packages/net/brook
  rm -rf ./feeds/packages/net/chinadns-ng
@@ -282,13 +284,14 @@ rm -rf ./feeds/packages/net/lua-neturl
 rm -rf ./feeds/packages/net/redsocks2
 rm -rf ./feeds/packages/net/shadow-tls
 
- rm -rf  ./feeds/luci/applications/luci-app-netdata
+# rm -rf  ./feeds/luci/applications/luci-app-netdata
 # mv -f ./package/add/up/netdata ./package/
 # rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
 rm -rf ./package/add/up/pass/trojan-plus
 
 # 全能推送
+rm -rf ./feeds/luci/applications/luci-app-watchcat
 rm -rf ./feeds/luci/applications/luci-app-pushbot
 git clone https://github.com/zzsj0928/luci-app-pushbot package/luci-app-pushbot
 rm -rf ./feeds/luci/applications/luci-app-wechatpush 
