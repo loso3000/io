@@ -48,7 +48,6 @@ rm -rf  ./feeds/luci/applications/luci-app-arpbind
 #rm -rf  ./feeds/packages/net/wget
 
 rm -rf  ./feeds/packages/net/speedtest-cli
-rm -rf  ./feeds/packages/net/ddns-scripts
 
 # rm -rf  ./feeds/packages/rust
 # rm -rf  ./feeds/packages/lang/rust
@@ -208,6 +207,8 @@ git clone https://$github/sbwml/packages_lang_golang -b 24.x feeds/packages/lang
 rm -rf ./feeds/packages/net/mwan3
 mv ./package/add/up/tool/mwan3 ./feeds/packages/net/mwan3
 
+rm -rf ./add/up/ddns-scripts
+# rm -rf  ./feeds/packages/net/ddns-scripts
 
 # rm -rf ./package/ssr/luci-app-passwall2/htdocs/luci-static/resources/
 # rm -rf ./package/ssr/luci-app-homeproxy
