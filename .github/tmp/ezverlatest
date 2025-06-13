@@ -1,11 +1,11 @@
 下面是具体更新内容：
 
-1.修复软件源不配套，导致的更新问题。
-2.网速统计采用luci-app-statistics插件 。
-3.升级DOCKER到最28.2.1版本。
+1. 修复默认软件源，导致的更新问题。
+2. 补齐驱动8125，8127等 。
+3. 升级DDNS-GO，看门狗，网速测试等插件。
 
 【注意】根据虚拟机和实际情况出发，WAN口绑定方案：单网口时eth0为LAN口，多网口最后一个口为WAN其余是LAN口
 【公告】欢迎定制各种特殊驱动固件和特殊需要插件以及各种路由器固件。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/579" target="_blank">点击这里</a> 查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/581" target="_blank">点击这里</a> 查看详情</li>
 </ul>
