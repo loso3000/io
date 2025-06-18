@@ -2,10 +2,11 @@
 
 1. 修复默认软件源，导致的更新问题。
 2. 补齐驱动8125，8127等 。
-3. 升级dockerm服务未启动是，页面报错问题。
+4. 修复设置向导无法使用问题 。
+5. 升级dockerm服务未启动是，页面报错问题。
 
 【注意】根据虚拟机和实际情况出发，WAN口绑定方案：单网口时eth0为LAN口，多网口最后一个口为WAN其余是LAN口
 【公告】欢迎定制各种特殊驱动固件和特殊需要插件以及各种路由器固件。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/581" target="_blank">点击这里</a> 查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/583" target="_blank">点击这里</a> 查看详情</li>
 </ul>
