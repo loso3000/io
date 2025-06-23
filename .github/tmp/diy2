@@ -785,15 +785,33 @@ esac
 
 EOF
 
+if [ ${CONFIG_S} = "Vip-Custom" ] ; then
 
-#UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
-# UPDATE_PACKAGE "nekoclash" "Thaolga/luci-app-nekoclash" "main"
-#  UPDATE_PACKAGE "luci-app-gecoosac" "lwb1978/openwrt-gecoosac" "main"
-# UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
-# UPDATE_PACKAGE "easytier" "lazyoop/networking-artifact" "main" "pkg"
-# UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
-#tailscale
-rm -rf feeds/{packages/net/tailscale,luci/applications/luci-app-tailscale}
+curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/10_system2410.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
+else
+
+# 广告链接 23.05专用
+# curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/10_system2305.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
+# 广告链接 24.10专用
+curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/10_system2410gg.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
+fi
+
+
+#修复TailScale配置文件冲突
+TS_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/tailscale/Makefile")
+if [ -f "$TS_FILE" ]; then
+	sed -i '/\/files/d' $TS_FILE
+	echo "tailscale has been fixed!"
+fi
+sed -i '/\/files/d' ./feeds/packages/net/tailscale/Makefile
+
+#修复Coremark编译失败
+CM_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/coremark/Makefile")
+if [ -f "$CM_FILE" ]; then
+	sed -i 's/mkdir/mkdir -p/g' $CM_FILE
+	echo "coremark has been fixed!"
+fi
+
 
 if [ $REPO_BRANCH = istoreos-24.10 ] ;then
 cat  ../.config  > .config
