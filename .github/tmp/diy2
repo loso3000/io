@@ -299,11 +299,8 @@ rm -rf ./feeds/luci/applications/luci-app-wechatpush
 git clone https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
 
 git clone  https://$github/EasyTier/luci-app-easytier ./package/luci-app-easytier
-#net eth0
-rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
-rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+
+
 # rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
 rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamba  ./package/lean/default-settings 
@@ -669,7 +666,6 @@ md5=`md5sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
     "${OTA_URL}" "${EZVER}" "${md5_EzOpWrt_uefi}" > ezota.json
 }
 
-
 if [ ${CONFIG_S} = "Vip-Super" ] ; then
 cp ../../../../ezotafooter  ./ota.footer
 cp ../../../../ezverlatest   ./ver.latest 
@@ -677,8 +673,6 @@ fi
 
 popd
 EOF
-
-
 
 cat>bakkmod.sh<<\EOF
 #!/bin/bash
@@ -787,13 +781,25 @@ EOF
 
 if [ ${CONFIG_S} = "Vip-Custom" ] ; then
 
+
+#net eth0
+rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
+rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
+curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_networketh0 > ./target/linux/x86/base-files/etc/board.d/99-default_network
+curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+
 curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/10_system2410.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 else
+#net eth0
+rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
+rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
+curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
+curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
 
 # 广告链接 23.05专用
 # curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/10_system2305.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 # 广告链接 24.10专用
-curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/10_system2410gg.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
+# curl -fsSL  https://raw.githubusercontent.com/loso3000/other/master/patch/10_system2410gg.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 fi
 
 
@@ -841,7 +847,7 @@ cat  ./x86_64/comm  >> .config
 *)
 
 #修改默认IP地址
-sed -i 's/192.168.1.1/192.168.16.25/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 
 #修改默认IP地址
 # sed -i 's/192\.168\.1\.1/192\.168\.10\.1/g' package/base-files/files/bin/config_generate
@@ -852,7 +858,7 @@ sed -i 's/192.168.1.1/192.168.16.25/g' package/base-files/files/bin/config_gener
 #sed -i 's/luci-theme-argon/luci-theme-kucat/g' package/istoreos-files/Makefile
 
 #修改immortalwrt.lan关联IP
-sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.16\.25/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
+sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 
 echo 'no'
 ;;
