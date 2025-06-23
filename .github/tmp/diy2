@@ -308,7 +308,7 @@ curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
 rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamba  ./package/lean/default-settings 
 
-rm -rf ./package/add/up/tool/autocore
+# rm -rf ./package/add/up/tool/autocore
 # rm -rf ./package/add/up/tool/automount
 # rm -rf ./package/add/up/tool/autosamba
 # rm -rf ./package/add/up/tool/default-settings
