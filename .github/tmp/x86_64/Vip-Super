@@ -494,4 +494,7 @@ CONFIG_PACKAGE_kmod-veth=y
 
 #https 
 CONFIG_PACKAGE_libustream-openssl=y
-CONFIG_PACKAGE_libopenssl=y#ssl socat
+
+CONFIG_PACKAGE_socat=y          # 启用 socat 主程序
+CONFIG_PACKAGE_libopenssl=y     # 启用 OpenSSL 库
+CONFIG_SOCAT_SSL=y
