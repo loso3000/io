@@ -493,5 +493,5 @@ CONFIG_PACKAGE_kmod-usbmon=y
 CONFIG_PACKAGE_kmod-veth=y
 
 #https 
-#CONFIG_PACKAGE_libustream-openssl=y
+CONFIG_PACKAGE_libustream-openssl=y
 CONFIG_PACKAGE_libopenssl=y#ssl socat
