@@ -113,7 +113,7 @@ CONFIG_PACKAGE_luci-app-mosdns=y
 # CONFIG_PACKAGE_luci-app-nlbwmon=y
 # CONFIG_PACKAGE_luci-app-qbittorrent=y
 # CONFIG_PACKAGE_luci-app-ramfree=y
-CONFIG_PACKAGE_luci-app-samba4=y
+#  CONFIG_PACKAGE_luci-app-samba4=y
 CONFIG_PACKAGE_luci-app-socat=y
 CONFIG_PACKAGE_luci-app-sqm=n
 CONFIG_PACKAGE_luci-app-ttyd=y
@@ -135,7 +135,7 @@ CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Hysteria=y
 CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_ShadowsocksR_Libev_Client=y
 CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_ShadowsocksR_Libev_Server=y
 CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Shadowsocks_Libev_Client=y
-CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Shadowsocks_Libev_Server=y
+CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Shadowsocks_Liabev_Server=y
 CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_Simple_Obfs=y
 CONFIG_PACKAGE_luci-app-passwall2_INCLUDE_SingBox=y
 CONFIG_PACKAGE_luci-app-passwall2_Nftables_Transparent_Proxy=y
@@ -168,7 +168,7 @@ CONFIG_PACKAGE_luci-app-watchdog=y
 
 # CONFIG_PACKAGE_luci-app-fakehttp=y
 
-CONFIG_PACKAGE_luci-app-vlmcsd=y
+# CONFIG_PACKAGE_luci-app-vlmcsd=y
 
 ### ImmortalWrt Proxy - nft  firewall4
 CONFIG_PACKAGE_luci-app-homeproxy=y
