@@ -2,7 +2,8 @@
 
 1. 升级KUCAT主题，优化显示问题【独家研发】
 2. 修复在线升级卡住不刷机的问题。在SSH中执行：
-curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm  > /usr/lib/lua/luci/view/admin_system/ota.htm
+curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
+> /usr/lib/lua/luci/view/admin_system/ota.htm
 3. 修复概览首页显示2.5G网卡为2G的问题。
 4. 修复目前已知所有问题，具体请自行刷机体验。
 
