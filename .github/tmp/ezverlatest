@@ -1,7 +1,7 @@
 下面是具体更新内容：
 
-1. 升级KUCAT主题，优化显示问题【独家研发】
-2. 修复在线升级卡住不刷机的问题。在SSH中执行：
+1. 升级KUCAT主题，优化手动设置亮暗设置无法保存问题【独家研发】
+2. 修复在线升级卡“刷机准备中”的问题。在SSH中执行：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
 > /usr/lib/lua/luci/view/admin_system/ota.htm
 3. 修复概览首页显示2.5G网卡为2G的问题。
