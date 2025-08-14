@@ -5,7 +5,7 @@
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
 > /usr/lib/lua/luci/view/admin_system/ota.htm
 3. 升级UPNP自动填写当前路由器IP，解决小白不会填写导致的UPNP无效问题。
-4. 升级保留配置时，源件源不配套的问题。
+4. 升级保留配置时，软件源不配套的问题。
 5. 修复目前已知所有问题，具体请自行刷机体验。
 
 【注意】根据虚拟机和实际情况出发，WAN口绑定方案：单网口时eth0为LAN口，多网口最后一个口为WAN其余是LAN口
