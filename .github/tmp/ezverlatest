@@ -1,7 +1,7 @@
 下面是具体更新内容：
 
-1. 升级kucat主题，优化一些显示问题，解决自动切换无效问题。
-2. 修复在线升级卡“刷机准备中”的问题。在SSH中执行：
+1. 升级kucat主题，修复无设置工具主题显示不正常问题，优化一些显示问题。
+2. 修复在线升级卡“准备中”的问题。在SSH中执行：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
 > /usr/lib/lua/luci/view/admin_system/ota.htm
 3. 升级UPNP自动填写当前路由器IP，解决小白不会填写导致的UPNP无效问题。
