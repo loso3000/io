@@ -292,7 +292,7 @@ rm -rf ./feeds/packages/net/shadow-tls
 
 # rm -rf  ./feeds/luci/applications/luci-app-netdata
 # mv -f ./package/add/up/netdata ./package/
-# rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
+rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
 rm -rf ./package/add/up/pass/trojan-plus
 
