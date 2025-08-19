@@ -155,7 +155,7 @@ CONFIG_PACKAGE_luci-app-nikki=y
 CONFIG_PACKAGE_haproxy=y
 CONFIG_PACKAGE_nikki=y
 CONFIG_PACKAGE_luci-app-firewall=y
-CONFIG_PACKAGE_firewall4=y
+# CONFIG_PACKAGE_firewall4=y
 
 #wman3
 CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
@@ -313,16 +313,16 @@ CONFIG_PACKAGE_i915-firmware=y
 CONFIG_PACKAGE_intel-microcode=y
 
 # === 视频加速 ===
-CONFIG_PACKAGE_intel-media-driver=y
-CONFIG_PACKAGE_mesa-vaapi=y
-CONFIG_PACKAGE_libva-utils=y
+# CONFIG_PACKAGE_intel-media-driver=y
+# CONFIG_PACKAGE_mesa-vaapi=y
+# CONFIG_PACKAGE_libva-utils=y
 
 # === FFmpeg ===
-CONFIG_PACKAGE_ffmpeg-full=y
-CONFIG_FFMPEG_ENABLE_VAAPI=y
+# CONFIG_PACKAGE_ffmpeg-full=y
+# CONFIG_FFMPEG_ENABLE_VAAPI=y
 
 # === Jellyfin ===
-CONFIG_PACKAGE_jellyfin-server=y
+# CONFIG_PACKAGE_jellyfin-server=y
 
 #VMware-tools
 CONFIG_PACKAGE_open-vm-tools=y
