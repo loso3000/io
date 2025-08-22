@@ -224,7 +224,7 @@ rm -rf ./package/ssr/luci-app-ssr-plus
 # rm -rf ./package/ssr/luci-app-passwall2
 
 #rm -rf ./package/ssr/brook
-#rm -rf ./package/ssr/chinadns-ng
+rm -rf ./package/ssr/chinadns-ng
 #rm -rf ./package/ssr/dns2socks
 #rm -rf ./package/ssr/dns2tcp
 #rm -rf ./package/ssr/pdnsd-alt
@@ -258,7 +258,7 @@ rm -rf ./package/ssr/mosdns
 rm -rf ./package/istoreos-files
 
  rm -rf ./feeds/packages/net/brook
- rm -rf ./feeds/packages/net/chinadns-ng
+ # rm -rf ./feeds/packages/net/chinadns-ng
  rm -rf ./feeds/packages/net/dns2socks
  rm -rf ./feeds/packages/net/dns2tcp
  rm -rf ./feeds/packages/net/pdnsd-alt
