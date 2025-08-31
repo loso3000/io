@@ -3,6 +3,7 @@
 
 1. 所有版本将原来statistics统计换成Bandix 局域网流量监控插件。
 2. 升级KUCAT主题，适配Bandix流量监控插件。
+3. 增加xfs，F2FS,EXTFAT等文件格式。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
@@ -11,5 +12,5 @@ curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.ht
 【问题】有问题反馈，请提供截图、详细日志和可重现操作流程，否则一率不回复不处理
 【公告】欢迎定制各种特殊驱动固件和特殊需要插件以及各种路由器固件。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/603" target="_blank">点击这里</a> 查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/604" target="_blank">点击这里</a> 查看详情</li>
 </ul>
