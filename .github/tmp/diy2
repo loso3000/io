@@ -248,7 +248,7 @@ rm -rf ./package/ssr/mosdns
 #rm -rf ./package/ssr/xray-plugin
 # rm -rf ./package/ssr/naiveproxy
 #rm -rf ./package/ssr/v2ray-plugin
-#rm -rf ./package/ssr/v2ray-core
+rm -rf ./package/ssr/v2ray-core
 # rm -rf ./package/ssr/pdnsd
 #rm -rf ./package/ssr/lua-neturl
 #rm -rf ./package/ssr/redsocks2
@@ -257,6 +257,7 @@ rm -rf ./package/ssr/mosdns
 #istoreos-files
 rm -rf ./package/istoreos-files
 
+# rm -rf ./feeds/packages/net/xray-core
  rm -rf ./feeds/packages/net/brook
  # rm -rf ./feeds/packages/net/chinadns-ng
  rm -rf ./feeds/packages/net/dns2socks
@@ -278,7 +279,6 @@ rm -rf ./package/istoreos-files
 
 #rm -rf ./feeds/packages/net/shadowsocks-libev
 #rm -rf ./feeds/packages/net/shadowsocks-rust
-rm -rf ./feeds/packages/net/xray-core
 rm -rf ./feeds/packages/net/sing-box
 rm -rf ./feeds/packages/net/trojan-plus
 rm -rf ./feeds/packages/net/xray-plugin
