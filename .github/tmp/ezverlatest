@@ -1,10 +1,8 @@
 【小技巧】 在SSH或者TTYD终端时有9大后台维护菜单，取消后台维护菜单方法：【系统】->【进阶设置】->【高级】->【不用后台菜单】 选择即可。
 下面是具体更新内容：
 
-1. 升级Bandix流量监控，在设置中启用才生效。
-2. 升级KUCAT主题，适配Bandix流量监控插件。
-3. 升级看门狗插件，解决某些独立安装时的问题。
-4. 升级ddns-go插件。
+1. 升级KUCAT主题，解决手机上无法点击应用保存等问题。
+2. 升级ddns-go插件。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
