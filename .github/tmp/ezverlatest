@@ -3,6 +3,7 @@
 
 1. 升级KUCAT主题，解决手机上无法点击应用保存,防火墙规则多个目标地址不自动换行等问题。
 2. 增加extfat等几个文件格式。
+3. 增加软件源，常见插件可以直接在软件仓库中安装了。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
