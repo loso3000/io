@@ -1,9 +1,9 @@
 【小技巧】 在SSH或者TTYD终端时有9大后台维护菜单，取消后台维护菜单方法：【系统】->【进阶设置】->【高级】->【不用后台菜单】 选择即可。
 下面是具体更新内容：
 
-1. 升级KUCAT主题，解决手机上无法点击应用保存,防火墙规则多个目标地址不自动换行等问题。
-2. 增加extfat等几个文件格式。
-3. 增加软件源，常见插件可以直接在软件仓库中安装了。
+1. 升级DDNS-GO。
+2. 所有版本都支持wireguard。
+3. 更新所有插件到最新版本。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
@@ -12,5 +12,5 @@ curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.ht
 【问题】有问题反馈，请提供截图、详细日志和可重现操作流程，否则一率不回复不处理
 【公告】欢迎定制各种特殊驱动固件和特殊需要插件以及各种路由器固件。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/607" target="_blank">点击这里</a> 查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/608" target="_blank">点击这里</a> 查看详情</li>
 </ul>
