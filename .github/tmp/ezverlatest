@@ -3,7 +3,7 @@
 
 1. 升级DDNS-GO。
 2. 所有版本都支持wireguard。
-3. 更新所有插件到最新版本。
+3. 应用过滤升级6.1.6版本。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
