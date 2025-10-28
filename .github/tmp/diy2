@@ -305,7 +305,11 @@ rm -rf ./feeds/packages/net/lua-neturl
 rm -rf ./feeds/packages/net/redsocks2
 rm -rf ./feeds/packages/net/shadow-tls
 
-# rm -rf  ./feeds/luci/applications/luci-app-netdata
+#netdata
+rm -rf  packages/admin/netdata
+rm -rf ./feedspackages/admin/netdata
+rm -rf  ./feeds/luci/applications/luci-app-netdata
+
 # mv -f ./package/add/up/netdata ./package/
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
