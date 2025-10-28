@@ -6,6 +6,7 @@
 3. 独家升级luci-app-lucky 3.0.1版,适配OPENWRT 24.10的JS版本增加重置密码功能。
 4. 升级bandix流量监控0.7.3版,解决在线不准确增加实时连接监控。
 5. 升级任务设置2.3.1版，修复OPENWRT 24.10下开机启动任务无效问题。
+6. 升级netdata实时监控2.7.2，适配OPENWRT 24.10 JS版。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
