@@ -307,7 +307,7 @@ rm -rf ./feeds/packages/net/shadow-tls
 
 #netdata
 rm -rf  packages/admin/netdata
-rm -rf ./feedspackages/admin/netdata
+rm -rf ./feeds/packages/admin/netdata
 rm -rf  ./feeds/luci/applications/luci-app-netdata
 
 # mv -f ./package/add/up/netdata ./package/
