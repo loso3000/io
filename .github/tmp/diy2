@@ -310,7 +310,9 @@ rm -rf  packages/admin/netdata
 rm -rf ./feeds/packages/admin/netdata
 rm -rf  ./feeds/luci/applications/luci-app-netdata
 
-# mv -f ./package/add/up/netdata ./package/
+mv -f ./package/add/up/netdata/netdata ./feeds/packages/admin/netdata
+mv -f ./package/add/up/netdata/luci-app-netdata ./feeds/luci/applications/luci-app-netdata
+
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
 rm -rf ./package/add/up/pass/trojan-plus
