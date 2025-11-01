@@ -796,11 +796,6 @@ curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/
 # curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/10_system2410gg.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 fi
 
-#110 kernel 
-echo "LINUX_VERSION-6.6 = .110
-LINUX_KERNEL_HASH-6.6.110 = 1bf20daf5543b8759f325e55fb0da4913715e68741627a13380e66aaf219fb1d " >‎include/kernel-6.6‎
-
-
 #修复TailScale配置文件冲突
 TS_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/tailscale/Makefile")
 if [ -f "$TS_FILE" ]; then
