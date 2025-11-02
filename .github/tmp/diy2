@@ -245,7 +245,7 @@ rm -rf ./package/ssr/chinadns-ng
 #rm -rf ./package/ssr/lua-neturl
 #rm -rf ./package/ssr/naiveproxy
 # rm -rf ./package/ssr/redsocks2
-# rm -rf ./package/ssr/simple-obfs
+rm -rf ./package/ssr/simple-obfs
 # rm -rf ./package/ssr/tcping
 # rm -rf ./package/ssr/trojan
 # rm -rf ./package/ssr/tuic-client
@@ -283,7 +283,7 @@ rm -rf ./package/istoreos-files
  rm -rf ./feeds/packages/net/naiveproxy
  rm -rf ./feeds/packages/net/pdnsd
  rm -rf ./feeds/packages/net/redsocks2
- rm -rf ./feeds/packages/net/simple-obfs
+#  rm -rf ./feeds/packages/net/simple-obfs
  rm -rf ./feeds/packages/net/tcping
  rm -rf ./feeds/packages/net/trojan
  rm -rf ./feeds/packages/net/tuic-client
