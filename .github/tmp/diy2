@@ -302,11 +302,11 @@ rm -rf ./feeds/packages/net/redsocks2
 rm -rf ./feeds/packages/net/shadow-tls
 
 #netdata
-rm -rf  packages/admin/netdata
-rm -rf ./feeds/packages/admin/netdata ./feeds/packages/netdata  ./packages/netdata
+# rm -rf  packages/admin/netdata
+# rm -rf ./feeds/packages/admin/netdata ./feeds/packages/netdata  ./packages/netdata
 rm -rf ./feeds/luci/applications/luci-app-netdata  ./package/feeds/luci/luci-app-netdata
-
-mv -f ./package/add/up/netdata/netdata ./feeds/packages/admin/netdata
+rm -rf ./package/add/up/netdata/netdata 
+# mv -f ./package/add/up/netdata/netdata ./feeds/packages/admin/netdata
 mv -f ./package/add/up/netdata/luci-app-netdata ./feeds/luci/applications/luci-app-netdata
 
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
