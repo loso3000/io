@@ -495,8 +495,6 @@ sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装�
 #Add x550
 git clone https://$github/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
 
-# netdata
-sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 
 # luci-app-filemanager
 rm -rf feeds/luci/applications/luci-app-filemanager
