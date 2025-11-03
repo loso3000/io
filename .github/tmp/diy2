@@ -314,8 +314,9 @@ rm -rf ./package/add/up/pass/naiveproxy
 rm -rf ./package/add/up/pass/trojan-plus
 
 #fullconenat-nft
-mkdir -p package/network/utils/fullconenat-nft/patches
-mv ./package/add/patch/001-fix-validate-signature.patch  package/network/utils/fullconenat-nft/patches
+rm -rf  package/network/utils/fullconenat-nft
+# mv ./package/add/patch/001-fix-validate-signature.patch  package/network/utils/fullconenat-nft/patches
+
 
 # 全能推送
 rm -rf ./feeds/luci/applications/luci-app-watchcat
