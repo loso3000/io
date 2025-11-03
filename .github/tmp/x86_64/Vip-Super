@@ -287,7 +287,7 @@ CONFIG_PACKAGE_kmod-drm-kms-helper=y
 # ===== Intel 核显驱动 =====
 CONFIG_PACKAGE_kmod-drm-i915=y
 CONFIG_PACKAGE_i915-firmware=y
-CONFIG_PACKAGE_intel-microcode=y
+# CONFIG_PACKAGE_intel-microcode=y
 CONFIG_PACKAGE_intel-media-driver=y   # 推荐（支持最新编解码）
 CONFIG_PACKAGE_mesa-vulkan-intel=y      # Vulkan 支持
 
@@ -317,7 +317,7 @@ CONFIG_PACKAGE_amd64-microcode=y
 # === Intel 核显 ===
 CONFIG_PACKAGE_kmod-drm-i915=y
 CONFIG_PACKAGE_i915-firmware=y
-CONFIG_PACKAGE_intel-microcode=y
+# CONFIG_PACKAGE_intel-microcode=y
 
 # === 视频加速 ===
 # CONFIG_PACKAGE_intel-media-driver=y
