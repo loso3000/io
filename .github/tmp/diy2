@@ -257,7 +257,7 @@ rm -rf ./package/ssr/mosdns
 
 #rm -rf ./package/ssr/xray-plugin
 # rm -rf ./package/ssr/naiveproxy
-rm -rf ./package/ssr/v2ray-plugin
+# rm -rf ./package/ssr/v2ray-plugin
 rm -rf ./package/ssr/v2ray-core
 # rm -rf ./package/ssr/pdnsd
 #rm -rf ./package/ssr/lua-neturl
@@ -294,7 +294,7 @@ rm -rf ./feeds/packages/net/sing-box
 rm -rf ./feeds/packages/net/trojan-plus
 rm -rf ./feeds/packages/net/xray-plugin
 rm -rf ./feeds/packages/net/naiveproxy
-# rm -rf ./feeds/packages/net/v2ray-plugin
+rm -rf ./feeds/packages/net/v2ray-plugin
 rm -rf ./feeds/packages/net/v2ray-core
 rm -rf ./feeds/packages/net/pdnsd
 rm -rf ./feeds/packages/net/lua-neturl
