@@ -253,7 +253,7 @@ rm -rf ./package/ssr/shadowsocks-rust
 rm -rf ./package/ssr/shadowsocksr-libev
 
 rm -rf ./package/ssr/mosdns
-# rm -rf ./package/ssr/trojan-plus
+rm -rf ./package/ssr/trojan-plus
 
 #rm -rf ./package/ssr/xray-plugin
 # rm -rf ./package/ssr/naiveproxy
@@ -311,7 +311,7 @@ mv -f ./package/add/up/netdata/luci-app-netdata ./feeds/luci/applications/luci-a
 
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/pass/naiveproxy
-rm -rf ./package/add/up/pass/trojan-plus
+# rm -rf ./package/add/up/pass/trojan-plus
 
 #fullconenat-nft
 rm -rf  package/network/utils/fullconenat-nft
