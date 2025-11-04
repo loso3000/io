@@ -249,8 +249,8 @@ rm -rf ./package/ssr/simple-obfs
 # rm -rf ./package/ssr/tcping
 rm -rf ./package/ssr/trojan
 # rm -rf ./package/ssr/tuic-client
-rm -rf ./package/ssr/shadowsocks-rust
-rm -rf ./package/ssr/shadowsocksr-libev
+# rm -rf ./package/ssr/shadowsocks-rust
+# rm -rf ./package/ssr/shadowsocksr-libev
 
 rm -rf ./package/ssr/mosdns
 rm -rf ./package/ssr/trojan-plus
@@ -288,8 +288,9 @@ rm -rf ./package/istoreos-files
  rm -rf ./feeds/packages/net/tuic-client
  rm -rf ./feeds/packages/net/v2ray-geodata
 
-#rm -rf ./feeds/packages/net/shadowsocks-libev
-#rm -rf ./feeds/packages/net/shadowsocks-rust
+rm -rf ./feeds/packages/net/shadowsocks-libev
+rm -rf ./feeds/packages/net/shadowsocks-rust
+
 rm -rf ./feeds/packages/net/sing-box
 #rm -rf ./feeds/packages/net/trojan-plus
 rm -rf ./feeds/packages/net/xray-plugin
