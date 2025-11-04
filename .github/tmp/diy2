@@ -235,6 +235,9 @@ rm -rf ./package/ssr/luci-app-ssr-plus
 # rm -rf ./package/ssr/luci-app-passwall
 # rm -rf ./package/ssr/luci-app-passwall2
 
+sed -i '/_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks/d' ./package/ssr/luci-app-passwall/Makefile
+sed -i '/Rust:/d' ./package/ssr/luci-app-passwall/Makefile
+
 #rm -rf ./package/ssr/brook
 rm -rf ./package/ssr/chinadns-ng
 #rm -rf ./package/ssr/dns2socks
