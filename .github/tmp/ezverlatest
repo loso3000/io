@@ -6,7 +6,8 @@
 3. 增加netdata实时监控，适配OPENWRT24.10版JS，默认未启用,解决不能HTTPS访问问题。
 4. Bandix 流量监控从网络菜单移动到状态菜单，默认未启用。
 5. 修复上一版本DDNS-GO无法启动问题。
-6. 优化极致版和精简版菜单合并到服务菜单。
+6. 升级设置向导，一键启用和禁用HTTPS安全访问，自动生成SSL证书。
+7. 优化极致版和精简版菜单合并到服务菜单。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
