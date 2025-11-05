@@ -2,8 +2,11 @@
 下面是具体更新内容：
 
 1. 应TG群S*8建议,升级r8152网卡驱动到最新版本。
-2. 更新AdGuard Home，优化状态显示和菜单栏，适配FW3和FW4。
-3. 修复上一版本DDNS-GO无法启动问题。
+2. 更新AdGuardHome，精简菜单栏，优化状态显示适配FW3和FW4。
+3. 所有版本增加netdata实时监控插件，默认未启用。
+4. Bandix 流量监控从网络菜单移动到状态菜单，默认未启用。
+5. 修复上一版本DDNS-GO无法启动问题。
+6. 优化极致版和精简版菜单合并到服务菜单。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
