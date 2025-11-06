@@ -314,6 +314,10 @@ rm -rf ./package/add/up/netdata/netdata
 # mv -f ./package/add/up/netdata/netdata ./feeds/packages/admin/netdata
 mv -f ./package/add/up/netdata/luci-app-netdata ./feeds/luci/applications/luci-app-netdata
 
+#ttyd
+rm -rf ./feeds/luci/applications/luci-app-ttyd  ./package/feeds/luci/luci-app-ttyd
+rm -rf ./feeds/packages/utils/ttyd
+
 # rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/luci-app-socat
 
@@ -841,7 +845,6 @@ sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" $(find ./feeds/luci/module
 cat  ./x86_64/comm  >> .config
 ;;
 *)
-mv -f  ./package/add/up/*   ./package/add/
 #修改默认IP地址
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
 
@@ -858,6 +861,8 @@ sed -i "s/192\.168\.[0-9]*\.[0-9]*/192\.168\.10\.1/g" $(find ./feeds/luci/module
 echo 'no'
 ;;
 esac
+
+mv -f  ./package/add/up/*   ./package/
 ./scripts/feeds update -i
 ./scripts/feeds install -i
 
