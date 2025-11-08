@@ -9,6 +9,7 @@
 6. 升级设置向导，一键开启HTTPS安全访问，解决ttyd终端/OpenList2/netdata在HTTPS下使用冲突问题,优化HTTPS使用效果。
 7. 升级主题kucat v2.7.3,适配OPENWRT最新APK版，优化一些插件的显示问题。
 8. 升级SAMBA4网络共享，解决samba4网络共享需用户验证等问题，全面兼容NTFS。
+9. 升级网速测试，适配HTTPS，优化HOMEBOX显示。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
