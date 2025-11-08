@@ -1,15 +1,13 @@
 【小技巧】 KUCAT主题桌面壁纸启用方法：【系统】->【进阶设置】->【KuCat主题设置】->颜色配置方案列表 选择【启用壁纸】 保存即可！ (注意【启用配色方案】最前面的启用方案才是当前使用颜色方案）
 下面是具体更新内容：【HTTPS安全版】
 
-1. 应TG群S*8建议,升级r8152网卡驱动到最新版本。
-2. 更新AdGuardHome，精简菜单栏，优化状态显示适配FW3和FW4。
-3. 增加netdata实时监控，适配OPENWRT24.10版JS，默认未启用,增加HTTPS安全访问。
-4. 升级Bandix 流量监控，从网络菜单移动到状态菜单，默认未启用。
-5. 升级DDNS-GO 修复在HTTPS下无法访问的问题。
-6. 升级设置向导，一键开启HTTPS安全访问，解决ttyd终端/OpenList2/netdata在HTTPS下使用冲突问题,优化HTTPS使用效果。
-7. 升级主题kucat v2.7.3,适配OPENWRT最新APK版，优化一些插件的显示问题。
-8. 升级SAMBA4网络共享，解决samba4网络共享需用户验证等问题，全面兼容NTFS。
-9. 升级网速测试，适配HTTPS，优化HOMEBOX显示。
+1. 升级网络共享samba4，增加自动共享和可控启用和禁用共享功能。
+2. 增加netdata实时监控，适配OPENWRT24.10版JS，默认未启用,增加HTTPS安全访问。
+3. 升级Bandix 流量监控，从网络菜单移动到状态菜单，默认未启用。
+4. 升级DDNS-GO 修复在HTTPS下无法访问的问题。
+5. 升级设置向导，一键开启HTTPS安全访问，解决ttyd终端/OpenList2/netdata在HTTPS下使用冲突问题,优化HTTPS使用效果。
+6. 升级主题kucat v2.7.3,适配OPENWRT最新APK版，优化一些插件的显示问题。
+8. 升级网速测试，适配HTTPS，优化HOMEBOX显示。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
@@ -19,5 +17,5 @@ curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.ht
 【问题】有问题反馈，请提供截图、详细日志和可重现操作流程，否则一率不回复不处理
 【公告】欢迎定制各种特殊驱动固件和特殊需要插件以及各种路由器固件。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/614" target="_blank">点击这里</a> 查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/615" target="_blank">点击这里</a> 查看详情</li>
 </ul>
