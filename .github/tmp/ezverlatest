@@ -6,6 +6,7 @@
 3. 升级KUCAT酷猫主题V3.0.1版，经过半年努力全新制作使用ucode代码更丝滑，彻底解决暗色模式有闪白问题。
 4. 升级设置向导，一键开启HTTPS安全访问，优化HTTPS使用效果,解决用一段时间资源不足无法访问后台等问题。
 5. 同步更新流量监控插件，可以监控DNS访问了。
+6. 修复上一版本luci-app-adguardhome，转发DHCP时没有加上端口的问题。。
 
 【提醒】在执行在线升级刷机是卡在“别急，先准备一下”时：在SSH或者TTYD终端中执行修复代码：
 curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.htm \
