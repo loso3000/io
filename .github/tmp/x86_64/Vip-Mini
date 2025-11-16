@@ -75,6 +75,7 @@ CONFIG_PACKAGE_luci-theme-material=y
 CONFIG_PACKAGE_luci-theme-edge=y
 ### APPS
 CONFIG_PACKAGE_luci-app-advancedplus=y
+CONFIG_PACKAGE_luci-app-kucat-config=y
 
 CONFIG_PACKAGE_luci-app-eqosplus=y
 CONFIG_PACKAGE_luci-app-poweroffdevice=y
