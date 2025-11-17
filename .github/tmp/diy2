@@ -403,10 +403,10 @@ sed -i 's/luci-lib-ipkg/luci-base/g' package/istore/luci/luci-app-store/Makefile
 
 
 #imm luci-app-attendedsysupgrade 
-sed -i 's/+luci-app-attendedsysupgrade//g' package/feeds/luci/collections/luci/Makefile
-sed -i 's/+luci-app-attendedsysupgrade//g' package/feeds/luci/collections/luci-nginx/Makefile
-sed -i 's/+luci-app-attendedsysupgrade//g' package/feeds/luci/collections/luci-ssl/Makefile
-sed -i 's/+luci-app-attendedsysupgrade//g' package/feeds/luci/collections/luci-ssl-openssl/Makefile
+sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci/Makefile
+sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-nginx/Makefile
+sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-ssl/Makefile
+sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-ssl-openssl/Makefile
 
 rm -rf ./feeds/packages/net/mosdns
 # rm -rf  ./feeds/luci/applications/luci-app-mosdns
