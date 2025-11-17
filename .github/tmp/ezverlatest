@@ -1,8 +1,8 @@
 【小技巧】 KUCAT主题桌面壁纸启用方法：【系统】->【进阶设置】->【KuCat主题设置】->颜色配置方案列表 选择【启用壁纸】 保存即可！ (注意【启用配色方案】最前面的启用方案才是当前使用颜色方案）
 下面是具体更新内容：(永久历史记录TG公告群：https://t.me/+SlEXzw184rm8FcYF)
 
-1. 升级KUCAT酷猫主题V3.0.1版，经年升级ucode采用新亮暗方案更丝滑，解决闪现和模糊效果反映慢问题。
-2. 升级KUCAT主题设置工具JS版，取消进阶工具主题设置功能，应网友建议，字体设大中小三档字体可供选择。
+1. 升级KUCAT酷猫主题V3.1.2版，全新升级ucode采用新亮暗方案更丝滑，解决闪现和模糊效果反映慢等问题。
+2. 升级KUCAT主题设置工具JS版，取消进阶工具集成主题设置功能，应网友建议，字体设大中小三档字体可供选择，可以预览上传的图片等功能。
 3. 升级网络共享samba4，增加自动共享和可控启用和禁用共享功能。
 4. 升级设置向导，一键开启HTTPS，优化WEB管理页连接值,解决因连接数过多导致无法访问后台等问题。
 5. 同步更新流量监控插件，可以监控DNS访问了。
@@ -16,5 +16,5 @@ curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/ota.ht
 【问题】有问题反馈，请提供截图、详细日志和可重现操作流程，否则一率不回复不处理
 【公告】欢迎定制各种特殊驱动固件和特殊需要插件以及各种路由器固件。
 <ul>
-    <li><a href="https://github.com/sirpdboy/openwrt/discussions/616" target="_blank">点击这里</a> 查看详情</li>
+    <li><a href="https://github.com/sirpdboy/openwrt/discussions/617" target="_blank">点击这里</a> 查看详情</li>
 </ul>
