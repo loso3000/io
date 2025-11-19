@@ -679,7 +679,7 @@ md5=`md5sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
 }
 
 
-if [ ${CONFIG_S} = "Vip-Super" ] ; then
+if [ ${CONFIG_S} = "Vip_Super" ] ; then
 cp ../../../../ezotafooter  ./ota.footer
 cp ../../../../ezverlatest   ./ver.latest 
 fi
@@ -838,7 +838,7 @@ else
 cat  ./x86_64/${CONFIG_S}  > .config
 fi
 case "${CONFIG_S}" in
-Vip-Super|Vip-Mini)
+Vip_Super|Vip_Mini)
 
 #修改默认IP地址
 sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
