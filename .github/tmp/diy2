@@ -318,9 +318,6 @@ mv -f ./package/add/up/netdata/luci-app-netdata ./feeds/luci/applications/luci-a
 rm -rf ./feeds/luci/applications/luci-app-ttyd  ./package/feeds/luci/luci-app-ttyd
 rm -rf ./feeds/packages/utils/ttyd
 
-#离线升级 
-rm -rf ./feeds/luci/applications/luci-app-attendedsysupgrade
-
 # rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 rm -rf ./package/add/up/luci-app-socat
 
@@ -402,11 +399,13 @@ sed -i 's/1/0/g' ./package/nas-packages/network/services/linkease/files/linkease
 sed -i 's/luci-lib-ipkg/luci-base/g' package/istore/luci/luci-app-store/Makefile
 
 
+#离线升级 
+#rm -rf ./feeds/luci/applications/luci-app-attendedsysupgrade
 #imm luci-app-attendedsysupgrade 
-sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci/Makefile
-sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-nginx/Makefile
-sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-ssl/Makefile
-sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-ssl-openssl/Makefile
+#sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci/Makefile
+#sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-nginx/Makefile
+#sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-ssl/Makefile
+#sed -i 's/luci-app-attendedsysupgrade/luci-app-kucat-config/g' package/feeds/luci/collections/luci-ssl-openssl/Makefile
 
 rm -rf ./feeds/packages/net/mosdns
 # rm -rf  ./feeds/luci/applications/luci-app-mosdns
