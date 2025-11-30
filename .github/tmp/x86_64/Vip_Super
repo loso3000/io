@@ -4,6 +4,9 @@ CONFIG_TARGET_x86_64_DEVICE_generic=y
 CONFIG_TARGET_KERNEL_PARTSIZE=128
 CONFIG_TARGET_ROOTFS_PARTSIZE=1925
 
+CONFIG_TARGET_ROOTFS_EXT4FS=y
+CONFIG_TARGET_ROOTFS_SQUASHFS=y
+
 # CONFIG_ISO_IMAGES is not set
 # CONFIG_VDI_IMAGES is not set
 # CONFIG_VMDK_IMAGES is not set
@@ -14,6 +17,46 @@ CONFIG_GRUB_EFI_IMAGES=y
 
 CONFIG_GRUB_TIMEOUT="0"
 CONFIG_GRUB_TITLE="EzOpWrt"
+
+# ===== 内核关键配置补充 =====
+CONFIG_KERNEL_IO_STRICT_DEVMEM=y              # 补充：设备内存访问限制（安全）
+CONFIG_KERNEL_NAMESPACES=y                    # 补充：内核命名空间支持
+CONFIG_KERNEL_CGROUPS=y                       # 补充：控制组支持
+CONFIG_KERNEL_CGROUP_DEVICE=y                 # 补充：设备控制组
+CONFIG_KERNEL_CGROUP_CPUACCT=y                # 补充：CPU统计
+CONFIG_KERNEL_CPUSETS=y                       # 补充：CPU集合
+
+# ===== 网络核心补充 =====
+CONFIG_PACKAGE_kmod-ipv6=y                    # 补充：IPv6协议栈
+CONFIG_PACKAGE_kmod-nf-nat=y                  # 补充：NAT支持
+CONFIG_PACKAGE_kmod-nf-conntrack=y            # 补充：连接跟踪
+CONFIG_PACKAGE_kmod-nf-conntrack6=y           # 补充：IPv6连接跟踪
+
+# ===== 硬件驱动补充 =====
+CONFIG_PACKAGE_kmod-ata-ahci=y                # 补充：AHCI SATA控制器驱动
+CONFIG_PACKAGE_kmod-usb-hid=y                 # 补充：USB HID设备（键盘鼠标）
+CONFIG_PACKAGE_kmod-input-core=y              # 补充：输入设备核心
+CONFIG_PACKAGE_kmod-crypto-acompress=y        # 补充：异步压缩加密
+CONFIG_PACKAGE_kmod-crypto-aead=y             # 补充：AEAD加密支持
+CONFIG_PACKAGE_kmod-crypto-manager=y          # 补充：加密算法管理
+
+# ===== 存储驱动补充 =====
+CONFIG_PACKAGE_kmod-scsi-core=y               # 补充：SCSI核心驱动
+CONFIG_PACKAGE_kmod-lib-crc32c=y              # 补充：CRC32校验库
+CONFIG_PACKAGE_kmod-crypto-crc32c=y           # 补充：CRC32加密模块
+
+# ===== 虚拟化支持补充 =====
+CONFIG_PACKAGE_kmod-kvm-intel=y               # 补充：Intel KVM虚拟化
+CONFIG_PACKAGE_kmod-virtio-balloon=y          # 补充：Virtio内存气球
+CONFIG_PACKAGE_kmod-virtio-console=y          # 补充：Virtio控制台
+CONFIG_PACKAGE_kmod-virtio-mmio=y             # 补充：Virtio内存映射IO
+
+#other 
+CONFIG_PACKAGE_uci=y
+CONFIG_PACKAGE_ip-full=y
+CONFIG_PACKAGE_resolveip=y
+CONFIG_PACKAGE_lm-sensors=y
+CONFIG_PACKAGE_smartmontools=y
 
 #ipv6
 CONFIG_PACKAGE_ipv6helper=y
@@ -61,9 +104,7 @@ CONFIG_PACKAGE_kmod-md-raid10=y
 CONFIG_PACKAGE_kmod-md-raid1=y
 
 #btrfs
-CONFIG_PACKAGE_btrfs-progs=y
 CONFIG_PACKAGE_kmod-fs-ext4=y
-CONFIG_PACKAGE_e2fsprogs=y
 
 ### USB Audio 
 CONFIG_PACKAGE_kmod-usb-audio=y
@@ -166,7 +207,7 @@ CONFIG_PACKAGE_luci-app-nikki=y
 CONFIG_PACKAGE_haproxy=y
 CONFIG_PACKAGE_nikki=y
 CONFIG_PACKAGE_luci-app-firewall=y
-# CONFIG_PACKAGE_firewall4=y
+CONFIG_PACKAGE_firewall4=y
 
 #wman3
 CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
@@ -268,28 +309,20 @@ CONFIG_PACKAGE_containerd=y
 CONFIG_PACKAGE_dockerd=y
 
 ### Display & Extra Drivers
-CONFIG_PACKAGE_kmod-backlight-pwm=y
-CONFIG_PACKAGE_kmod-backlight=y
-CONFIG_PACKAGE_kmod-drm-amdgpu=y
-CONFIG_PACKAGE_kmod-drm-kms-helper=y
-CONFIG_PACKAGE_kmod-drm-radeon=y
-CONFIG_PACKAGE_kmod-drm-ttm=y
-CONFIG_PACKAGE_kmod-drm=y
+
 CONFIG_PACKAGE_kmod-fb-cfb-copyarea=y
 CONFIG_PACKAGE_kmod-fb-cfb-fillrect=y
 CONFIG_PACKAGE_kmod-fb-cfb-imgblt=y
 CONFIG_PACKAGE_kmod-fb-sys-fops=y
 CONFIG_PACKAGE_kmod-fb-sys-ram=y
 CONFIG_PACKAGE_kmod-fb=y
-CONFIG_PACKAGE_kmod-sound-hda-codec-realtek=y
-CONFIG_PACKAGE_kmod-sound-hda-intel=y
 
-#VMware-tools
-# CONFIG_PACKAGE_open-vm-tools=y
-CONFIG_PACKAGE_kmod-vmxnet3=y       # VMware 虚拟网卡驱动（推荐）
 # ===== 核心显示框架 =====
 CONFIG_PACKAGE_kmod-drm=y
 CONFIG_PACKAGE_kmod-drm-kms-helper=y
+CONFIG_PACKAGE_kmod-drm-radeon=y
+CONFIG_PACKAGE_kmod-drm-ttm=y
+CONFIG_PACKAGE_kmod-drm=y
 
 # ===== Intel 核显驱动 =====
 CONFIG_PACKAGE_kmod-drm-i915=y
@@ -308,6 +341,7 @@ CONFIG_PACKAGE_mesa=y
 CONFIG_PACKAGE_mesa-vaapi=y
 
 # ===== 其他硬件支持 =====
+CONFIG_PACKAGE_kmod-backlight-pwm=y
 CONFIG_PACKAGE_kmod-backlight=y           # 背光控制（仅需一次）
 CONFIG_PACKAGE_kmod-sound-hda-intel=y     # Intel 音频
 CONFIG_PACKAGE_kmod-sound-hda-codec-realtek=y  # Realtek 音频
@@ -342,9 +376,6 @@ CONFIG_PACKAGE_i915-firmware=y
 # CONFIG_PACKAGE_open-vm-tools=y
 CONFIG_PACKAGE_kmod-vmxnet3=y       # VMware 虚拟网卡驱动（推荐）
 CONFIG_PACKAGE_kmod-vmw-pvscsi=y    # VMware 虚拟 SCSI 控制器（可选）
-# 启用Intel网卡驱动（例如ixgbe或i40e）
-CONFIG_PACKAGE_kmod-ixgbe=y
-CONFIG_PACKAGE_kmod-i40e=y
 
 # 启用Mellanox网卡驱动（如果需要）
 CONFIG_PACKAGE_kmod-mlx4-core=y
@@ -496,7 +527,6 @@ CONFIG_PACKAGE_kmod-net-selftests=y
 CONFIG_PACKAGE_kmod-pcnet32=y
 CONFIG_PACKAGE_kmod-pcs-xpcs=y
 CONFIG_PACKAGE_kmod-tg3=y
-CONFIG_PACKAGE_kmod-vmxnet3=y 
 
 
 # 启用Mellanox网卡驱动（如果需要）
