@@ -553,11 +553,13 @@ ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
 ver61=`grep "LINUX_VERSION-6.1 ="  include/kernel-6.1 | cut -d . -f 3`
 [ -f "include/kernel-6.6" ] && ver66=`grep "LINUX_VERSION-6.6 ="  include/kernel-6.6 | cut -d . -f 3`
-[ -f "include/kernel-6.12" ] && ver612=`grep "LINUX_VERSION-6.12 ="  include/kernel-6.12 | cut -d . -f 3`
-[ -f "target/linux/generic/kernel-6.6" ] && ver66=`grep "LINUX_VERSION-6.6"  target/linux/generic/kernel-6.6 | cut -d . -f 3` |head -1
-[ -f "target/linux/generic/kernel-6.12" ] &&  ver612=`grep "LINUX_VERSION-6.12"  target/linux/generic/kernel-6.12 | cut -d . -f 3` |head -1
-date1="${DATA}_${CONFIG_S}-Sirpdboy"
-if [ "$VER1" = "5.4" ]; then
+
+if [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
+ver612=`grep "LINUX_VERSION-6.12 ="  include/kernel-6.12 | cut -d . -f 3`
+else
+ver612=`grep "LINUX_VERSION-6.12"  target/linux/generic/kernel-6.12 | cut -d . -f 3` |head -1
+fi
+if [ "$VER1" = "5.4" ]; date1="${DATA}_${CONFIG_S}-Sirpdboy"
 date2="EzOpWrt-${DATA}-${VER1}.${ver54}-${CONFIG_S}_Sirpdboy"
 date1="${DATA}-${VER1}.${ver54}-${CONFIG_S}"
 elif [ "$VER1" = "5.15" ]; then
