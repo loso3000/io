@@ -625,7 +625,7 @@ ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F 
 [[ -n $ip ]] || ip=` cat package/base-files/luci2/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 [[ -n $ip ]] || ip="192.168.10.1"
 OTA_URL="https://$github/$auth/releases/download"
-
+PARTSIZE=`cat .config | grep CONFIG_TARGET_ROOTFS_PARTSIZE | awk -F '=' '{print $2}'`
 [ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5 &&echo "ip=$ip" >> EzOpWrt_dev-efi.md5
 [ -f ${md5_EzOpWrt} ] && {
 
@@ -638,6 +638,7 @@ md5=`md5sum ${md5_EzOpWrt} | awk '{print $1}'`
         "ver": "%s",
         "name": "%s",
         "size": "%s",
+        "partsize": "%s",
         "date": "%s",
         "md5": "%s",
         "ip": "%s",
@@ -649,6 +650,7 @@ md5=`md5sum ${md5_EzOpWrt} | awk '{print $1}'`
     "${EZVER}" \
     "${md5_EzOpWrt}" \
     "${file_size}" \
+    "${PARTSIZE}" \
     "${EZDATE}" \
     "${md5}" \
     "${ip}" \
@@ -656,6 +658,7 @@ md5=`md5sum ${md5_EzOpWrt} | awk '{print $1}'`
 }
 [ -f ${md5_EzOpWrt_uefi} ]  && {
 file_size=`du -m  ${md5_EzOpWrt_uefi} | cut -f1`
+
 md5=`md5sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
     printf '{
     "%s": [
@@ -663,6 +666,7 @@ md5=`md5sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
         "ver": "%s",
         "name": "%s",
         "size": "%s",
+        "partsize": "%s",
         "date": "%s",
         "md5": "%s",
         "ip": "%s",
@@ -674,6 +678,7 @@ md5=`md5sum ${md5_EzOpWrt_uefi} | awk '{print $1}'`
     "${EZVER}" \
     "${md5_EzOpWrt_uefi}" \
     "${file_size}" \
+    "${PARTSIZE}" \
     "${EZDATE}" \
     "${md5}" \
     "${ip}" \
