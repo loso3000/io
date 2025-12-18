@@ -623,11 +623,11 @@ mv  *generic-squashfs-combined-efi.img.gz   EzOpWrt-${EZVER}-${TARGET_DEVICE}-de
 md5_EzOpWrt=EzOpWrt-${EZVER}-${TARGET_DEVICE}-dev.img.gz   
 md5_EzOpWrt_uefi=EzOpWrt-${EZVER}-${TARGET_DEVICE}-dev-efi.img.gz
 
-ip=` cat  package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
-[[ -n $ip ]] || ip=` cat package/base-files/luci2/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
+ip=` cat  ${GITHUB_WORKSPACE}/openwrt/package/base-files/files/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
+[[ -n $ip ]] || ip=` cat ${GITHUB_WORKSPACE}/openwrt/package/base-files/luci2/bin/config_generate | grep "n) ipad" |awk -F '\"' '{print $2}'`
 [[ -n $ip ]] || ip="192.168.10.1"
 OTA_URL="https://$github/$auth/releases/download"
-PARTSIZE=`cat .config | grep ROOTFS_PARTSIZE  | cut -d= -f2`
+PARTSIZE=`cat ${GITHUB_WORKSPACE}/openwrt/.config | grep ROOTFS_PARTSIZE  | cut -d= -f2`
 [ -f ${md5_EzOpWrt_uefi} ] && md5sum ${md5_EzOpWrt_uefi} > EzOpWrt_dev-efi.md5 &&echo "ip=$ip" >> EzOpWrt_dev-efi.md5
 [ -f ${md5_EzOpWrt} ] && {
 
