@@ -106,7 +106,7 @@ CONFIG_PACKAGE_iptables-nft=y
 CONFIG_PACKAGE_xtables-nft=y
 CONFIG_PACKAGE_iptables=y
 CONFIG_PACKAGE_iptables-ipset=y
-# CONFIG_PACKAGE_iptables-legacy
+CONFIG_PACKAGE_iptables-legacy=y
 
 
 # ===== USB 音频支持 =====
