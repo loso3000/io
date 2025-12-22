@@ -318,8 +318,8 @@ mv -f ./package/add/up/netdata/luci-app-netdata ./feeds/luci/applications/luci-a
 rm -rf ./feeds/luci/applications/luci-app-ttyd  ./package/feeds/luci/luci-app-ttyd
 rm -rf ./feeds/packages/utils/ttyd
 
-# rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
-rm -rf ./package/add/up/luci-app-socat
+rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
+# rm -rf ./package/add/up/luci-app-socat
 
 rm -rf ./package/add/up/pass/naiveproxy
 rm -rf ./package/add/up/pass/trojan-plus
