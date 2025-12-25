@@ -188,7 +188,7 @@ CONFIG_PACKAGE_luci-app-lucky=y
 CONFIG_PACKAGE_luci-app-package-manager=y
 
 CONFIG_PACKAGE_luci-themedog=y
-CONFIG_PACKAGE_luci-app-rtbwmon=y
+# CONFIG_PACKAGE_luci-app-rtbwmon=y
 
 # ===== 网络核心补充 =====
 # CONFIG_PACKAGE_kmod-ipv6=y
