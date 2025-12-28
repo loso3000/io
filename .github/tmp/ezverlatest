@@ -1,9 +1,9 @@
-【小技巧】二步实现扩容升级固件：先用【分区扩容】扩容mnt分区（用于存储解压固件要大于4G）->【在线升级】扩展DD模式 刷机即可。【如果还不会来TG群申请教程】
+【小技巧】二步实现扩容升级固件：先用【分区扩容】扩容mnt分区（用于存储解压固件要大于4G）->【在线升级】扩展DD模式 刷机即可。【如果还不会来TG群申请指导】
 
-【唯一TG联系人sirpdboy： https://t.me/sirpdboy 】
-【唯一TG固件更新记录分享频道： https://t.me/sirpdboy_openwrt 】
-【唯一TG聊天交流群： https://t.me/joinchat/RV6mxIxZJVDByibQ 】
-【唯一GITHUB源码站： https://www.github.com/sirpdboy 】
+【唯一TG联系人: https://t.me/sirpdboy 】
+【唯一TG固件更新记录分享频道: https://t.me/sirpdboy_openwrt 】
+【唯一TG聊天交流群: https://t.me/joinchat/RV6mxIxZJVDByibQ 】
+【唯一GITHUB源码站: https://www.github.com/sirpdboy 】
 
 在上一版本基础上，新更新内容如下：
 
