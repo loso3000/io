@@ -512,6 +512,9 @@ sed -i '/check_signature/d' ./package/system/opkg/Makefile   # 删除IPK安装�
 #Add x550
 git clone https://$github/shenlijun/openwrt-x550-nbase-t package/openwrt-x550-nbase-t
 
+# rpcd - fix timeout
+sed -i 's/option timeout 30/option timeout 60/g' package/system/rpcd/files/rpcd.config
+sed -i 's#20) \* 1000#60) \* 1000#g' feeds/luci/modules/luci-base/htdocs/luci-static/resources/rpc.js
 
 # luci-app-filemanager
 rm -rf feeds/luci/applications/luci-app-filemanager
@@ -559,6 +562,13 @@ if [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
 ver612=`grep "LINUX_VERSION-6.12 ="  include/kernel-6.12 | cut -d . -f 3`
 else
 ver612=`grep "LINUX_VERSION-6.12"  target/linux/generic/kernel-6.12 | cut -d . -f 3 |head -1 `
+
+sed -i '/luci-app-attendedsysupgrade/d' \
+    feeds/luci/collections/luci-nginx/Makefile \
+    feeds/luci/collections/luci-ssl-openssl/Makefile \
+    feeds/luci/collections/luci-ssl/Makefile \
+    feeds/luci/collections/luci/Makefile
+
 fi
 if [ "$VER1" = "5.4" ]; then
 date2="EzOpWrt-${DATA}-${VER1}.${ver54}-${CONFIG_S}_Sirpdboy"
