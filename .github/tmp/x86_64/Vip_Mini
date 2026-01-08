@@ -108,7 +108,7 @@ CONFIG_LUCI_LANG_zh_Hans=y
 
 #uhttpd
 CONFIG_PACKAGE_luci=y
-CONFIG_PACKAGE_luci-app-uhttpd=y
+# CONFIG_PACKAGE_luci-app-uhttpd=y
 CONFIG_PACKAGE_uhttpd=y
 CONFIG_PACKAGE_uhttpd-mod-ubus=y
 
