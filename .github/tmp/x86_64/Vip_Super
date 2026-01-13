@@ -209,6 +209,7 @@ CONFIG_PACKAGE_luci-proto-qmi=y
 CONFIG_PACKAGE_luci-proto-wireguard=y
 CONFIG_PACKAGE_luci-proto-relay=y
 
+CONFIG_PACKAGE_kmod-bonding=y
 # ===== VPN 和隧道协议 =====
 CONFIG_PACKAGE_kmod-wireguard=y
 CONFIG_PACKAGE_kmod-ipsec4=y
@@ -450,6 +451,7 @@ CONFIG_PACKAGE_kmod-mlx5-core=y
 # ===== 其他内核模块 ===== #wman3
 CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
 CONFIG_PACKAGE_kmod-ipt-ipopt=y
+
 
 # ===== 推荐的系统工具补充 =====
 CONFIG_PACKAGE_logd=y
