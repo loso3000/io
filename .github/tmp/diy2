@@ -950,14 +950,19 @@ echo 'no'
 ;;
 esac
 
-UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
+# UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
+
 #修复TailScale配置文件冲突
-TS_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/tailscale/Makefile")
-if [ -f "$TS_FILE" ]; then
-	sed -i '/\/files/d' $TS_FILE
-	echo "tailscale has been fixed!"
-fi
-sed -i '/\/files/d' ./feeds/packages/net/tailscale/Makefile
+# TS_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/tailscale/Makefile")
+# if [ -f "$TS_FILE" ]; then
+# 	sed -i '/\/files/d' $TS_FILE
+# 	echo "tailscale has been fixed!"
+# fi
+# sed -i '/\/files/d' ./feeds/packages/net/tailscale/Makefile
+
+git clone https://github.com/asvow/luci-app-tailscale package/luci-app-tailscale
+sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/packages/net/tailscale/Makefile
+
 mv -f  ./package/add/up/*   ./package/
 ./scripts/feeds update -i
 ./scripts/feeds install -i
