@@ -29,6 +29,42 @@ CONFIG_KERNEL_CGROUP_CPUACCT=y
 CONFIG_KERNEL_CPUSETS=y
 CONFIG_KERNEL_RELAY=y
 
+# ===== IPv6 支持 =====
+CONFIG_PACKAGE_ipv6helper=y
+CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
+CONFIG_PACKAGE_6in4=y
+CONFIG_PACKAGE_6rd=y
+CONFIG_PACKAGE_6to4=y
+
+# ===== DNS 和 SSL =====
+# CONFIG_PACKAGE_dnsmasq is not set
+CONFIG_PACKAGE_dnsmasq-full=y
+CONFIG_PACKAGE_dnsmasq_full_ipset=y
+# CONFIG_PACKAGE_dnsmasq_full_broken_rtc is not set
+CONFIG_PACKAGE_bind-host=y
+
+CONFIG_PACKAGE_uhttpd-mod-tls=y
+CONFIG_PACKAGE_libustream-openssl=y
+
+# ===== 防火墙配置 =====
+CONFIG_PACKAGE_nat6=y
+# CONFIG_PACKAGE_ip6tables-nft=y
+# CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
+# CONFIG_PACKAGE_iptables-mod-iprange=y
+# CONFIG_PACKAGE_iptables-mod-nat-extra=y
+# CONFIG_PACKAGE_iptables-mod-socket=y
+# CONFIG_PACKAGE_iptables-mod-tproxy=y
+# CONFIG_PACKAGE_iptables-nft=y
+# CONFIG_PACKAGE_xtables-nft=y
+# CONFIG_PACKAGE_iptables-legacy is not set
+CONFIG_PACKAGE_firewall4=y
+
+# ===== 网络核心补充 =====
+CONFIG_PACKAGE_kmod-ipv6=y
+CONFIG_PACKAGE_kmod-nf-nat=y
+CONFIG_PACKAGE_kmod-nf-conntrack=y
+CONFIG_PACKAGE_kmod-nf-conntrack6=y
+
 # ===== 系统工具 =====
 CONFIG_PACKAGE_iommu-conf=y
 CONFIG_PACKAGE_grub-conf=y
@@ -39,6 +75,7 @@ CONFIG_PACKAGE_default-settings-chn=y
 CONFIG_PACKAGE_autosamba=y
 
 # ===== 存储支持 =====
+# CONFIG_PACKAGE_automount is not set
 CONFIG_PACKAGE_ntfs3-mount=y
 CONFIG_PACKAGE_ntfsprogs=y
 CONFIG_PACKAGE_kmod-fs-ntfs3=y
@@ -59,62 +96,19 @@ CONFIG_PACKAGE_kmod-fs-btrfs=y
 CONFIG_PACKAGE_e2fsprogs=y
 CONFIG_PACKAGE_f2fs-tools=y
 
-
-# ===== IPv6 支持 =====
-CONFIG_PACKAGE_ipv6helper=y
-CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
-CONFIG_PACKAGE_6in4=y
-CONFIG_PACKAGE_6rd=y
-CONFIG_PACKAGE_6to4=y
-
-# ===== DNS 和 SSL =====
-# CONFIG_PACKAGE_dnsmasq is not set
-CONFIG_PACKAGE_dnsmasq-full=y
-CONFIG_PACKAGE_dnsmasq_full_ipset=y
-# CONFIG_PACKAGE_dnsmasq_full_broken_rtc is not set
-CONFIG_PACKAGE_bind-host=y
-
-CONFIG_PACKAGE_uhttpd-mod-tls=y
-CONFIG_PACKAGE_libustream-openssl=y
-
-# ===== ImmortalWrt 代理套件 =====
-# CONFIG_PACKAGE_luci-app-homeproxy=y
-# CONFIG_PACKAGE_luci-app-nikki=y
-# CONFIG_PACKAGE_luci-app-firewall=y
-# CONFIG_PACKAGE_haproxy=y
-# CONFIG_PACKAGE_nikki=y
-
-### ImmortalWrt Proxy - nft  firewall4
-# CONFIG_PACKAGE_luci-app-homeproxy=y
-# CONFIG_PACKAGE_haproxy=y
-# CONFIG_PACKAGE_luci-app-nikki=y
-# CONFIG_PACKAGE_nikki=y
-CONFIG_PACKAGE_luci-app-firewall=y
-# CONFIG_PACKAGE_firewall4=y
-# CONFIG_PACKAGE_firewall4 is not set
-CONFIG_PACKAGE_firewall=y
-
-### Firewall
-CONFIG_PACKAGE_nat6=y
-CONFIG_PACKAGE_ip6tables-nft=y
-CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
-CONFIG_PACKAGE_iptables-mod-iprange=y
-CONFIG_PACKAGE_iptables-mod-nat-extra=y
-CONFIG_PACKAGE_iptables-mod-socket=y
-CONFIG_PACKAGE_iptables-mod-tproxy=y
-CONFIG_PACKAGE_iptables-nft=y
-CONFIG_PACKAGE_xtables-nft=y
-CONFIG_PACKAGE_iptables=y
-CONFIG_PACKAGE_iptables-ipset=y
-CONFIG_PACKAGE_iptables-legacy=y
-
-
 # ===== USB 音频支持 =====
 CONFIG_PACKAGE_kmod-usb-audio=y
 
 # ===== 语言支持 =====
 CONFIG_LUCI_LANG_en=y
+CONFIG_LUCI_LANG_zh_cn=y
 CONFIG_LUCI_LANG_zh_Hans=y
+
+#uhttpd
+CONFIG_PACKAGE_luci=y
+# CONFIG_PACKAGE_luci-app-uhttpd=y
+CONFIG_PACKAGE_uhttpd=y
+CONFIG_PACKAGE_uhttpd-mod-ubus=y
 
 # ===== 主题配置 =====
 CONFIG_PACKAGE_luci-theme-bootstrap=y
@@ -157,7 +151,7 @@ CONFIG_PACKAGE_luci-app-netdata=y  #no find
 # CONFIG_PACKAGE_luci-app-qbittorrent=y
 # CONFIG_PACKAGE_luci-app-ramfree=y
 CONFIG_PACKAGE_luci-app-samba4=y
-CONFIG_PACKAGE_luci-app-socat=y
+# CONFIG_PACKAGE_luci-app-socat=y
 CONFIG_PACKAGE_luci-app-sqm=n
 CONFIG_PACKAGE_luci-app-ttyd=y
 CONFIG_PACKAGE_luci-app-upnp=y
@@ -166,43 +160,33 @@ CONFIG_PACKAGE_luci-app-smartdns=y
 CONFIG_PACKAGE_luci-app-wolplus=y
 CONFIG_PACKAGE_luci-app-filemanager=y
 CONFIG_PACKAGE_luci-app-ota=y
-
 CONFIG_PACKAGE_luci-app-passwall=y
-# CONFIG_PACKAGE_luci-app-passwall2=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Simple_Obfs=y
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y
-# CONFIG_PACKAGE_luci-app-passwall_INCLUDE_trojan-plus is not set
-CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
-# CONFIG_PACKAGE_luci-app-passwall_Nftables_Transparent_Proxy is not set
-CONFIG_PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy=y
-
 CONFIG_PACKAGE_luci-app-openclash=y
 CONFIG_PACKAGE_luci-app-bandix=y
-CONFIG_PACKAGE_luci-app-nft-timecontrol=y
+# CONFIG_PACKAGE_luci-app-nft-timecontrol=y
+CONFIG_PACKAGE_luci-app-timecontrol=y
 CONFIG_PACKAGE_luci-app-watchdog=y
 CONFIG_PACKAGE_luci-app-lucky=y
 CONFIG_PACKAGE_luci-app-package-manager=y
+CONFIG_PACKAGE_luci-app-arpbind=y
 
-CONFIG_PACKAGE_luci-themedog=y
-# CONFIG_PACKAGE_luci-app-rtbwmon=y
-
+# CONFIG_PACKAGE_luci-app-adblock-fast=y
+# CONFIG_PACKAGE_luci-app-adblock-fast=y
 CONFIG_PACKAGE_luci-app-tailscale=y
-#uhttpd
-CONFIG_PACKAGE_luci=y
-CONFIG_PACKAGE_luci-app-uhttpd=y
-CONFIG_PACKAGE_uhttpd=y
-CONFIG_PACKAGE_uhttpd-mod-ubus=y
 
-# ===== 网络核心补充 =====
-# CONFIG_PACKAGE_kmod-ipv6=y
-# CONFIG_PACKAGE_kmod-nf-nat=y
-# CONFIG_PACKAGE_kmod-nf-conntrack=y
-# CONFIG_PACKAGE_kmod-nf-conntrack6=y
+# ===== ImmortalWrt 代理套件 =====
+CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_luci-app-homeproxy=y
+CONFIG_PACKAGE_luci-app-nikki=y
+CONFIG_PACKAGE_haproxy=y
+CONFIG_PACKAGE_nikki=y
 
+CONFIG_PACKAGE_shadowsocksr-libev-ssr-redir=y
+CONFIG_PACKAGE_shadowsocksr-libev-ssr-local=y
+CONFIG_PACKAGE_shadowsocksr-libev-ss-local=y
+CONFIG_PACKAGE_shadowsocks-libev-ss-redir=y
+CONFIG_PACKAGE_shadowsocks-libev-ss-server=y
+CONFIG_PACKAGE_shadowsocks-rust-sslocal=y
 # ===== DDNS 脚本支持 =====
 CONFIG_PACKAGE_ddns-scripts=y
 CONFIG_PACKAGE_ddns-scripts-cloudflare=y
@@ -233,6 +217,7 @@ CONFIG_PACKAGE_luci-proto-qmi=y
 CONFIG_PACKAGE_luci-proto-wireguard=y
 CONFIG_PACKAGE_luci-proto-relay=y
 
+CONFIG_PACKAGE_kmod-bonding=y
 # ===== VPN 和隧道协议 =====
 CONFIG_PACKAGE_kmod-wireguard=y
 CONFIG_PACKAGE_kmod-ipsec4=y
@@ -248,7 +233,7 @@ CONFIG_PACKAGE_openssh-sftp-server=y
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_iperf3-ssl=y
 CONFIG_PACKAGE_curl=y
-CONFIG_PACKAGE_snmpd=y
+# CONFIG_PACKAGE_snmpd=y  #导致CLASH重置防火墙
 CONFIG_PACKAGE_unzip=y
 CONFIG_PACKAGE_xz=y
 CONFIG_PACKAGE_xz-utils=y
@@ -475,6 +460,7 @@ CONFIG_PACKAGE_kmod-mlx5-core=y
 CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
 CONFIG_PACKAGE_kmod-ipt-ipopt=y
 
+
 # ===== 推荐的系统工具补充 =====
 CONFIG_PACKAGE_logd=y
 CONFIG_PACKAGE_uci=y
@@ -484,26 +470,16 @@ CONFIG_PACKAGE_lm-sensors=y
 CONFIG_PACKAGE_smartmontools=y
 # CONFIG_PACKAGE_luci-lib-ipkg=y
 
-# nginx核心
-# CONFIG_PACKAGE_nginx=y
-# CONFIG_PACKAGE_nginx-ssl=y
-# CONFIG_PACKAGE_nginx-mod-luci=y
-# CONFIG_PACKAGE_nginx-util=y
-
-# SSL/TLS
+# === 核心必需包 ===
+# CONFIG_PACKAGE_uhttpd=y
+# CONFIG_PACKAGE_libustream-openssl=y
 # CONFIG_PACKAGE_libopenssl=y
-# CONFIG_PACKAGE_openssl-util=y
-# CONFIG_PACKAGE_ca-bundle=y
-
-# 性能优化模块
-# CONFIG_PACKAGE_nginx-mod-http-cache-purge=y
-# CONFIG_PACKAGE_nginx-mod-http-headers-more=y
-# CONFIG_PACKAGE_nginx-mod-http-lua=y
-# CONFIG_PACKAGE_nginx-mod-http-uploadprogress=y
-
-# 基础库
-# CONFIG_PACKAGE_libpcre=y
-# CONFIG_PACKAGE_libpcre2=y
-# CONFIG_PACKAGE_zlib=y
-# CONFIG_PACKAGE_libatomic=y
-# CONFIG_PACKAGE_libstdcpp=y
+# CONFIG_PACKAGE_libubox=y
+# CONFIG_PACKAGE_libblobmsg-json=y
+# === 可选但推荐的模块 ===
+# CONFIG_PACKAGE_uhttpd-mod-ubus=y      # UBUS支持
+# CONFIG_PACKAGE_uhttpd-mod-lua=y       # Lua脚本支持
+# CONFIG_PACKAGE_uhttpd-mod-ucode=y     # uCode支持（新版本）
+# === 证书工具 ===
+# CONFIG_PACKAGE_ca-bundle=y            # CA证书包
+# CONFIG_PACKAGE_openssl-util=y         # OpenSSL工具（生成证书）
