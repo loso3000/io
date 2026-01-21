@@ -968,6 +968,10 @@ esac
 git clone https://github.com/asvow/luci-app-tailscale package/luci-app-tailscale
 sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/packages/net/tailscale/Makefile
 
+CURRENT_DATE=$(date +%s)
+sed -i "/BUILD_DATE/d" package/base-files/files/usr/lib/os-release
+sed -i "/BUILD_ID/aBUILD_DATE=\"$CURRENT_DATE\"" package/base-files/files/usr/lib/os-release
+
 mv -f  ./package/add/up/*   ./package/
 ./scripts/feeds update -i
 ./scripts/feeds install -i
