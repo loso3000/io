@@ -49,6 +49,7 @@ CONFIG_PACKAGE_libustream-openssl=y
 # ===== 防火墙配置 =====
 CONFIG_PACKAGE_nat6=y
 CONFIG_PACKAGE_ip6tables-nft=y
+# CONFIG_PACKAGE_iptables-legacy
 CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
 CONFIG_PACKAGE_iptables-mod-iprange=y
 CONFIG_PACKAGE_iptables-mod-nat-extra=y
@@ -56,7 +57,6 @@ CONFIG_PACKAGE_iptables-mod-socket=y
 CONFIG_PACKAGE_iptables-mod-tproxy=y
 CONFIG_PACKAGE_iptables-nft=y
 CONFIG_PACKAGE_xtables-nft=y
-CONFIG_PACKAGE_iptables-legacy is not set
 CONFIG_PACKAGE_firewall4=y
 
 # ===== 网络核心补充 =====
@@ -119,64 +119,72 @@ CONFIG_PACKAGE_luci-theme-argon=y
 # CONFIG_PACKAGE_luci-theme-material=y
 # CONFIG_PACKAGE_luci-theme-edge=y
 
-# ===== 核心应用 =====
+# =====状态 =====
+CONFIG_PACKAGE_luci-app-netdata=y
+# CONFIG_PACKAGE_luci-app-nlbwmon=y
+# CONFIG_PACKAGE_luci-app-ramfree=y
+
+# CONFIG_PACKAGE_luci-app-statistics is not set
+# =====向导 =====
+CONFIG_PACKAGE_luci-app-netwizard=y
+
+# =====商店=====
+# CONFIG_PACKAGE_luci-app-store is not set
+
+# =====系统=====
+CONFIG_PACKAGE_luci-app-partexp=y
+CONFIG_PACKAGE_luci-app-ttyd=y
+CONFIG_PACKAGE_luci-app-filemanager=y
+# CONFIG_PACKAGE_luci-app-ota=y
 CONFIG_PACKAGE_luci-app-advancedplus=y
 # CONFIG_PACKAGE_luci-app-kucat-config=y
-# CONFIG_PACKAGE_luci-app-eqosplus=y
+CONFIG_PACKAGE_luci-app-package-manager=y
 CONFIG_PACKAGE_luci-app-poweroffdevice=y
-CONFIG_PACKAGE_luci-app-netwizard=y
-# CONFIG_PACKAGE_luci-app-taskplan=y
-# CONFIG_PACKAGE_luci-app-partexp=y
-# CONFIG_PACKAGE_luci-app-netspeedtest=y
-# CONFIG_PACKAGE_luci-app-ddns-go=y
 
-# CONFIG_PACKAGE_luci-app-autotimeset is not set
-# CONFIG_PACKAGE_luci-app-store is not set
+# CONFIG_PACKAGE_luci-app-fileassistant is not set
+# =====管控=====
+# CONFIG_PACKAGE-autotimeset is not set
+# CONFIG_PACKAGE-taskplan=y
+# CONFIG_PACKAGE-eqosplus=y
+
+# CONFIG_PACKAGE_luci-app-wolplus=y
+# CONFIG_PACKAGE_luci-app-nft-timecontrol=y
+# CONFIG_PACKAGE_luci-app-timecontrol=y
+# CONFIG_PACKAGE_luci-app-watchdog=y
 # CONFIG_PACKAGE_luci-app-control-parentcontrol is not set
 # CONFIG_PACKAGE_luci-app-parentcontrol is not set
 # CONFIG_PACKAGE_luci-app-speedlimit is not set
 # CONFIG_PACKAGE_luci-app-control-speedlimit is not set
-# CONFIG_PACKAGE_luci-app-fileassistant is not set
-# CONFIG_PACKAGE_luci-app-sqm is not set
+
+# =====存储=====
+# CONFIG_PACKAGE_luci-app-qbittorrent=y
+# ===== 网络 =====
 # CONFIG_PACKAGE_luci-app-syncdial is not set
 # CONFIG_PACKAGE_luci-app-mwan3 is not set
-# CONFIG_PACKAGE_luci-app-statistics is not set
+# CONFIG_PACKAGE_luci-app-netspeedtest=y
+# CONFIG_PACKAGE_luci-app-socat=y
+CONFIG_PACKAGE_luci-app-upnp=y
+CONFIG_PACKAGE_luci-app-arpbind=y
+# CONFIG_PACKAGE_luci-app-bandix=y
+CONFIG_PACKAGE_luci-app-firewall=y
 
-# ===== 网络服务应用 =====
+# =====服务=====
+# CONFIG_PACKAGE_luci-app-sqm is not set
 CONFIG_PACKAGE_luci-app-adguardhome=y
+CONFIG_PACKAGE_luci-app-passwall=y
+CONFIG_PACKAGE_luci-app-openclash=y
+# CONFIG_PACKAGE_luci-app-watchcat=y
+# CONFIG_PACKAGE_luci-app-smartdns=y
+# CONFIG_PACKAGE_luci-app-lucky=y
+# CONFIG_PACKAGE_luci-app-adblock-fast=y
+# CONFIG_PACKAGE_luci-app-tailscale=y
 # CONFIG_PACKAGE_luci-app-daed is not set
 # CONFIG_PACKAGE_luci-app-ddns is not set
 # CONFIG_PACKAGE_luci-app-mosdns=y
-CONFIG_PACKAGE_luci-app-netdata=y
-# CONFIG_PACKAGE_luci-app-nlbwmon=y
-# CONFIG_PACKAGE_luci-app-qbittorrent=y
-# CONFIG_PACKAGE_luci-app-ramfree=y
 # CONFIG_PACKAGE_luci-app-samba4 is not set
-# CONFIG_PACKAGE_luci-app-socat=y
 CONFIG_PACKAGE_luci-app-sqm=n
-CONFIG_PACKAGE_luci-app-ttyd=y
-CONFIG_PACKAGE_luci-app-upnp=y
-# CONFIG_PACKAGE_luci-app-watchcat=y
-# CONFIG_PACKAGE_luci-app-smartdns=y
-# CONFIG_PACKAGE_luci-app-wolplus=y
-CONFIG_PACKAGE_luci-app-filemanager=y
-# CONFIG_PACKAGE_luci-app-ota=y
-CONFIG_PACKAGE_luci-app-passwall=y
-CONFIG_PACKAGE_luci-app-openclash=y
-
-# CONFIG_PACKAGE_luci-app-lucky=y
-CONFIG_PACKAGE_luci-app-package-manager=y
-CONFIG_PACKAGE_luci-app-arpbind=y
-
-# CONFIG_PACKAGE_luci-app-bandix=y
-# CONFIG_PACKAGE_luci-app-nft-timecontrol=y
-# CONFIG_PACKAGE_luci-app-timecontrol=y
-# CONFIG_PACKAGE_luci-app-watchdog=y
-# CONFIG_PACKAGE_luci-app-adblock-fast=y
-# CONFIG_PACKAGE_luci-app-tailscale=y
-
+# CONFIG_PACKAGE_luci-app-ddns-go=y
 # ===== ImmortalWrt 代理套件 =====
-CONFIG_PACKAGE_luci-app-firewall=y
 # CONFIG_PACKAGE_luci-app-homeproxy=y
 # CONFIG_PACKAGE_luci-app-nikki=y
 # CONFIG_PACKAGE_haproxy=y
