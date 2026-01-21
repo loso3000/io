@@ -869,15 +869,19 @@ esac
 
 EOF
 
-if [ ${CONFIG_S} = "Vip_Custom" ] ; then
+if [ ${CONFIG_S} = "Vip_Custom" || ${CONFIG_S} = "Vip_dz"  ] ; then
 
 
 #net eth0
+#rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
+#rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
+#curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_networketh0 > ./target/linux/x86/base-files/etc/board.d/99-default_network
+#curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_networketh0 > ./target/linux/x86/base-files/etc/board.d/99-default_network
+curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
 curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
-
 curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/10_system2410.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 else
 #net eth0
@@ -913,6 +917,7 @@ cat  ./x86_64/${CONFIG_S}  >> .config
 else
 cat  ./x86_64/${CONFIG_S}  > .config
 fi
+
 case "${CONFIG_S}" in
 Vip_Super|Vip_Mini)
 
