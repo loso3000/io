@@ -606,8 +606,8 @@ for sh_file in `ls ${GITHUB_WORKSPACE}/openwrt/package/add/common/*.sh`;do
     source $sh_file $CLASH
 done
 
-source common/clash.sh $CLASH
-source common/tools.sh $CLASH
+# source common/clash.sh $CLASH
+# source common/tools.sh $CLASH
 
 ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
 ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
