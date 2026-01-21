@@ -88,7 +88,8 @@ CONFIG_LUCI_LANG_zh_cn=y
 CONFIG_LUCI_LANG_zh_Hans=y
 
 # ===== 防火墙配置 =====
-CONFIG_PACKAGE_firewall4=y
+CONFIG_PACKAGE_firewall=y
+CONFIG_PACKAGE_firewall4=n
 
 #uhttpd
 CONFIG_PACKAGE_luci=y
@@ -171,8 +172,8 @@ CONFIG_PACKAGE_luci-app-sqm=n
 # CONFIG_PACKAGE_luci-app-ddns-go=y
 
 #iptables-mod-fullconenat
-CONFIG_PACKAGE_iptables-mod-fullconenat=y
-CONFIG_PACKAGE_ip6tables-mod-fullconenat=y
+#CONFIG_PACKAGE_iptables-mod-fullconenat=y
+#CONFIG_PACKAGE_ip6tables-mod-fullconenat=y
 
 # ===== ImmortalWrt 代理套件 =====
 # CONFIG_PACKAGE_luci-app-homeproxy=y
@@ -185,20 +186,20 @@ CONFIG_PACKAGE_kmod-ipv6=y
 CONFIG_PACKAGE_kmod-nf-conntrack=y
 CONFIG_PACKAGE_kmod-nf-conntrack6=y
 
-#nftables
-CONFIG_PACKAGE_nftables=y
-CONFIG_PACKAGE_ipt2socks=y
-CONFIG_PACKAGE_kmod-nft-socket=y
-CONFIG_PACKAGE_kmod-nft-tproxy=y
-CONFIG_PACKAGE_kmod-nft-nat=y
+# nftables
+# CONFIG_PACKAGE_nftables=y
+# CONFIG_PACKAGE_ipt2socks=y
+# CONFIG_PACKAGE_kmod-nft-socket=y
+# CONFIG_PACKAGE_kmod-nft-tproxy=y
+# CONFIG_PACKAGE_kmod-nft-nat=y
 
-
+#iptables-nft
+# CONFIG_PACKAGE_iptables-legacy is not set
 CONFIG_PACKAGE_nat6=y
 CONFIG_PACKAGE_ip6tables-nft=y
 CONFIG_PACKAGE_iptables-mod-nat-extra=y
 CONFIG_PACKAGE_iptables-nft=y
 CONFIG_PACKAGE_xtables-nft=y
-
 #iptables
 CONFIG_PACKAGE_ipset=y
 CONFIG_PACKAGE_ipt2socks=y
