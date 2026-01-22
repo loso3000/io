@@ -259,7 +259,7 @@ rm -rf ./feeds/packages/net/open-app-filter
 rm -rf  ./feeds/packages/net/oaf
 rm -rf ./package/add/up/oaf
 
-git clone https://github.com/destan19/OpenAppFilter.git ./package/OpenAppFilter
+git clone https://$github/destan19/OpenAppFilter.git ./package/OpenAppFilter
 
 # bandix 
 rm -rf ./package/add/up/bandix
@@ -433,9 +433,9 @@ rm -rf ./feeds/packages/net/lucky
 rm -rf  ./feeds/luci/applications/luci-app-lucky
 git clone https://$github/sirpdboy/luci-app-lucky ./package/lucky
 
-rm -rf ./feeds/packages/net/ddns-go
-rm -rf  ./feeds/luci/applications/luci-app-ddns-go
-# git clone https://$github/sirpdboy/luci-app-ddns-go ./package/ddns-go
+# rm -rf ./feeds/packages/net/ddns-go
+# rm -rf  ./feeds/luci/applications/luci-app-ddns-go
+git clone https://$github/sirpdboy/luci-app-ddns-go ./package/ddns-go
 
 # rm -rf ./package/add/up/luci-app-adguardhome
 # git clone https://$github/stevenjoezhang/luci-app-adguardhome ./package/luci-app-adguardhome
@@ -599,8 +599,8 @@ if [[ $DATE_S == 'default' ]]; then
    # DATA=`echo $(TZ=UTC-8 date +%Y%m%d -d +"8"hour ) | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9._-]//g')`
    #DATA=`echo $(TZ=UTC-8 date +%Y%m%d) | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9._-]//g')`
 
-   # DATA=`TZ=UTC-8 date +%Y%m%d%H%M -d +"12"hour`
-   DATA=`TZ=UTC-8 date +%Y%m%d`
+   DATA=`TZ=UTC-8 date +%Y%m%d%H%M -d +"12"hour`
+   # DATA=`TZ=UTC-8 date +%Y%m%d`
 else 
    DATA=$DATE_S
 fi
@@ -968,6 +968,7 @@ esac
 # fi
 # sed -i '/\/files/d' ./feeds/packages/net/tailscale/Makefile
 
+rm -rf  ./feeds/luci/applications/luci-app-tailscale
 git clone https://github.com/asvow/luci-app-tailscale package/luci-app-tailscale
 sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/packages/net/tailscale/Makefile
 
