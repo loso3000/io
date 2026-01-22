@@ -271,9 +271,8 @@ sed -i 's/Bandix 流量监控/流量监控/g' ./package/bandix/luci-app-bandix/p
 rm -rf ./feeds/packages/utils/docker-compose
 mv -f  ./package/add/up/diy/docker-compose ./feeds/packages/utils/
 
-
-# rm -rf feeds/packages/lang/golang
-# git clone https://$github/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/lang/golang
 
 # rm -rf ./feeds/luci/applications/luci-app-smartdns
 # rm -rf  ./feeds/packages/net/smartdns
