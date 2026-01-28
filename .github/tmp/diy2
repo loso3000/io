@@ -248,16 +248,16 @@ rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-
 rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci-app-passwall2
 
-git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall ./package/passwall2
-git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall  ./package/passwall
+# git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall ./package/passwall2
+# git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall  ./package/passwall
 
-sed -i '/Rust:/d' ./package/passwall2/luci-app-passwall/Makefile
-sed -i '/Rust:/d' ./package/passwall/luci-app-passwall/Makefile
+# sed -i '/Rust:/d' ./package/passwall2/luci-app-passwall/Makefile
+# sed -i '/Rust:/d' ./package/passwall/luci-app-passwall/Makefile
 
 git clone https://$github/sbwml/openwrt_helloworld  ./package/ssr
 rm -rf ./package/ssr/luci-app-ssr-plus
-rm -rf ./package/ssr/luci-app-passwall
-rm -rf ./package/ssr/luci-app-passwall2
+# rm -rf ./package/ssr/luci-app-passwall
+# rm -rf ./package/ssr/luci-app-passwall2
 
 git clone https://$github/loso3000/oth ./package/add
 
