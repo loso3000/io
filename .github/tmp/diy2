@@ -252,6 +252,8 @@ rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci
 git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall ./package/passwall2
 git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall  ./package/passwall
 
+sed -i '/Rust:/d' ./package/passwall2/luci-app-passwall/Makefile
+sed -i '/Rust:/d' ./package/passwall/luci-app-passwall/Makefile
 
 git clone https://$github/sbwml/openwrt_helloworld  ./package/ssr
 rm -rf ./package/ssr/luci-app-ssr-plus
