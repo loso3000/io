@@ -287,10 +287,10 @@ rm -rf ./package/add/up/ddns-scripts
 # rm -rf ./package/ssr/luci-app-homeproxy
 #bypass
 rm -rf ./package/ssr/luci-app-ssr-plus
-rm -rf ./package/ssr/luci-app-passwall
+# rm -rf ./package/ssr/luci-app-passwall
 # rm -rf ./package/ssr/luci-app-passwall2
 
-git clone https://github.com/Openwrt-Passwall/openwrt-passwall package/passwall-luci
+# git clone https://github.com/Openwrt-Passwall/openwrt-passwall package/passwall-luci
 # sed -i '/_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks/d' ./package/ssr/luci-app-passwall/Makefile
 # sed -i '/Rust:/d' ./package/ssr/luci-app-passwall/Makefile
 
