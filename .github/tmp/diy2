@@ -190,7 +190,6 @@ rm -rf ./feeds/luci/applications/luci-app-udpxy
 rm -rf ./feeds/luci/applications/luci-app-mosdns
 rm -rf ./feeds/luci/applications/luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-passwall2
-# rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
 
 rm -rf  ./feeds/packages/net/wrtbwmon
 rm -rf  ./feeds/packages/net/lucky
@@ -237,13 +236,27 @@ rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app
 
 rm -rf ./feeds/packages/net/cloudreve
 rm -rf ./feeds/luci/applications/luci-app-cloudreve  package/feeds/packages/luci-app-cloudreve
-# Passwall
 
+rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/passwall-packages
+
+# 移除 openwrt feeds 过时的luci版本
+rm -rf feeds/luci/applications/luci-app-passwall
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall package/passwall-luci
+
+# Add luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-app-ssr-plus
 rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci-app-passwall2
 
-git clone https://$github/sbwml/openwrt_helloworld  -b v5 ./package/ssr
+git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall ./package/passwall2
+git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall  ./package/passwall
+
+
+git clone https://$github/sbwml/openwrt_helloworld  ./package/ssr
+rm -rf ./package/ssr/luci-app-ssr-plus
+rm -rf ./package/ssr/luci-app-passwall
+rm -rf ./package/ssr/luci-app-passwall2
 
 git clone https://$github/loso3000/oth ./package/add
 
@@ -285,12 +298,7 @@ rm -rf ./package/add/up/ddns-scripts
 # rm -rf  ./feeds/packages/net/ddns-scripts
 # rm -rf ./package/ssr/luci-app-passwall2/htdocs/luci-static/resources/
 # rm -rf ./package/ssr/luci-app-homeproxy
-#bypass
-rm -rf ./package/ssr/luci-app-ssr-plus
-# rm -rf ./package/ssr/luci-app-passwall
-# rm -rf ./package/ssr/luci-app-passwall2
 
-# git clone https://github.com/Openwrt-Passwall/openwrt-passwall package/passwall-luci
 # sed -i '/_PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks/d' ./package/ssr/luci-app-passwall/Makefile
 # sed -i '/Rust:/d' ./package/ssr/luci-app-passwall/Makefile
 
