@@ -318,7 +318,7 @@ rm -rf ./package/ssr/simple-obfs
 rm -rf ./package/ssr/trojan
 # rm -rf ./package/ssr/tuic-client
 rm -rf ./package/ssr/shadowsocks-rust
-rm -rf ./package/ssr/shadowsocksr-libev
+# rm -rf ./package/ssr/shadowsocksr-libev
 
 rm -rf ./package/ssr/mosdns
 rm -rf ./package/ssr/trojan-plus
