@@ -133,8 +133,9 @@ jobs:
         cat > scripts/create-efi-image.sh << 'EOF'
         #!/bin/bash
         # 创建EFI引导镜像
-        dd if=/dev/zero of=../iso/boot/efi.img bs=1M count=10
-        mkfs.vfat ../iso/boot/efi.img
+        sudo echo ' ' >../iso/boot/efi.img
+        sudo dd if=/dev/zero of=../iso/boot/efi.img bs=1M count=10
+        sudo mkfs.vfat ../iso/boot/efi.img
         
         # 挂载并复制EFI引导器
         mkdir -p efi_mount
