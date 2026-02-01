@@ -1,15 +1,24 @@
-name: Build Minimal Live ISO
+name: ISO
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
+    paths:
+      - '.github/workflows/ISO.yml'
   pull_request:
-    branches: [ main ]
-  workflow_dispatch:  # 允许手动触发
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      alpine_version:
+        description: 'Alpine版本'
+        required: true
+        default: '3.20'
+env:
+  ALPINE_VERSION: ${{ github.event.inputs.alpine_version || '3.20' }}
 
 jobs:
-  build-live-iso:
-    runs-on: ubuntu-22.04
+  build-iso:
+    runs-on: ubuntu-latest
     
     steps:
       
