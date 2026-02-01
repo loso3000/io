@@ -62,8 +62,8 @@ download_kernel() {
     local kernel_dir="$ISO_ROOT/kernel"
     
     # 内核URL（Alpine Linux）
-    local kernel_url="https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/boot/vmlinuz-lts"
-    local initrd_url="https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/boot/initramfs-lts"
+    local kernel_url="https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/netboot/vmlinuz-lts"
+    local initrd_url="https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/netboot/initramfs-lts"
     
     # 下载内核
     if ! download_file "$kernel_url" "$kernel_dir/vmlinuz"; then
