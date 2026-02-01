@@ -1,28 +1,35 @@
-name: Delete Old Workflows
+name: Clean All Workflows
 
 on:
-  repository_dispatch:
   workflow_dispatch:
-    inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
-#  watch:
-#    types: started
-#  schedule:
-#    - cron: 0 21 */7 * * 
+  #schedule:
+  #  - cron: '0 0 * * *'
 
 jobs:
-  Delete-Workflow-Archive:
+  cleanup:
     runs-on: ubuntu-latest
     steps:
-     
-
-
-    - name: 删除运行记录
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        retain_days: 1
-        keep_minimum_runs: 1
-        token: ${{ secrets.TOKEN }}
+      - name: Delete all workflow runs
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // 获取所有工作流运行记录
+            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+            
+            // 遍历删除每个运行记录
+            for (const run of runs.workflow_runs) {
+              try {
+                await github.rest.actions.deleteWorkflowRun({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  run_id: run.id
+                });
+                console.log(`Deleted run ${run.id} from workflow ${run.workflow_id}`);
+              } catch (error) {
+                console.error(`Failed to delete run ${run.id}: ${error.message}`);
+              }
+            }
