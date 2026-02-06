@@ -619,8 +619,8 @@ if [[ $DATE_S == 'default' ]]; then
    # DATA=`echo $(TZ=UTC-8 date +%Y%m%d -d +"8"hour ) | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9._-]//g')`
    #DATA=`echo $(TZ=UTC-8 date +%Y%m%d) | tr -d '[:space:]' | sed 's/[^a-zA-Z0-9._-]//g')`
 
-   DATA=`TZ=UTC-8 date +%Y%m%d%H%M -d +"12"hour`
-   # DATA=`TZ=UTC-8 date +%Y%m%d`
+   # DATA=`TZ=UTC-8 date +%Y%m%d%H%M -d +"12"hour`
+   DATA=`TZ=UTC-8 date +%Y%m%d`
 else 
    DATA=$DATE_S
 fi
