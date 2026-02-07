@@ -426,7 +426,7 @@ rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamb
 # git clone https://$github/sbwml/packages_utils_runc feeds/packages/utils/runc
 
 # Add luci-app-dockerman
-# rm -rf feeds/luci/applications/luci-app-dockerman
+rm -rf feeds/luci/applications/luci-app-dockerman
 # Docker
 # rm -rf feeds/luci/applications/luci-app-dockerman
 # git clone https://$gitea/sbwml/luci-app-dockerman -b nft feeds/luci/applications/luci-app-dockerman
