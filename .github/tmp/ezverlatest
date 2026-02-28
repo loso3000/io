@@ -1,6 +1,10 @@
 【史上最强主题！2026最新kucat酷猫主题继自定义颜色、自定义背景图和自定义快捷键后又出新功能可以【自定义菜单】啦！酷猫主题开创自定义主题新概念！快来尝鲜吧！】
 使用源码与教程： https://github.com/sirpdboy/luci-theme-kucat
 
+【史上最简单！2026最新ezopenwrt固件一键搞定软路由刷机、调试、分区扩容和扩容在线升级，彻底告别麻烦！】：
+bilibili: https://www.bilibili.com/video/BV1BYcEziEn6/?share_source=copy_web&vd_source=ee16245e38db822da2b2a406bfe7c2b6
+youtube:  https://www.youtube.com/watch?v=rkvHv_UccsU
+
 在上一版本基础上，新更新内容如下：
 
 1. 升级设置向导,取消容易冲突强制转发和HTTPS设置项（默认直接带转发），优化解决docker防火墙设置等一些细节优化。
