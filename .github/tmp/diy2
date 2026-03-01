@@ -292,8 +292,6 @@ git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/l
 # rm -rf  ./feeds/packages/net/smartdns
 # rm -rf ./package/add/luci-app-mwan3 ./package/add/mwan3
 # rm -rf ./feeds/luci/applications/luci-app-mwan3
-rm -rf ./feeds/packages/net/mwan3
-mv ./package/add/up/tool/mwan3 ./feeds/packages/net/mwan3
 
 rm -rf ./package/add/up/ddns-scripts
 # rm -rf  ./feeds/packages/net/ddns-scripts
