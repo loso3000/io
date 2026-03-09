@@ -259,7 +259,7 @@ rm -rf ./package/ssr/luci-app-ssr-plus
 rm -rf ./package/ssr/luci-app-passwall
 rm -rf ./package/ssr/luci-app-passwall2
 
-git clone https://$github/loso3000/oth ./package/add
+#  git clone https://$github/loso3000/oth ./package/add
 
 # alist
 # rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
@@ -271,12 +271,10 @@ rm -rf ./feeds/luci/applications/luci-app-filter
 rm -rf ./feeds/luci/applications/luci-app-oaf
 rm -rf ./feeds/packages/net/open-app-filter
 rm -rf  ./feeds/packages/net/oaf
-rm -rf ./package/add/up/oaf
 
 git clone https://$github/destan19/OpenAppFilter.git ./package/OpenAppFilter
 
 # bandix 
-rm -rf ./package/add/up/bandix
 git clone https://github.com/timsaya/openwrt-bandix ./package/openwrt-bandix
 git clone https://github.com/timsaya/luci-app-bandix ./package/bandix
 sed -i 's/Bandix 流量监控/流量监控/g' ./package/bandix/luci-app-bandix/po/zh_Hans/bandix.po
@@ -290,10 +288,7 @@ git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/l
 
 # rm -rf ./feeds/luci/applications/luci-app-smartdns
 # rm -rf  ./feeds/packages/net/smartdns
-# rm -rf ./package/add/luci-app-mwan3 ./package/add/mwan3
-# rm -rf ./feeds/luci/applications/luci-app-mwan3
 
-rm -rf ./package/add/up/ddns-scripts
 # rm -rf  ./feeds/packages/net/ddns-scripts
 # rm -rf ./package/ssr/luci-app-passwall2/htdocs/luci-static/resources/
 # rm -rf ./package/ssr/luci-app-homeproxy
@@ -373,8 +368,6 @@ rm -rf ./feeds/packages/net/shadow-tls
 # rm -rf  packages/admin/netdata
 # rm -rf ./feeds/packages/admin/netdata ./feeds/packages/netdata  ./packages/netdata
 rm -rf ./feeds/luci/applications/luci-app-netdata  ./package/feeds/luci/luci-app-netdata
-rm -rf ./package/add/up/netdata/netdata 
-# mv -f ./package/add/up/netdata/netdata ./feeds/packages/admin/netdata
 mv -f ./package/add/up/netdata/luci-app-netdata ./feeds/luci/applications/luci-app-netdata
 
 #ttyd
@@ -502,7 +495,6 @@ sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/ut
 sed -i 's|/bin/login|/bin/login -f root|' ./feeds/packages/utils/ttyd/files/ttyd.config
 
 # UPnP
-rm -rf ./package/add/up/upnpfw4
 # rm -rf feeds/{packages/net/miniupnpd,luci/applications/luci-app-upnp}
 
 # git clone https://$gitea/sbwml/miniupnpd feeds/packages/net/miniupnpd -b v2.3.7
