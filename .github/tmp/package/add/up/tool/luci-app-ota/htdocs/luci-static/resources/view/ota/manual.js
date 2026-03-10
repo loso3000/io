@@ -125,7 +125,6 @@ render: function(data) {
     return m.render();
     },
 
-    // ==================== 刷机处理函数 ====================
 
     handleSysupgrade: function(storage_size, has_rootfs_data, ev) {
         var self = this;
@@ -142,7 +141,6 @@ render: function(data) {
                     .then(function(res) { return [ reply, res ]; });
             }, this, ev.target))
             .then(L.bind(function(btn, reply) {
-                // 检查固件类型（img或gz）
                 return fs.stat('/tmp/firmware.img')
                     .then(function(stat) {
                         reply.push(stat);
@@ -163,7 +161,6 @@ render: function(data) {
                 var is_too_big = (storage_size > 0 && res[2].size > storage_size);
                 var body = [];
 
-                // 固件信息显示
                 body.push(E('p', _("The flash image was uploaded. Below is the checksum and file size listed, compare them with the original file to ensure data integrity. <br /> Click 'Continue' below to start the flash procedure.")));
             
             var infoList = E('ul', { 'class': 'cbi-section' }, [
@@ -173,7 +170,6 @@ render: function(data) {
             ]);
             body.push(infoList);
 
-            // 使用标准的 cbi-value 格式
             body.push(E('hr'));
 	    
             var expsizeSelect = E('select', { 
@@ -196,7 +192,6 @@ render: function(data) {
                 E('div', { 'class': 'cbi-value-field' }, [ expsizeSelect ])
             ]));
 
-            // Keep settings 选项
             var keepCheckbox = E('input', { 
                 type: 'checkbox', 
                 name: 'keep', 
@@ -210,8 +205,6 @@ render: function(data) {
                 E('label', { 'class': 'cbi-value-title', 'for': 'keep' }, _('Keep settings configuration')),
                 E('div', { 'class': 'cbi-value-field' }, [ keepCheckbox ])
             ]));
-
-            // Keep plugins 选项
             var bopkgCheckbox = E('input', { 
                 type: 'checkbox', 
                 name: 'bopkg', 
@@ -226,9 +219,6 @@ render: function(data) {
                 E('div', { 'class': 'cbi-value-field' }, [ bopkgCheckbox ])
             ]));
 
-
-
-            // 根据扩展模式显示/隐藏选项
             expsizeSelect.addEventListener('change', function(e) {
                 var isSysupgrade = (e.target.value === '0');
                 var keepDiv = document.getElementById('keep-settings');
@@ -237,19 +227,16 @@ render: function(data) {
                 if (keepDiv) keepDiv.style.display = isSysupgrade ? 'block' : 'none';
                 if (bopkgDiv) bopkgDiv.style.display = isSysupgrade ? 'block' : 'none';
                 
-                // 更新目标IP显示
                 self.updateTargetIPInfo(e.target.value, document.getElementById('keep')?.checked || true);
             });
 
-            // 目标IP信息
             body.push(E('div', { 'class': 'cbi-value', 'style': 'margin-top: 10px;' }, [
                 E('label', { 'class': 'cbi-value-title' }, _('Flash Information')),
                 E('div', { 'class': 'cbi-value-field' }, [
-                    E('div', { 'id': 'target-ip-info', 'style': 'padding: 8px; background: #f8f8f8; border-radius: 4px;' })
+                    E('div', { 'id': 'target-ip-info', 'style': 'padding: 8px;  border-radius: 4px;' })
                 ])
             ]));
 
-            // 更新目标IP
             self.updateTargetIPInfo('0', true).then(function(ip) {
                 var infoEl = document.getElementById('target-ip-info');
                 if (infoEl) {
@@ -257,8 +244,6 @@ render: function(data) {
                 }
             });
 
-
-                // 验证失败警告
             if (!is_valid || is_too_big) {
                     body.push(E('hr'));
 

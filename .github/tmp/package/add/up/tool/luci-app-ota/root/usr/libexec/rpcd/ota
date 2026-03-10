@@ -7,19 +7,16 @@
 
 . /usr/share/libubox/jshn.sh
 
-# 日志函数
 log() {
     logger -t ota-rpcd "[$$] $*"
 }
 
-# 验证固件支持
 image_supported() {
     local image="$1"
     /sbin/sysupgrade -T "$image" >/dev/null 2>&1
     return $?
 }
 
-# 获取当前IP
 get_current_ip() {
     local ip=""
     ip=$(uci -q get network.lan.ipaddr)
@@ -41,7 +38,6 @@ get_firmware_ip() {
     fi
 }
 
-# 获取目标IP
 get_target_ip() {
     local keep="$1"
     local expsize="$2"
@@ -63,7 +59,6 @@ image_comped() {
         return 1
     fi
 
-    # 检查是否为有效的镜像文件
     if file "$image_file" | grep -q "gzip compressed data"; then
         return 0
     elif file "$image_file" | grep -q "filesystem data"; then
@@ -134,13 +129,10 @@ get_disk_size_kb() {
         return
     fi
 
-    # 尝试多种方法
     if command -v lsblk >/dev/null 2>&1; then
-        # 方法1: lsblk
         local size_bytes=$(lsblk -b -n -o SIZE "$disk" 2>/dev/null | head -1)
         [ -n "$size_bytes" ] && size_kb=$((size_bytes / 1024 ))
     elif [ -f "/sys/block/$device/size" ]; then
-        # 方法2: /sys/block
         local num_sectors=$(cat "/sys/block/$device/size" 2>/dev/null)
         if [ -n "$num_sectors" ]; then
             local sector_size=512
@@ -151,7 +143,6 @@ get_disk_size_kb() {
             size_kb=$((num_sectors * sector_size / 1024 ))
         fi
     elif command -v fdisk >/dev/null 2>&1; then
-        # 方法3: fdisk
         local output=$(fdisk -l "$disk" 2>/dev/null)
         local size_bytes=$(echo "$output" | grep -E "^Disk.*bytes" | grep -oE '[0-9]+ bytes' | head -1 | cut -d' ' -f1)
         [ -n "$size_bytes" ] && size_kb=$((size_bytes / 1024 ))
@@ -161,7 +152,6 @@ get_disk_size_kb() {
 get_disk_free_mb() {
     local disk="$1"
     if [ -b "$disk" ]; then
-        # 使用lsblk获取未分区空间
         local free_space=$(lsblk -b "$disk" -o SIZE | tail -1)
         echo $((free_space / 1024 / 1024))
     else
@@ -172,30 +162,24 @@ get_disk_free_mb() {
 get_disk_freedisk_kb() {
     local path="$1"
     if [ -d "$path" ] || [ -f "$path" ]; then
-        # 直接获取路径的可用空间（KB）
         df -k "$path" 2>/dev/null | tail -1 | awk '{print $4}'
     else
         echo 0
     fi
 }
 
-# 获取解压后的固件大小
 get_decompressed_size() {
     local image_file="$1"
     local decompressed_size=0
     if image_comped "$image_file"; then
-        # 压缩镜像，获取解压后大小
         decompressed_size=$(gzip -dc "$image_file" 2>/dev/null | wc -c)
     else
-        # 非压缩镜像，直接获取大小
         decompressed_size=$(du -sb "$image_file" 2>/dev/null | cut -f1)
     fi
     echo ${decompressed_size:-0}
 }
 
-# ==================== 新增手动刷机相关函数 ====================
 
-# 获取固件信息（手动模式）
 manual_get_firmware_info() {
     local filepath="$1"
     
@@ -213,7 +197,6 @@ manual_get_firmware_info() {
     local version="Unknown"
     local ip="192.168.10.1"
     
-    # 尝试从文件名中提取版本信息
     if echo "$filename" | grep -qE '[0-9]+\.[0-9]+\.[0-9]+'; then
         version=$(echo "$filename" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
     fi
@@ -228,7 +211,6 @@ manual_get_firmware_info() {
     json_dump
 }
 
-# 列出/tmp目录下的固件文件
 manual_list_firmware() {
     local first=true
     
@@ -253,7 +235,6 @@ manual_list_firmware() {
     json_dump
 }
 
-# 删除固件文件
 manual_delete_firmware() {
     local filepath="$1"
     
@@ -280,14 +261,12 @@ manual_delete_firmware() {
     fi
 }
 
-# 执行手动刷机
 manual_do_flash() {
     local keep="$1"
     local expsize="$2"
     local bopkg="$3"
     local filepath="$4"
     
-    # 检查文件是否存在
     if [ ! -f "$filepath" ]; then
         json_init
         json_add_int code 1
@@ -296,10 +275,8 @@ manual_do_flash() {
         return
     fi
     
-    # 获取目标IP
     local target_ip=$(get_target_ip "$keep" "$expsize")
     
-    # 创建flash状态文件
     local LOG_FILE="/tmp/ezotaflash.log"
     echo "Starting manual flash at $(date)" > $LOG_FILE
     echo "Firmware: $(basename $filepath)" >> $LOG_FILE
@@ -307,7 +284,6 @@ manual_do_flash() {
     echo "Keep settings: $keep" >> $LOG_FILE
     echo "Target IP: $target_ip" >> $LOG_FILE
     
-    # 在后台执行刷写（复用现有的execute_flash_script函数）
     (
         sleep 1
         execute_flash_script "$keep" "$expsize" "$bopkg" "$filepath"
@@ -320,12 +296,90 @@ manual_do_flash() {
     json_dump
 }
 
-# 修改execute_flash_script支持自定义文件路径
+get_system_free_space() {
+    local path="$1"
+    local free_kb=0
+    
+    if [ -d "$path" ]; then
+        free_kb=$(df -k "$path" 2>/dev/null | tail -1 | awk '{print $4}')
+    fi
+    
+    echo $((free_kb / 1024))
+}
+
+get_best_storage_path() {
+    local required_size="$1"  # 需要的空间大小（MB）
+    local best_path=""
+    local max_space=0
+    
+    local overlay_free=$(get_system_free_space "/overlay")
+    if [ $overlay_free -gt $required_size ]; then
+        echo "/overlay"
+        return
+    fi
+    
+    local tmp_free=$(get_system_free_space "/tmp")
+    if [ $tmp_free -gt $required_size ]; then
+        echo "/tmp"
+        return
+    fi
+    
+    if [ -f "/etc/partexppath" ]; then
+        local partexp_path=$(head -n 1 /etc/partexppath 2>/dev/null | awk '{print $1}' | tr -d '\n')
+        if [ -n "$partexp_path" ] && [ -d "$partexp_path" ]; then
+            local partexp_free=$(get_system_free_space "$partexp_path")
+            if [ $partexp_free -gt $required_size ]; then
+                echo "$partexp_path"
+                return
+            elif [ $partexp_free -gt $max_space ]; then
+                max_space=$partexp_free
+                best_path="$partexp_path"
+            fi
+        fi
+    fi
+    
+    if [ -n "$best_path" ]; then
+        echo "$best_path"
+        return
+    fi
+    echo "/tmp"
+}
+
+get_max_space_path() {
+    local max_space=0
+    local best_path="/tmp"
+    
+    local overlay_free=$(get_system_free_space "/overlay")
+    if [ $overlay_free -gt $max_space ]; then
+        max_space=$overlay_free
+        best_path="/overlay"
+    fi
+    
+    local tmp_free=$(get_system_free_space "/tmp")
+    if [ $tmp_free -gt $max_space ]; then
+        max_space=$tmp_free
+        best_path="/tmp"
+    fi
+    
+    if [ -f "/etc/partexppath" ]; then
+        local partexp_path=$(head -n 1 /etc/partexppath 2>/dev/null | awk '{print $1}' | tr -d '\n')
+        if [ -n "$partexp_path" ] && [ -d "$partexp_path" ]; then
+            local partexp_free=$(get_system_free_space "$partexp_path")
+            if [ $partexp_free -gt $max_space ]; then
+                max_space=$partexp_free
+                best_path="$partexp_path"
+            fi
+        fi
+    fi
+    
+    echo "$best_path"
+}
+
 execute_flash_script() {
     local keep="$1"
     local expsize="$2"
     local bopkg="$3"
-    local IMAGE_TMP="${4:-/tmp/firmware.img}"  # 支持自定义文件路径，默认使用/tmp/firmware.img
+    local IMAGE_TMP="${4:-/tmp/firmware.img}"
     local LOG_FILE="/tmp/ezotaflash.log"
     
     echo "Starting flash at $(date)" >> $LOG_FILE
@@ -334,29 +388,26 @@ execute_flash_script() {
 
     echo "Verify firmware files" >> $LOG_FILE
 
-    # 检查固件有效性
     if [ "$expsize" = "0" ] && ! image_supported "$IMAGE_TMP"; then
         echo "ERROR: Invalid firmware image" >> $LOG_FILE
         exit 1
     fi
     
-    # 获取系统磁盘
     upsys_disk=$(get_system_disk)
-    # 获取系統磁盘大小
     upsys_disk_size=$(get_disk_size_kb "$upsys_disk")
-    upsys_disk_size_mb=$((upsys_disk_size /1024))
+    upsys_disk_size_mb=$((upsys_disk_size / 1024))
 
-    # 获取解压后的固件大小
     ORIGINAL_SIZE=$(get_decompressed_size "$IMAGE_TMP")
     ORIGINAL_SIZE_MB=$((ORIGINAL_SIZE / 1024 / 1024))
 
-    echo "Upgrade system space:  $((upsys_disk_size_mb / 1024))GB ($upsys_disk_size_mb MB)" >> $LOG_FILE
+    echo "Upgrade system space: $((upsys_disk_size_mb / 1024))GB ($upsys_disk_size_mb MB)" >> $LOG_FILE
     echo "Image size: $((ORIGINAL_SIZE_MB / 1024))GB ($ORIGINAL_SIZE_MB MB)" >> $LOG_FILE
 
-    # 获取目标IP并记录
     target_ip=$(get_target_ip "$keep" "$expsize")
     echo "WEB IP Address: $target_ip" >> $LOG_FILE
     sleep 1
+
+    local required_space_mb=$((ORIGINAL_SIZE_MB * 110 / 100))
     
     cat > /tmp/otaflash.sh << 'EOF'
 #!/bin/sh
@@ -366,47 +417,55 @@ EOF
 
     if [ "$expsize" -gt 0 ]; then
         echo "DD flash mode" >> $LOG_FILE
-        local save_image_disk=$(head -n 1 /etc/partexppath 2>/dev/null | awk '{print $1}' | tr -d '\n')
-        local save_image_disk_file="${save_image_disk}/image_extracted.img"
+        
+        local save_image_disk=$(get_best_storage_path $required_space_mb)
+        
         if [ ! -w "$save_image_disk" ]; then
-            echo "Error: The Save Image directory is not writable,Please partexp!"  >> $LOG_FILE
-            exit 1
+            echo "Error: Storage path $save_image_disk is not writable!" >> $LOG_FILE
+            save_image_disk=$(get_max_space_path)
+            if [ ! -w "$save_image_disk" ]; then
+                echo "Error: No writable storage path found!" >> $LOG_FILE
+                exit 1
+            fi
         fi
+        
+        local save_image_disk_file="${save_image_disk}/image_extracted.img"
+        local save_image_disk_free_mb=$(get_system_free_space "$save_image_disk")
+        
+        echo "Using storage path: $save_image_disk (free: ${save_image_disk_free_mb}MB)" >> $LOG_FILE
+        
         rm -f "$save_image_disk_file" 2>/dev/null || true
-        # 计算可扩展大小（保留1%空间）
-        local upsys_exp_size=$((upsys_disk_size_mb - 1024))
-
-        # 获取存儲IMG磁盘剩余空间
-        local save_image_disk_size=$(get_disk_freedisk_kb "$save_image_disk")
-        local save_image_disk_size_mb=$((save_image_disk_size / 1024))
-
-        # 获取存儲文件解壓大小
-        local original_size_kb=$((ORIGINAL_SIZE / 1024))
-        local required_with_buffer_kb=$((original_size_kb * 110 / 100))
-        echo "Save image size: $((save_image_disk_size_mb / 1024))GB ($save_image_disk_size_mb MB)" >> $LOG_FILE
-        if [ $required_with_buffer_kb -gt $save_image_disk_size ]; then
-            echo "Error: Insufficient disk space" >> $LOG_FILE
-            echo "Need: $((required_with_buffer_kb / 1024)) MB (with 10% buffer)" >> $LOG_FILE
-            echo "Available: $((save_image_disk_size / 1024)) MB" >> $LOG_FILE
+        
+        local upsys_exp_size=$((upsys_disk_size_mb - 1024))  # 保留1%空间
+        if [ $save_image_disk_free_mb -lt $required_space_mb ]; then
+            echo "Error: Insufficient disk space at $save_image_disk" >> $LOG_FILE
+            echo "Need: ${required_space_mb} MB, Available: ${save_image_disk_free_mb} MB" >> $LOG_FILE
             exit 1
         fi
-        save_image_disk_exp_size=$((save_image_disk_size_mb - ORIGINAL_SIZE_MB - (save_image_disk_size__mb / 100)))
+
         echo "Extracting firmware..." >> $LOG_FILE
-        if gzip -dc "$IMAGE_TMP" > "$save_image_disk_file" 2>>$LOG_FILE; then
-            actual_size=$(du -sb "$save_image_disk_file" 2>/dev/null | cut -f1)
-            if [ "$actual_size" -eq "$ORIGINAL_SIZE" ]; then
-                echo "Decompression successful: $((actual_size / 1024 / 1024)) MB" >> $LOG_FILE
+        
+        if file "$IMAGE_TMP" | grep -q "gzip compressed data"; then
+            if gzip -dc "$IMAGE_TMP" > "$save_image_disk_file" 2>>$LOG_FILE; then
+                actual_size=$(du -sb "$save_image_disk_file" 2>/dev/null | cut -f1)
+                if [ "$actual_size" -eq "$ORIGINAL_SIZE" ]; then
+                    echo "Decompression successful: $((actual_size / 1024 / 1024)) MB" >> $LOG_FILE
+                else
+                    echo "Warning: File size mismatch. Expected: $ORIGINAL_SIZE, Actual: $actual_size" >> $LOG_FILE
+                fi
             else
-                echo "Warning: File size mismatch. Expected: $ORIGINAL_SIZE, Actual: $actual_size" >> $LOG_FILE
+                echo "ERROR: Failed to extract firmware" >> $LOG_FILE
+                exit 1
             fi
         else
-            echo "ERROR: Failed to extract firmware" >> $LOG_FILE
-            exit 1
+            cp "$IMAGE_TMP" "$save_image_disk_file" 2>>$LOG_FILE
+            echo "Copied firmware file: $(du -sh "$save_image_disk_file" | cut -f1)" >> $LOG_FILE
         fi
+        
         echo "Additional expansion capacity" >> $LOG_FILE
-        # 扩展大小映射
+        
         case $expsize in
-            1) dd_size=1 ;;
+            1) dd_size=0 ;; 
             2) dd_size=4096 ;;
             3) dd_size=10240 ;;
             4) dd_size=20480 ;;
@@ -415,27 +474,34 @@ EOF
             *) dd_size=0 ;;
         esac
 
-        # 计算实际扩展大小
-        if [ $dd_size -gt 1 ]; then
-            # 使用用户选择的大小，但不能超过可用空间
-            if [ $dd_size -gt $save_image_disk_size ]; then
-                EXPANSION_MB=$save_image_disk_size_mb
-                echo "Warning:Expansion space is larger than storage space.USE:($save_image_disk_size_mb MB)" >> $LOG_FILE
+        if [ $dd_size -gt 0 ]; then
+            local available_for_expansion=$((save_image_disk_free_mb - ORIGINAL_SIZE_MB))
+            
+            if [ $dd_size -gt $available_for_expansion ]; then
+                EXPANSION_MB=$available_for_expansion
+                echo "Warning: Expansion size limited by available space. Using: ${EXPANSION_MB}MB" >> $LOG_FILE
             else
                 EXPANSION_MB=$dd_size
             fi
-        elif [ $upsys_exp_size -gt $save_image_disk_size ]; then
-                EXPANSION_MB=$save_image_disk_size_mb
-                echo "Warning: The upgrade target space exceeds the storage space.USE:($save_image_disk_size_mb MB)" >> $LOG_FILE
-        else
+        elif [ $upsys_exp_size -gt 0 ]; then
+            local available_for_expansion=$((save_image_disk_free_mb - ORIGINAL_SIZE_MB))
+            if [ $upsys_exp_size -gt $available_for_expansion ]; then
+                EXPANSION_MB=$available_for_expansion
+                echo "AUTO: Using maximum available space: ${EXPANSION_MB}MB" >> $LOG_FILE
+            else
                 EXPANSION_MB=$upsys_exp_size
+                echo "AUTO: Using system expansion size: ${EXPANSION_MB}MB" >> $LOG_FILE
+            fi
+        else
+            EXPANSION_MB=0
         fi
+        
         if [ $EXPANSION_MB -gt 0 ]; then
-            echo "Expanding image by ${EXPANSION_MB}MB"  >> $LOG_FILE
-            if dd if=/dev/zero bs=1M count=$EXPANSION_MB >> "$save_image_disk_file"; then
+            echo "Expanding image by ${EXPANSION_MB}MB" >> $LOG_FILE
+            if dd if=/dev/zero bs=1M count=$EXPANSION_MB >> "$save_image_disk_file" 2>>$LOG_FILE; then
                 echo "Expansion successful" >> $LOG_FILE
             else
-                echo "Warning: System hard drive:$EXPANSION_MB MB , maximum expansion:$save_image_disk_size_mb MB" >> $LOG_FILE
+                echo "Warning: Expansion failed, continuing with original size" >> $LOG_FILE
             fi
         else
             echo "No expansion requested" >> $LOG_FILE
@@ -519,9 +585,9 @@ EOF
 }
 
 
+
 case "$1" in
     list)
-        # 返回可用的方法
         cat << 'EOF'
 {
     "check": {
@@ -736,7 +802,6 @@ EOF
                 ) >/dev/null 2>&1 &
                 ;;
                 
-            # ==================== 新增手动刷机方法 ====================
             manual_get_firmware_info)
                 # 读取输入
                 json_input=$(cat)

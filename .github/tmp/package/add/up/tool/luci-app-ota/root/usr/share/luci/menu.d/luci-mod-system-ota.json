@@ -1,6 +1,6 @@
 {
     "admin/system/ota": {
-        "title": "OTA Upgrade",
+        "title": "Online Expansion Upgrade",
         "order": 69,
         "action": {
             "type": "firstchild"
