@@ -1,14 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=compose
-PKG_VERSION:=5.0.1
+PKG_VERSION:=5.0.2
 PKG_RELEASE:=1
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_SOURCE:=$(PKG_NAME)-v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/docker/compose/tar.gz/v${PKG_VERSION}?
-PKG_HASH:=e48ebd8c71bb805c0b97b9705ac03513e9a0c872fa73cb0525141d0f49148b5e
+PKG_HASH:=9cd91c987bfe5924c1883b7ccd82a5a052e97d0ea149d6a00b2a8c3bf3148009
 
 PKG_MAINTAINER:=Javier Marcet <javier@marcet.info>
 
@@ -22,7 +22,7 @@ GO_PKG_LDFLAGS_X:=github.com/docker/compose/v5/internal.Version=v$(PKG_VERSION)
 GO_PKG_TAGS:=e2e,kube
 
 include $(INCLUDE_DIR)/package.mk
-include ../../lang/golang/golang-package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/docker-compose
   SECTION:=utils
