@@ -259,7 +259,7 @@ rm -rf ./package/ssr/luci-app-ssr-plus
 rm -rf ./package/ssr/luci-app-passwall
 rm -rf ./package/ssr/luci-app-passwall2
 
-#  git clone https://$github/loso3000/oth ./package/add
+#  git clone https://$github/loso3000/ ./package/add
 
 # alist
 # rm -rf feeds/packages/net/alist feeds/luci/applications/luci-app-alist
