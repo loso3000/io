@@ -110,7 +110,6 @@ rm -rf  ./feeds/packages/net/speedtest-cli
 
 rm -rf  ./feeds/packages/net/zsh
 rm -rf  ./feeds/packages/net/homebox
-rm -rf  ./feeds/packages/net/naiveproxy
 
 #修改默认时区
 sed -i "s/timezone='.*'/timezone='CST-8'/g" ./package/base-files/files/bin/config_generate
@@ -237,7 +236,6 @@ rm -rf ./feeds/luci/applications/luci-app-aria2  package/feeds/packages/luci-app
 rm -rf ./feeds/packages/net/cloudreve
 rm -rf ./feeds/luci/applications/luci-app-cloudreve  package/feeds/packages/luci-app-cloudreve
 
-# rm -rf feeds/packages/net/{xray-core,v2ray-geodata,sing-box,chinadns-ng,dns2socks,hysteria,ipt2socks,microsocks,naiveproxy,shadowsocks-libev,shadowsocks-rust,shadowsocksr-libev,simple-obfs,tcping,trojan-plus,tuic-client,v2ray-plugin,xray-plugin,geoview,shadow-tls}
 # git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/passwall-packages
 
 # 移除 openwrt feeds 过时的luci版本
@@ -248,14 +246,14 @@ rm -rf ./feeds/luci/applications/luci-app-ssr-plus  package/feeds/packages/luci-
 rm -rf ./feeds/luci/applications/luci-app-passwall  package/feeds/packages/luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-passwall2  package/feeds/packages/luci-app-passwall2
 
-git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall ./package/passwall2
+git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall2 ./package/passwall2
 git clone --depth=1 https://$github/Openwrt-Passwall/openwrt-passwall  ./package/passwall
 
 sed -i '/Rust:/d' ./package/passwall2/luci-app-passwall/Makefile
 sed -i '/Rust:/d' ./package/passwall/luci-app-passwall/Makefile
 
 git clone https://$github/sbwml/openwrt_helloworld  ./package/ssr
-rm -rf ./package/ssr/luci-app-ssr-plus
+# rm -rf ./package/ssr/luci-app-ssr-plus
 rm -rf ./package/ssr/luci-app-passwall
 rm -rf ./package/ssr/luci-app-passwall2
 
@@ -297,41 +295,36 @@ git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/l
 # sed -i '/Rust:/d' ./package/ssr/luci-app-passwall/Makefile
 
 #rm -rf ./package/ssr/brook
-rm -rf ./package/ssr/chinadns-ng
 #rm -rf ./package/ssr/dns2socks
 #rm -rf ./package/ssr/dns2tcp
 #rm -rf ./package/ssr/pdnsd-alt
 #rm -rf ./package/ssr/ipt2socks
 #rm -rf ./package/ssr/microsocks
 #rm -rf ./package/ssr/lua-neturl
-#rm -rf ./package/ssr/naiveproxy
 # rm -rf ./package/ssr/redsocks2
-rm -rf ./package/ssr/simple-obfs
 # rm -rf ./package/ssr/tcping
-rm -rf ./package/ssr/trojan
+
 # rm -rf ./package/ssr/tuic-client
-rm -rf ./package/ssr/shadowsocks-rust
+# rm -rf ./package/ssr/trojan
+# rm -rf ./package/ssr/chinadns-ng
+# rm -rf ./package/ssr/simple-obfs
+# rm -rf ./package/ssr/shadowsocks-rust
 # rm -rf ./package/ssr/shadowsocksr-libev
-
-rm -rf ./package/ssr/mosdns
-rm -rf ./package/ssr/trojan-plus
-
+# rm -rf ./package/ssr/mosdns
+# rm -rf ./package/ssr/trojan-plus
 #rm -rf ./package/ssr/xray-plugin
 # rm -rf ./package/ssr/naiveproxy
 # rm -rf ./package/ssr/v2ray-plugin
 # rm -rf ./package/ssr/v2ray-core
 # rm -rf ./package/ssr/pdnsd
-#rm -rf ./package/ssr/lua-neturl
-#rm -rf ./package/ssr/redsocks2
 #rm -rf ./package/ssr/shadow-tls
+# rm -rf ./package/ssr/xray-core
 
-rm -rf ./package/ssr/xray-core
-rm -rf ./feeds/packages/net/xray-core
 
 #istoreos-files
 rm -rf ./package/istoreos-files
  rm -rf ./feeds/packages/net/brook
- # rm -rf ./feeds/packages/net/chinadns-ng
+rm -rf ./feeds/packages/net/chinadns-ng
  rm -rf ./feeds/packages/net/dns2socks
  rm -rf ./feeds/packages/net/dns2tcp
  rm -rf ./feeds/packages/net/pdnsd-alt
@@ -343,25 +336,23 @@ rm -rf ./package/istoreos-files
  rm -rf ./feeds/packages/net/naiveproxy
  rm -rf ./feeds/packages/net/pdnsd
  rm -rf ./feeds/packages/net/redsocks2
-#  rm -rf ./feeds/packages/net/simple-obfs
- rm -rf ./feeds/packages/net/tcping
-# rm -rf ./feeds/packages/net/trojan
+rm -rf ./feeds/packages/net/simple-obfs
+rm -rf ./feeds/packages/net/tcping
+rm -rf ./feeds/packages/net/trojan
  rm -rf ./feeds/packages/net/tuic-client
  rm -rf ./feeds/packages/net/v2ray-geodata
 
+rm -rf ./feeds/packages/net/xray-core
 rm -rf ./feeds/packages/net/shadowsocks-libev
 rm -rf ./feeds/packages/net/shadowsocks-rust
 
 rm -rf ./feeds/packages/net/sing-box
-#rm -rf ./feeds/packages/net/trojan-plus
+rm -rf ./feeds/packages/net/trojan-plus
 rm -rf ./feeds/packages/net/xray-plugin
-rm -rf ./feeds/packages/net/naiveproxy
 
 rm -rf ./feeds/packages/net/v2ray-plugin
 rm -rf ./feeds/packages/net/v2ray-core
-rm -rf ./feeds/packages/net/pdnsd
 rm -rf ./feeds/packages/net/lua-neturl
-rm -rf ./feeds/packages/net/redsocks2
 rm -rf ./feeds/packages/net/shadow-tls
 
 #netdata
@@ -377,8 +368,6 @@ rm -rf ./feeds/packages/utils/ttyd
 rm -rf ./feeds/luci/applications/luci-app-socat  ./package/feeds/luci/luci-app-socat
 # rm -rf ./package/add/up/luci-app-socat
 
-rm -rf ./package/add/up/pass/naiveproxy
-rm -rf ./package/add/up/pass/trojan-plus
 
 
 # 全能推送
