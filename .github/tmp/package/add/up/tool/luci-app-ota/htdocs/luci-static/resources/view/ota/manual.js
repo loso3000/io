@@ -446,7 +446,7 @@ render: function(data) {
         var countdown = 50;
         
         var modal = ui.showModal(_('Flash Complete'), [
-            E('p', { 'style': 'color: #4CAF50; font-weight: bold;' }, _('Flash completed! Device is rebooting...')),
+            E('p', { 'style': 'color: #4CAF50; font-weight: bold;margin:  0 20px;' }, _('Flash completed! Device is rebooting...')),
             E('p', {}, _('The device is rebooting now. You will be redirected automatically or you can manually access the device.')),
             E('div', { 'style': 'text-align: center; font-size: 32px; font-weight: bold; margin: 20px 0; color: #007bff;' }, [
                 E('span', { 'id': 'countdown' }, countdown),
