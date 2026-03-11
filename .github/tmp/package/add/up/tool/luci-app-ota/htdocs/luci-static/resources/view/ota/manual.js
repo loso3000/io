@@ -113,7 +113,7 @@ render: function(data) {
         s = m.section(form.NamedSection, 'actions', _('Upgrade Operations'));
 
     o = s.option(form.SectionValue, 'actions', form.NamedSection, 'actions', 'actions', _('Flash new firmware image'), 
-        _('Upload firmware image here to replace the running firmware.<br /> If expanding or upgrading, please first expand the partition to 4G or more, and then choose DD expansion or upgrading.<br />  Note that expansion or upgrading cannot retain the configuration.'));
+        _('Upload firmware image here to replace the running firmware.<br /> If expanding or upgrading, please first expand the partition to 4G or more, and then choose DD expansion or upgrading.<br /> Note that expansion or upgrading cannot retain the configuration.'));
     
     var ss = o.subsection;
 

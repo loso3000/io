@@ -370,8 +370,8 @@ msgstr "正在尝试立即重新连接"
 msgid "Flash completed! Device is rebooting..."
 msgstr "刷写完成！设备正在重新启动."
 
-msgid "Upload firmware image here to replace the running firmware.<br /> If expanding or upgrading, please first expand the partition to 4G or more, and then choose DD expansion or upgrading.<br />  Note that expansion or upgrading cannot retain the configuration."
-msgstr "在此处上传固件映像以替换正在运行的固件<br /> 如果扩容升级请先扩容分区4G以上，再选择DD扩容升级<br /> 注意扩容升级不会保留配置。"
+msgid "Upload firmware image here to replace the running firmware.<br /> If expanding or upgrading, please first expand the partition to 4G or more, and then choose DD expansion or upgrading.<br /> Note that expansion or upgrading cannot retain the configuration."
+msgstr "在此处上传固件映像以替换正在运行的固件。<br /> 如果扩容升级请先扩容分区4G以上，再选择DD扩容升级。<br /> 注意：扩容升级不会保留配置。"
 
 msgid "Manual Firmware Upgrade"
 msgstr "手动固件升级"
