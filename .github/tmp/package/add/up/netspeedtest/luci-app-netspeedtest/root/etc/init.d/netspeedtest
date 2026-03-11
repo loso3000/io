@@ -1,0 +1,59 @@
+#!/bin/sh /etc/rc.common
+# netspeedtest init script - manages both iperf3 and homebox services
+
+START=99
+STOP=15
+
+USE_PROCD=1
+
+START_IPERF3=0
+START_HOMEBOX=0
+
+boot() {
+    START_IPERF3=$(uci get netspeedtest.config.iperf3_enabled 2>/dev/null || echo "0")
+    START_HOMEBOX=$(uci get netspeedtest.config.homebox_enabled 2>/dev/null || echo "0")
+    
+    [ "$START_IPERF3" = "1" ] && start_iperf3
+    [ "$START_HOMEBOX" = "1" ] && start_homebox
+}
+
+start() {
+    boot
+}
+
+start_iperf3() {
+    PORT=$(uci get netspeedtest.config.iperf3port 2>/dev/null || echo "5201")
+    
+    procd_open_instance "iperf3"
+    procd_set_param command /usr/bin/iperf3 -s -p "$PORT"
+    procd_set_param stdout 1
+    procd_set_param stderr 1
+    procd_set_param respawn
+    procd_close_instance
+}
+
+start_homebox() {
+    PORT=$(uci get netspeedtest.config.homebox_port 2>/dev/null || echo "3300")
+    
+    procd_open_instance "homebox"
+    procd_set_param command /usr/bin/homebox -p "$PORT"
+    procd_set_param stdout 1
+    procd_set_param stderr 1
+    procd_set_param respawn
+    procd_close_instance
+}
+
+stop() {
+    killall iperf3 2>/dev/null || true
+    killall homebox 2>/dev/null || true
+}
+
+restart() {
+    stop
+    sleep 1
+    start
+}
+
+service_triggers() {
+    procd_add_reload_trigger "netspeedtest"
+}
