@@ -172,7 +172,7 @@ return view.extend({
                 statusContainer,
                 
                 E('div', {'class': 'cbi-value', 'style': 'margin-top: 20px'}, [
-                    E('div', {'class': 'cbi-value-title'}, _('Iperf3 Port')),
+                    E('div', {'class': 'cbi-value-title'}, _('Port Setting')),
                     E('div', {'class': 'cbi-value-field'}, [
                         portInput,
                         savePortBtn,
@@ -181,7 +181,7 @@ return view.extend({
                 ]),
                 
                 E('div', {'class': 'cbi-value'}, [
-                    E('div', {'class': 'cbi-value-title'}, _('Iperf3 service control')),
+                    E('div', {'class': 'cbi-value-title'}, _('Service Control')),
                     E('div', {'class': 'cbi-value-field'}, toggleBtn),
                 ]),
                 

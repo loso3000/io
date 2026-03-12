@@ -17,24 +17,38 @@ var state = {
 
 const logPath = '/tmp/netspeedtest.log';
 
-async function checkProcess() {
-    try {
-        const res = await fs.exec('/usr/bin/pgrep', ['homebox']);
-        if (res.code === 0 && res.stdout.trim()) {
-            return { running: true, pid: res.stdout.trim() };
-        }
-        
-        const psRes = await fs.exec('/bin/ps', ['-w', '-C', 'homebox', '-o', 'pid=']);
-        const pid = psRes.stdout.trim();
-        return {
-            running: !!pid,
-            pid: pid || null
-        };
-    } catch (err) {
-        return { running: false, pid: null };
+function checkProcess(quick = false) {
+    if (quick) {
+        return fs.exec('/usr/bin/pgrep', ['homebox'])
+            .then(function(res) {
+                return res.code === 0 && res.stdout.trim() !== '';
+            })
+            .catch(function() {
+                return false;
+            });
+    } else {
+        return fs.exec('/usr/bin/pgrep', ['homebox'])
+            .then(function(res) {
+                if (res.code === 0 && res.stdout.trim()) {
+                    return { 
+                        running: true, 
+                        pid: res.stdout.trim() 
+                    };
+                }
+                return fs.exec('/bin/ps', ['-w', '-C', 'homebox', '-o', 'pid='])
+                    .then(function(psRes) {
+                        var pid = psRes.stdout.trim();
+                        return {
+                            running: pid !== '',
+                            pid: pid || null
+                        };
+                    });
+            })
+            .catch(function(err) {
+                return { running: false, pid: null };
+            });
     }
 }
-
 
 function controlService(action, port) {
     if (action === 'start') {
@@ -45,8 +59,7 @@ function controlService(action, port) {
                 return fs.exec('/bin/sh', ['-c', command]);
             });
     } else {
-       return  fs.exec('/usr/bin/killall', ['homebox']);
-
+        return fs.exec('/etc/init.d/netspeedtest', ['stop']);
     }
 }
 
@@ -105,15 +118,13 @@ return view.extend({
             'id': 'homebox_enable',
             'class': 'cbi-input-checkbox'
         });
-        
         var statusMessage = E('div', { style: 'text-align: center; padding: 2em;' }, [
-            E('img', {
-                src: 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCI+PHBhdGggZmlsbD0iI2RmMDAwMCIgZD0iTTk0Mi40MjEgMjM0LjYyNGw4MC44MTEtODAuODExLTE1My4wNDUtMTUzLjA0NS04MC44MTEgODAuODExYy03OS45NTctNTEuNjI3LTE3NS4xNDctODEuNTc5LTI3Ny4zNzYtODEuNTc5LTI4Mi43NTIgMC01MTIgMjI5LjI0OC01MTIgNTEyIDAgMTAyLjIyOSAyOS45NTIgMTk3LjQxOSA4MS41NzkgMjc3LjM3NmwtODAuODExIDgwLjgxMSAxNTMuMDQ1IDE1My4wNDUgODAuODExLTgwLjgxMWM3OS45NTcgNTEuNjI3IDE3NS4xNDcgODEuNTc5IDI3Ny4zNzYgODEuNTc5IDI4Mi43NTIgMCA1MTItMjI5LjI0OCA1MTItNTEyIDAtMTAyLjIyOS0yOS45NTItMTk3LjQxOS04MS41NzktMjc3LjM3NnpNMTk0Ljk0NCA1MTJjMC0xNzUuMTA0IDE0MS45NTItMzE3LjA1NiAzMTcuMDU2LTMxNy4wNTYgNDggMCA5My40ODMgMTAuNjY3IDEzNC4yMjkgMjkuNzgxbC00MjEuNTQ3IDQyMS41NDdjLTE5LjA3Mi00MC43ODktMjkuNzM5LTg2LjI3Mi0yOS43MzktMTM0LjI3MnpNNTEyIDgyOS4wNTZjLTQ4IDAtOTMuNDgzLTEwLjY2Ny0xMzQuMjI5LTI5Ljc4MWw0MjEuNTQ3LTQyMS41NDdjMTkuMDcyIDQwLjc4OSAyOS43ODEgODYuMjcyIDI5Ljc4MSAxMzQuMjI5LTAuMDQzIDE3NS4xNDctMTQxLjk5NSAzMTcuMDk5LTMxNy4wOTkgMzE3LjA5OXoiLz48L3N2Zz4=',
-                style: 'width: 100px; height: 100px; margin-bottom: 1em;'
-            }),
-            E('h2', {}, _('Homebox Service Not Running'))
+            E('div', { style: 'font-size: 5em; color: #f39c12; margin-bottom: 0.2em;' }, '⚠️'),
+            E('h2', {}, _('Homebox Service Not Running')),
+            E('p', { style: 'color: #666; margin-top: 1em;' }, _('Please start the Homebox service'))
         ]);
-        
+
+
         var isHttps = window.location.protocol === 'https:';
         var iframe;
         
@@ -161,22 +172,33 @@ return view.extend({
                 } else if (state.operationType === 'stop') {
                     toggleBtn.textContent = _('Stopping...');
                 }
-                toggleBtn.className = 'btn cbi-button cbi-button-apply';
                 toggleBtn.disabled = true;
+                if (state.operationType === 'stop' && !state.running) {
+                    console.log('Stop confirmed - operation complete');
+                    state.operationInProgress = false;
+                    state.operationType = null;
+                    toggleBtn.textContent = state.running ? _('Stop Server') : _('Start Server');
+                    toggleBtn.className = 'btn cbi-button cbi-button-' + (state.running ? 'reset' : 'apply');
+                    toggleBtn.disabled = false;
+                } else if (state.operationType === 'start' && state.running) {
+                    console.log('Start confirmed - operation complete');
+                    state.operationInProgress = false;
+                    state.operationType = null;
+                    toggleBtn.textContent = state.running ? _('Stop Server') : _('Start Server');
+                    toggleBtn.className = 'btn cbi-button cbi-button-' + (state.running ? 'reset' : 'apply');
+                    toggleBtn.disabled = false;
+                } 
             } else {
                 toggleBtn.textContent = state.running ? _('Stop Server') : _('Start Server');
                 toggleBtn.className = 'btn cbi-button cbi-button-' + (state.running ? 'reset' : 'apply');
                 toggleBtn.disabled = false;
             }
-            
+
             enableCheckbox.checked = state.enabled;
             portInput.value = state.port;
             
             container.innerHTML = '';
             if (state.running) {
-                toggleBtn.textContent = state.running ? _('Stop Server') : _('Start Server');
-                toggleBtn.className = 'btn cbi-button cbi-button-' + (state.running ? 'reset' : 'apply');
-                toggleBtn.disabled = false;
                 if (isHttps) {
                     container.appendChild(createHttpsButton());
                 } else {
@@ -197,24 +219,56 @@ return view.extend({
             if (toggleBtn.disabled || state.operationInProgress) return;
             
             var action = state.running ? 'stop' : 'start';
+            var startTime = Date.now();
 
             state.operationInProgress = true;
             state.operationType = action;
-            updateStatus(); 
+            updateStatus();
             
             controlService(action, state.port)
                 .then(function() {
-                    return checkProcess(); 
+                    return new Promise(function(resolve, reject) {
+                        var checkCount = 0;
+                        var maxChecks = 30; 
+                        
+                        function doCheck() {
+                            checkProcess(true).then(function(isRunning) {
+                                if (action === 'stop' && !isRunning) {
+                                    console.log('Stop success after', Date.now() - startTime, 'ms');
+                                    resolve({ running: false });
+                                } else if (action === 'start' && isRunning) {
+                                    console.log('Start success after', Date.now() - startTime, 'ms');
+                                    checkProcess().then(resolve).catch(resolve);
+                                } else if (checkCount < maxChecks) {
+                                    checkCount++;
+                                    setTimeout(doCheck, 200); 
+                                } else {
+                                   console.log('Check timeout, using full check');
+
+                                    checkProcess().then(resolve).catch(resolve);
+                                }
+                            }).catch(function() {
+                                if (checkCount < maxChecks) {
+                                    checkCount++;
+                                    setTimeout(doCheck, 100);
+                                } else {
+                                    checkProcess().then(resolve).catch(resolve);
+                                }
+                            });
+                        }
+                        
+                        doCheck();
+                    });
                 })
                 .then(function(res) {
-                    if (res && res.cancelled) {
-                        return;
-                    }
-                    
                     if (res) {
-                        state.running = res.running || false;
-                        if (res.port) {
-                            state.port = res.port;
+                        if (typeof res === 'boolean') {
+                            state.running = res;
+                        } else {
+                            state.running = res.running || false;
+                            if (res.port) {
+                                state.port = res.port;
+                            }
                         }
                     }
                     
@@ -227,19 +281,22 @@ return view.extend({
                         _('Homebox server stopped');
                 })
                 .catch(function(err) {
-                    if (err && err.message && err.message.indexOf('aborted') > -1) {
-                        return checkProcess().then(function(res) {
-                            state.running = res.running;
-                            if (res.port) state.port = res.port;
-                            state.operationInProgress = false;
-                            state.operationType = null;
-                            updateStatus();
-                        });
-                    }
+                    console.error('Service control error:', err);
                     
-                    state.operationInProgress = false;
-                    state.operationType = null;
-                    updateStatus();
+                    // 发生错误时重新检查
+                    checkProcess().then(function(res) {
+                        state.running = res.running || false;
+                        if (res.port) state.port = res.port;
+                        
+                        state.operationInProgress = false;
+                        state.operationType = null;
+                        updateStatus();
+                        
+                    }).catch(function() {
+                        state.operationInProgress = false;
+                        state.operationType = null;
+                        updateStatus();
+                    });
                 });
         });
 
@@ -258,8 +315,9 @@ return view.extend({
             
             saveConfiguration(newPort, enableCheckbox.checked)
                 .then(function() {
+                    state.port = newPort;
+                    state.enabled = enableCheckbox.checked;
                     updateStatus();
-                    
                 })
                 .catch(function(err) {
                 })
