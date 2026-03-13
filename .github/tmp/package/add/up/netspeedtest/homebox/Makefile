@@ -34,23 +34,18 @@ PKG_SOURCE_URL:=https://github.com/sirpdboy/homebox/releases/download/v$(PKG_VER
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	SECTION:=net
-	CATEGORY:=Network
-	SUBMENU:=Speed Test
-	TITLE:=Home Local Network Speed Test Tool
-	URL:=https://github.com/XGHeaven/homebox
-	DEPENDS:=@(i386||x86_64||arm||aarch64)
-	MAINTAINER:=sirpdboy <herboy2008@gmail.com>
-	PKGARCH:=$(PKG_ARCH_LINUX)
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Speed Test
+  TITLE:=Home Local Network Speed Test Tool
+  URL:=https://github.com/XGHeaven/homebox
+  DEPENDS:=@(i386||x86_64||arm||aarch64)
+  MAINTAINER:=sirpdboy <herboy2008@gmail.com>
+  PKGARCH:=$(PKG_ARCH_LINUX)
 endef
 
 define Package/$(PKG_NAME)/description
-	A toolbox for home local network speed test.
-	Features:
-	- Download/Upload speed test
-	- Ping latency test
-	- Multiple concurrent connections
-	- Web-based UI
+  A Toolbox for Home Local Networks Speed Test
 endef
 
 
