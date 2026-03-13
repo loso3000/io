@@ -49,13 +49,13 @@ endef
 
 
 define Package/ddns-go/install
-  $(INSTALL_DIR) $(1)/usr/bin
-  $(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/ddns-go $(1)/usr/bin/ddns-go
-  $(INSTALL_DIR) $(1)/etc/ddns-go
-  $(INSTALL_DIR) $(1)/etc/init.d
-  $(INSTALL_BIN) ./files/ddns-go.init $(1)/etc/init.d/ddns-go
-  $(INSTALL_DIR) $(1)/etc/config/
-  $(INSTALL_CONF) ./files/ddns-go.conf $(1)/etc/config/ddns-go
+	$(call GoPackage/Package/Install/Bin,$(1))
+
+	$(INSTALL_DIR) $(1)/etc/config/
+	$(INSTALL_CONF) $(CURDIR)/files/ddns-go.conf $(1)/etc/config/ddns-go
+	$(INSTALL_DIR) $(1)/etc/init.d/
+	$(INSTALL_BIN) $(CURDIR)/files/ddns-go.init $(1)/etc/init.d/ddns-go
 endef
+
 $(eval $(call GoBinPackage,ddns-go))
 $(eval $(call BuildPackage,ddns-go))
