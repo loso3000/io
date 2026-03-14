@@ -1,5 +1,5 @@
+// Copyright (C) 2023-2025 muink
 // Copyright (C) 2019-2026 sirpdboy
-// Fixed version - better Ookla result parsing
 
 'use strict';
 'require view';
