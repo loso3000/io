@@ -43,7 +43,7 @@ define Package/$(PKG_NAME)
   TITLE:=Home Local Network Speed Test Tool
   URL:=https://github.com/XGHeaven/homebox
   DEPENDS:=@(i386||x86_64||arm||aarch64)
-  PKGARCH:=$(PKG_ARCH)
+  MAINTAINER:=sirpdboy <herboy2008@gmail.com>
 endef
 
 define Package/$(PKG_NAME)/description
@@ -51,8 +51,8 @@ define Package/$(PKG_NAME)/description
 endef
 
 define Build/Prepare
-	$(call Download,$(PKG_NAME))
 	mkdir -p $(PKG_BUILD_DIR)
+	$(call Download,$(PKG_NAME))
 	$(TAR) -xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR)
 	[ -f $(PKG_BUILD_DIR)/homebox ] || exit 1
 	chmod +x $(PKG_BUILD_DIR)/homebox
