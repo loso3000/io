@@ -8,62 +8,37 @@ PKG_NAME:=homebox
 PKG_VERSION:=1.0.0
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=https://github.com/sirpdboy/homebox
-PKG_SOURCE_PROTO:=https
-
-ifeq ($(ARCH),aarch64) 
+ifeq ($(ARCH),aarch64)
 	PKG_ARCH_LINUX:=linux-arm64-musl
-	PKG_HASH:=2fbf023958eda40c9a8d07b19fda0ef49917a936daedc2099f89eef34a73a068
 else ifeq ($(ARCH),arm)
 	PKG_ARCH_LINUX:=linux-armv7-musl
-	PKG_HASH:=e27142e425521ddb6a9e9dd4ec049937d58d06204a3d9620cee9a2f0775d42d8
 else ifeq ($(ARCH),i386)
 	PKG_ARCH_LINUX:=linux-386-musl
-	PKG_HASH:=27cbc2ae8dcd37f4d4220606ec1b68420a71220c23d8a0453a8dd00117007c40
 else ifeq ($(ARCH),x86_64)
 	PKG_ARCH_LINUX:=linux-amd64-musl
-	PKG_HASH:=42a1fce75b1c4bfcba82b877447287f97a74332c1f39a07715f0c7ac4b1fcaf1
-
-else
-	$(error Unsupported architecture: $(ARCH))
 endif
 
 PKG_SOURCE:=homebox-$(PKG_ARCH_LINUX)-v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/sirpdboy/homebox/releases/download/v$(PKG_VERSION)/
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
   SECTION:=net
   CATEGORY:=Network
-  SUBMENU:=Speed Test
   TITLE:=Home Local Network Speed Test Tool
   URL:=https://github.com/XGHeaven/homebox
   DEPENDS:=@(i386||x86_64||arm||aarch64)
   MAINTAINER:=sirpdboy <herboy2008@gmail.com>
-  PKGARCH:=$(PKG_ARCH_LINUX)
 endef
 
 define Package/$(PKG_NAME)/description
   A Toolbox for Home Local Networks Speed Test
 endef
 
-
-define Download/$(PKG_NAME)
-	URL:=$(PKG_SOURCE_URL)
-	URL_FILE:=$(PKG_SOURCE)
-	FILE:=$(PKG_SOURCE)
-	HASH:=$(PKG_HASH)
-endef
-
 define Build/Prepare
-	$(call Download,$(PKG_NAME))
-	$(TAR) -xzf $(DL_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR)
-	mv $(PKG_BUILD_DIR)/homebox $(PKG_BUILD_DIR)/$(PKG_NAME)
-	chmod +x $(PKG_BUILD_DIR)/$(PKG_NAME)
-endef
-
-define Build/Configure
+	mkdir -p $(PKG_BUILD_DIR)
+	[ ! -f $(PKG_BUILD_DIR)/$(PKG_SOURCE) ] && wget $(PKG_SOURCE_URL)/v$(PKG_REAL_VER)/$(PKG_SOURCE) -O $(PKG_BUILD_DIR)/$(PKG_SOURCE)
+	tar -xzvf $(PKG_BUILD_DIR)/$(PKG_SOURCE) -C $(PKG_BUILD_DIR)
 endef
 
 define Build/Compile
