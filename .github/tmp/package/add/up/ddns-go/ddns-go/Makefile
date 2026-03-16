@@ -23,6 +23,7 @@ PKG_BUILD_FLAGS:=no-mips16
 
 GO_PKG:=github.com/jeessy2/ddns-go/v6
 GO_PKG_LDFLAGS_X:=main.Version=$(PKG_VERSION)
+GO_PKG_LDFLAGS:=$(GO_PKG_LDFLAGS_X)
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
