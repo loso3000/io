@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# EzOpenWrt系统配置脚本
 check_service() {
     local service_name="$1"
     [ -f "/usr/lib/lua/luci/controller/$service_name" ] && return 0 || return 1
@@ -97,7 +96,7 @@ fi
 
 opkg_mirror="$(uci -q get system.@imm_init[0].opkg_mirror)"
 if [ -z "$opkg_mirror" ]; then
-    opkg_mirror="https://mirrors.vsean.net/openwrt"
+    opkg_mirror="https://mirrors.tencent.com/openwrt"
     uci -q batch <<EOF
         set system.@imm_init[0].opkg_mirror="$opkg_mirror"
         commit system
@@ -125,19 +124,10 @@ for option in syn_flood fullcone fullcone6 flow_offloading flow_offloading_hw sy
     uci -q del firewall.@defaults[0].$option
 done
 
-sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)\.[0-9]\{1,\}/|\1-SNAPSHOT/|g' "/etc/opkg/distfeeds.conf" 2>/dev/null
-sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)/|\1-SNAPSHOT/|' "/etc/opkg/distfeeds.conf" 2>/dev/null
-sed -i.bak "s,https://downloads.immortalwrt.org,$opkg_mirror,g" "/etc/opkg/distfeeds.conf" 2>/dev/null
-sed -i.bak2 "s,https://downloads.openwrt.org,$opkg_mirror,g" "/etc/opkg/distfeeds.conf" 2>/dev/null
-CURRENT_HASH=$(grep -o 'kmods/[^/]*' /etc/opkg/distfeeds.conf 2>/dev/null | cut -d/ -f2)
-    if [ -n "$CURRENT_HASH" ]; then
-        kernelver=$(echo "$CURRENT_HASH" | sed 's/-.*//' | cut -d. -f1-2)
-        # NEW_HASH=""
-        # response=$(curl -fks --max-time 10 "https://mirror.nju.edu.cn/immortalwrt/releases/24.10-SNAPSHOT/targets/x86/64/kmods/" 2>/dev/null)
-            # NEW_HASH=$(echo "$response" | grep "$kernelver" | awk -F 'href="' '{print $2}' | awk -F '/"' '{print $1}' | head -1)
-            # [ -n "$NEW_HASH" ] && sed -i "s|${CURRENT_HASH}|${NEW_HASH}|g" /etc/opkg/distfeeds.conf ||  sed -i "s|${CURRENT_HASH}|6.6.119-1-f8c5d7fde74fa4fedf4370775255c515|g" /etc/opkg/distfeeds.conf
-            [  "$kernelver" = '6.6' ] &&  sed -i "s|${CURRENT_HASH}|6.6.119-1-f8c5d7fde74fa4fedf4370775255c515|g" /etc/opkg/distfeeds.conf
-    fi
+#sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)\.[0-9]\{1,\}/|\1-SNAPSHOT/|g' "/etc/opkg/distfeeds.conf" 2>/dev/null
+#sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)/|\1-SNAPSHOT/|' "/etc/opkg/distfeeds.conf" 2>/dev/null
+sed -i.bak "s,https://downloads.openwrt.org,$opkg_mirror,g" "/etc/opkg/distfeeds.conf" 2>/dev/null
+sed -i.bak2 "s,https://downloads.immortalwrt.org,$opkg_mirror,g" "/etc/opkg/distfeeds.conf" 2>/dev/null
 
 test $ver -lt 3 && {
     ver=3
