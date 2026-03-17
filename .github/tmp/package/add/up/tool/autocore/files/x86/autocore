@@ -34,6 +34,7 @@ start() {
 			ethtool -K "$i" gso on
 			ethtool -K "$i" tso off
 			ethtool -K "$i" ufo on
+			# ethtool -K "$i" gro off
 		}
 	done
 } >"/dev/null" 2>&1

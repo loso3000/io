@@ -30,9 +30,8 @@ date "+%A [%W] | [%j] %Y/%m/%d-%X %Z"
 }
 
 description() {
-
 . /etc/openwrt_release
-echo -n ${DISTRIB_DESCRIPTION}
+echo -n ${DISTRIB_EZVER}
 }
 
 cpuinfo() {

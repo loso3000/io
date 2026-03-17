@@ -109,12 +109,12 @@ sed -i '/check_signature/d' /etc/opkg.conf
 if [ -f "/etc/ezopenwrt_version" ]; then
     . /etc/ezopenwrt_version
     [ -n "$EZVER" ] && {
-        sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
         sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
-        echo "DISTRIB_DESCRIPTION='${EZVER}'" >> /etc/openwrt_release
+        sed -i '/DISTRIB_EZVER/d' /etc/openwrt_release
         echo "DISTRIB_REVISION='${EZVER}'" >> /etc/openwrt_release
-        sed -i '/OPENWRT_RELEASE/d' /etc/os-release
-        echo "OPENWRT_RELEASE='${EZVER}'" >> /etc/os-release
+        echo "DISTRIB_EZVER='${EZVER}'" >> /etc/openwrt_release
+        sed -i '/DISTRIB_EZVER/d' /etc/os-release
+        echo "DISTRIB_EZVER='${EZVER}'" >> /etc/os-release
     }
 fi
 
