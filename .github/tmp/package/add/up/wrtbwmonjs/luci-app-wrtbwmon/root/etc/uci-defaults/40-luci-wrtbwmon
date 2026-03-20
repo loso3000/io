@@ -1,0 +1,6 @@
+#!/bin/sh
+
+chmod +x /usr/libexec/rpcd/luci.wrtbwmon  2>/dev/null
+rm -f /tmp/luci-indexcache
+
+exit 0
