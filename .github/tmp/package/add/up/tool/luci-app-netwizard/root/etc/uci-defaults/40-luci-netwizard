@@ -15,7 +15,7 @@ uci -q batch <<-EOF >/dev/null
 	commit ucitrack
 EOF
 
-chmod +x /etc/init.d/netwizard 2>/dev/null
+chmod +x /etc/init.d/netwizard  /usr/libexec/rpcd/luci.netwizard  2>/dev/null
 rm -f /tmp/luci-indexcache
 
 exit 0

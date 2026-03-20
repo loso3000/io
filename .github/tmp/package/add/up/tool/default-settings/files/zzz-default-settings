@@ -94,14 +94,6 @@ if ! uci -q get system.@imm_init[0].system_chn > "/dev/null"; then
 EOF
 fi
 
-opkg_mirror="$(uci -q get system.@imm_init[0].opkg_mirror)"
-if [ -z "$opkg_mirror" ]; then
-    opkg_mirror="https://mirrors.tencent.com/openwrt"
-    uci -q batch <<EOF
-        set system.@imm_init[0].opkg_mirror="$opkg_mirror"
-        commit system
-EOF
-fi
 
 sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf
 sed -i '/check_signature/d' /etc/opkg.conf
@@ -109,25 +101,17 @@ sed -i '/check_signature/d' /etc/opkg.conf
 if [ -f "/etc/ezopenwrt_version" ]; then
     . /etc/ezopenwrt_version
     [ -n "$EZVER" ] && {
-        sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
+
         sed -i '/DISTRIB_EZVER/d' /etc/openwrt_release
-        echo "DISTRIB_REVISION='${EZVER}'" >> /etc/openwrt_release
         echo "DISTRIB_EZVER='${EZVER}'" >> /etc/openwrt_release
         sed -i '/DISTRIB_EZVER/d' /etc/os-release
         echo "DISTRIB_EZVER='${EZVER}'" >> /etc/os-release
     }
 fi
 
-sed -i 's/immortalwrt/openwrt/g' /etc/config/luci
-
 for option in syn_flood fullcone fullcone6 flow_offloading flow_offloading_hw synflood_protect; do
     uci -q del firewall.@defaults[0].$option
 done
-
-#sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)\.[0-9]\{1,\}/|\1-SNAPSHOT/|g' "/etc/opkg/distfeeds.conf" 2>/dev/null
-#sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)/|\1-SNAPSHOT/|' "/etc/opkg/distfeeds.conf" 2>/dev/null
-sed -i.bak "s,https://downloads.openwrt.org,$opkg_mirror,g" "/etc/opkg/distfeeds.conf" 2>/dev/null
-sed -i.bak2 "s,https://downloads.immortalwrt.org,$opkg_mirror,g" "/etc/opkg/distfeeds.conf" 2>/dev/null
 
 test $ver -lt 3 && {
     ver=3
