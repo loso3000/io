@@ -113,6 +113,13 @@ for option in syn_flood fullcone fullcone6 flow_offloading flow_offloading_hw sy
     uci -q del firewall.@defaults[0].$option
 done
 
+#sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)\.[0-9]\{1,\}/|\1-SNAPSHOT/|g' "/etc/opkg/distfeeds.conf" 2>/dev/null
+sed -i 's|releases/(24\.10)(\.[0-9]+)?/|releases/24.10.5/|g' /etc/opkg/distfeeds.conf
+sed -i 's|downloads.openwrt.org|mirrors.ustc.edu.cn/openwrt|g' /etc/opkg/distfeeds.conf
+CURRENT_HASH=$(grep -o 'kmods/[^/]*' /etc/opkg/distfeeds.conf 2>/dev/null | cut -d/ -f2)
+if [ -n "$CURRENT_HASH" ]; then
+    [  "$kernelver" = '6.6' ] &&  sed -i "s|${CURRENT_HASH}|6.6.119-1-484466e2719a743506c36b4bb2103582|g" /etc/opkg/distfeeds.conf
+fi
 test $ver -lt 3 && {
     ver=3
    
@@ -230,7 +237,7 @@ else
     /etc/init.d/dockerd disable 2>/dev/null
     /etc/init.d/dockerd stop 2>/dev/null
 fi
-# 禁用ipv6前缀
+
 sed -i 's/^[^#].*option ula/#&/' /etc/config/network
 sed -i "/log-facility/d" "/etc/dnsmasq.conf" 2>/dev/null
 echo "log-facility=/dev/null" >> "/etc/dnsmasq.conf"
