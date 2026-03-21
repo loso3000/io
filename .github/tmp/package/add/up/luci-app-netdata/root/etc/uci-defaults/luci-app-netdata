@@ -15,6 +15,6 @@ EOF
 rm -f /tmp/luci-indexcache* 2>/dev/null
 rm -f /tmp/luci-modulecache/* 2>/dev/null  # OpenWrt 21.02
 rm -f /tmp/luci-indexcache
-
+chmod +x  /etc/init.d/netdata
 rm -rf /tmp/luci-*
 exit 0
