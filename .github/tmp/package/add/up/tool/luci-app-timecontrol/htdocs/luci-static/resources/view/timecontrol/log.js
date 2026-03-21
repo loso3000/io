@@ -14,7 +14,6 @@
 return view.extend({
 	render: function () {
 		var css = `
-			/* 日志框文本区域 */
 			#log_textarea pre {
 				padding: 10px; /* 内边距 */
 				border-bottom: 1px solid #ddd; /* 边框颜色 */
@@ -24,17 +23,14 @@ return view.extend({
 				word-wrap: break-word;
 				overflow-y: auto;
 			}
-			/* 5s 自动刷新文字 */
 			.cbi-section small {
 				margin-left: 1rem;
 				font-size: small; 
-				color: #666; /* 深灰色文字 */
 			}
-			/* 倒序显示相关样式 */
 			.log-container {
 				display: flex;
-				flex-direction: column-reverse;
-				max-height: 800px;
+				flex-direction: column;
+				max-height: 1200px;
 				overflow-y: auto;
 				border-radius: 3px;
 				margin-top: 10px;
@@ -50,7 +46,6 @@ return view.extend({
 				border-bottom: none;
 			}
 			.log-timestamp {
-				font-weight: bold;
 				margin-right: 10px;
 			}
 		`;
@@ -65,6 +60,8 @@ return view.extend({
 
 		var log_path = '/var/log/timecontrol.log';
 		var lastLogContent = '';
+		var lastScrollTop = 0;
+		var isScrolledToTop = true; 
 
 		// 解析日志行的时间戳，用于排序
 		function parseLogTimestamp(logLine) {
@@ -73,37 +70,30 @@ return view.extend({
 			if (timestampMatch) {
 				return new Date(timestampMatch[1]).getTime();
 			}
-			// 如果没有时间戳，使用当前时间
 			return Date.now();
 		}
 
-		// 倒序排列日志行（最新的在上面）
 		function reverseLogLines(logContent) {
 			if (!logContent || logContent.trim() === '') {
 				return logContent;
 			}
 			
-			// 按行分割
 			var lines = logContent.split('\n');
 			
-			// 过滤空行
 			lines = lines.filter(function(line) {
 				return line.trim() !== '';
 			});
 			
-			// 按时间戳排序（最新的在前面）
 			lines.sort(function(a, b) {
 				var timeA = parseLogTimestamp(a);
 				var timeB = parseLogTimestamp(b);
 				return timeB - timeA; // 降序排列
 			});
 			
-			// 重新组合为字符串
 			return lines.join('\n');
 		}
 
-		// 将日志内容转换为HTML行
-		function formatLogLines(logContent) {
+		function formatLogLines(logContent, isNewContent) {
 			if (!logContent || logContent.trim() === '') {
 				return E('div', { 'class': 'log-line' }, _('Log is clean.'));
 			}
@@ -115,22 +105,22 @@ return view.extend({
 				var line = lines[i].trim();
 				if (line === '') continue;
 				
-				// 提取时间戳
 				var timestampMatch = line.match(/^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]/);
 				var timestampSpan = null;
 				var messageSpan = null;
+				var lineClass = 'log-line';
 				
 				if (timestampMatch) {
 					timestampSpan = E('span', { 
 						'class': 'log-timestamp',
 						'title': timestampMatch[1]
-					}, timestampMatch[0]);
-					messageSpan = E('span', {}, line.substring(timestampMatch[0].length));
+					}, timestampMatch[0] + ' ');
+					messageSpan = E('span', {}, line.substring(timestampMatch[0].length + 1));
 				} else {
 					messageSpan = E('span', {}, line);
 				}
 				
-				var lineDiv = E('div', { 'class': 'log-line' }, [
+				var lineDiv = E('div', { 'class': lineClass }, [
 					timestampSpan,
 					messageSpan
 				].filter(function(el) { return el !== null; }));
@@ -157,7 +147,8 @@ return view.extend({
 							// 立即刷新日志显示框
 							var logContent = _('Log is clean.');
 							lastLogContent = logContent;
-							dom.content(log_container, formatLogLines(logContent));
+							dom.content(log_container, formatLogLines(logContent, false));
+							isScrolledToTop = true; // 清空日志后，保持在顶部
 						})
 						.catch(function () {
 							button.textContent = _('Failed to clear log.');
@@ -167,6 +158,10 @@ return view.extend({
 				}
 			}, _('Clear Logs'))
 		]);
+		log_container.addEventListener('scroll', function() {
+			lastScrollTop = this.scrollTop;
+			isScrolledToTop = this.scrollTop <= 1;
+		});
 
 		poll.add(L.bind(function () {
 			return fs.read_direct(log_path, 'text')
@@ -178,15 +173,24 @@ return view.extend({
 					
 					// 检查内容是否有变化
 					if (logContent !== lastLogContent) {
-						// 倒序排列日志
+						var isNewContent = lastLogContent !== '' && lastLogContent !== _('Log is clean.');
 						var reversedLog = reverseLogLines(logContent);
 						// 格式化为HTML
-						var formattedLog = formatLogLines(reversedLog);
+						var formattedLog = formatLogLines(reversedLog, isNewContent);
+						
+						var prevScrollHeight = log_container.scrollHeight;
+						var prevScrollTop = log_container.scrollTop;
+						
 						dom.content(log_container, formattedLog);
 						lastLogContent = logContent;
 						
-						// 滚动到顶部（因为最新的在上面）
-						log_container.scrollTop = 0;
+						if (isScrolledToTop || isNewContent) {
+							log_container.scrollTop = 0;
+						} else {
+							var newScrollHeight = log_container.scrollHeight;
+							var heightDiff = newScrollHeight - prevScrollHeight;
+							log_container.scrollTop = prevScrollTop + heightDiff;
+						}
 					}
 				}).catch(function (err) {
 					var logContent;
@@ -197,7 +201,7 @@ return view.extend({
 					}
 					
 					if (logContent !== lastLogContent) {
-						dom.content(log_container, formatLogLines(logContent));
+						dom.content(log_container, formatLogLines(logContent, false));
 						lastLogContent = logContent;
 					}
 				});
@@ -217,7 +221,7 @@ return view.extend({
                 E('span', {}, [
                     _('© github '),
                     E('a', { 
-                        'href': 'https://github.com/sirpdboy/luci-app-timecontrol', 
+                        'href': 'https://github.com/sirpdboy', 
                         'target': '_blank',
                         'style': 'text-decoration: none;'
                     }, 'by sirpdboy')
