@@ -49,19 +49,21 @@ function checkProcess(quick = false) {
             });
     }
 }
-
 function controlService(action, port) {
     if (action === 'start') {
         return fs.exec('/usr/bin/killall', ['homebox'])
             .catch(function() { return Promise.resolve(); })
             .then(function() {
-                var command = 'nohup /usr/bin/homebox serve --port ' + port + ' > ' + logPath + ' 2>&1 &';
+                var command = '/usr/bin/homebox serve --port ' + port + ' > ' + logPath + ' 2>&1 &';
                 return fs.exec('/bin/sh', ['-c', command]);
             });
     } else {
+        fs.exec('/usr/bin/killall', ['homebox']);
         return fs.exec('/etc/init.d/netspeedtest', ['stop']);
     }
 }
+
+
 
 function saveConfiguration(newPort, enabled) {
     const uciContent = `config netspeedtest 'config'
@@ -283,7 +285,6 @@ return view.extend({
                 .catch(function(err) {
                     console.error('Service control error:', err);
                     
-                    // 发生错误时重新检查
                     checkProcess().then(function(res) {
                         state.running = res.running || false;
                         if (res.port) state.port = res.port;
