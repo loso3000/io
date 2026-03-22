@@ -48,12 +48,12 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/etc/init.d $(1)/etc/uci-defaults  $(1)/etc/hotplug.d/block $(1)/etc/board.d $(1)/usr/libexec
 	$(INSTALL_BIN) ./files/etc/init.d/zprintk $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/init.d/blockmount $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/etc/uci-defaults/09_istoreos $(1)/etc/uci-defaults
-	$(INSTALL_BIN) ./files/etc/uci-defaults/99_docker_nat_fw4 $(1)/etc/uci-defaults
+	$(INSTALL_DATA) ./files/etc/uci-defaults/09_istoreos $(1)/etc/uci-defaults
+	$(INSTALL_DATA) ./files/etc/uci-defaults/99_docker_nat_fw4 $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/etc/hotplug.d/block/09-blockmount $(1)/etc/hotplug.d/block
 	$(INSTALL_BIN) ./files/etc/board.d/10_system $(1)/etc/board.d
-	$(INSTALL_DATA) ./files/usr/libexec/blockmount.sh $(1)/usr/libexec
-	$(INSTALL_DATA) ./files/usr/libexec/blockphy.sh $(1)/usr/libexec
+	$(INSTALL_BIN) ./files/usr/libexec/blockmount.sh $(1)/usr/libexec
+	$(INSTALL_BIN) ./files/usr/libexec/blockphy.sh $(1)/usr/libexec
 endef
 
 define Package/$(PKG_NAME)/postinst
