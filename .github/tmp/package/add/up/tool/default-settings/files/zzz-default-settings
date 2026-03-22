@@ -113,8 +113,7 @@ for option in syn_flood fullcone fullcone6 flow_offloading flow_offloading_hw sy
     uci -q del firewall.@defaults[0].$option
 done
 
-#sed -i 's|\(releases/[0-9]\{1,\}\.[0-9]\{1,\}\)\.[0-9]\{1,\}/|\1-SNAPSHOT/|g' "/etc/opkg/distfeeds.conf" 2>/dev/null
-sed -i 's|releases/(24\.10)(\.[0-9]+)?/|releases/24.10.5/|g' /etc/opkg/distfeeds.conf
+sed -i -E 's|releases/(24\.10)(\.[0-9]+)?/|releases/24.10.5/|g' /etc/opkg/distfeeds.conf
 sed -i 's|downloads.openwrt.org|mirrors.ustc.edu.cn/openwrt|g' /etc/opkg/distfeeds.conf
 CURRENT_HASH=$(grep -o 'kmods/[^/]*' /etc/opkg/distfeeds.conf 2>/dev/null | cut -d/ -f2)
 if [ -n "$CURRENT_HASH" ]; then
