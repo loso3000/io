@@ -151,9 +151,8 @@ return view.extend({
                     }
                     
                     result_stat.innerHTML = "<div style='max-width:500px; margin-left:20px'>" +
-                        "<a href='" + escapeHTML(result.data) + "' target='_blank'>" +
-                        "<img src='" + escapeHTML(imageUrl) + "' style='max-width:100%; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.1)' " +
-                        "onerror='this.onerror=null; this.src=\"/luci-static/resources/icons/error.png\"'/>" +
+                        "<a href='" + result.data + "' target='_blank'>" +
+                        "<img src='" + result.data + "' style='max-width:100%; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.1)' " +
                         "</a><br>" +
                         "</div>";
                     break;
@@ -176,33 +175,33 @@ return view.extend({
                     
                     if (server) {
                         html += "<div style='margin-top:5px; padding:5px; color:#666'>" +
-                                escapeHTML(server.trim()) + "</div>";
+                                server.trim() + "</div>";
                     }
                     
                     if (download) {
                         html += "<div style='margin-top:10px; padding:8px; background:#e8f5e8; border-radius:4px'>" +
                                 "<span style='font-weight:bold'>⬇️ " + _('Download:') + "</span> " +
-                                "<span style='color:#2e7d32; font-weight:500'>" + escapeHTML(download.replace(/Download:/i, '').trim()) + "</span>" +
+                                "<span style='color:#2e7d32; font-weight:500'>" + download.replace(/Download:/i, '').trim() + "</span>" +
                                 "</div>";
                     }
                     
                     if (upload) {
                         html += "<div style='margin-top:5px; padding:8px; background:#e3f2fd; border-radius:4px'>" +
                                 "<span style='font-weight:bold'>⬆️ " + _('Upload:') + "</span> " +
-                                "<span style='color:#1565c0; font-weight:500'>" + escapeHTML(upload.replace(/Upload:/i, '').trim()) + "</span>" +
+                                "<span style='color:#1565c0; font-weight:500'>" + upload.replace(/Upload:/i, '').trim() + "</span>" +
                                 "</div>";
                     }
                     
                     if (latency) {
                         html += "<div style='margin-top:5px; padding:5px; background:#f5f5f5; border-radius:4px'>" +
                                 "<span style='font-weight:bold'>⏱️ " + _('Latency:') + "</span> " +
-                                "<span style='color:#666'>" + escapeHTML(latency.replace(/Latency:/i, '').replace(/Idle Latency:/i, '').trim()) + "</span>" +
+                                "<span style='color:#666'>" + latency.replace(/Latency:/i, '').replace(/Idle Latency:/i, '').trim() + "</span>" +
                                 "</div>";
                     }
                     
                     if (packetLoss) {
                         html += "<div style='margin-top:5px; padding:5px; color:#666'>" +
-                                escapeHTML(packetLoss.trim()) + "</div>";
+                                packetLoss.trim() + "</div>";
                     }
                     
                     html += "</div>";
