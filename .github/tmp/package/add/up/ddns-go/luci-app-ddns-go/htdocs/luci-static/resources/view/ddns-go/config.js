@@ -348,7 +348,7 @@ return view.extend({
         o.inputstyle = 'apply';
         o.onclick = L.bind(this.handleResetPassword, this, data);
 
-        o = s.option(form.Button, '_update', _('Check update'));
+        o = s.option(form.Button, '_update', _('Check Update'));
         o.inputtitle = _('Check');
         o.inputstyle = 'apply';
         o.onclick = L.bind(this.handleUpdate, this, data);
