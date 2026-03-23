@@ -50,13 +50,6 @@ setnetwizard(){
     fi
 }
 
-set_firewall_wan() {
-wanwan=`uci -q get advancedplus.@basic[0].set_firewall_wan`
-if [ -n $wanwan ] ; then
-    uci -q set firewall.@zone[1].input=$wanwan
-    uci commit firewall
-fi
-}
 
 set_login() {
     if [ "x$(uci -q get advancedplus.@basic[0].set_login)" == "x1" ] ; then
@@ -92,8 +85,7 @@ advancedset(){
     [ ! $dev ] && dev=br-lan
     setnetwizard
     set_login
-    # set_firewall_wan
-    tsoset
+    # tsoset
     sed -i "\/bin\/zsh/d" /etc/profile
     [ "x$(uci -q get advancedplus.@basic[0].usshmenu)" = "x1" ] || echo '/usr/bin/zsh'  >> /etc/profile
 }

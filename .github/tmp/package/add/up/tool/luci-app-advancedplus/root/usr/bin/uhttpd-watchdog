@@ -1,5 +1,5 @@
 #!/bin/sh
-# uhttpd 进程监控守护进程 2025 by sirpdboy 
+# uhttpd 进程监控守护进程 2025-2026 by sirpdboy 
 
 PROG="uhttpd-watchdog"
 UHTTPD_BIN="/usr/sbin/uhttpd"

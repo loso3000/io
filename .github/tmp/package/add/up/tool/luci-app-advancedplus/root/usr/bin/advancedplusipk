@@ -41,6 +41,7 @@ istore_install(){
 	[ -s "/tmp/is-opkg" ] || exit 1
 	chmod 755 /tmp/is-opkg
 	/tmp/is-opkg update
+	/tmp/is-opkg install taskd
 	/tmp/is-opkg opkg install --force-reinstall luci-lib-taskd luci-lib-xterm
 	/tmp/is-opkg opkg install --force-reinstall luci-app-store || exit $?
 	[ -s "/etc/init.d/tasks" ] || /tmp/is-opkg opkg install --force-reinstall taskd
@@ -49,25 +50,18 @@ istore_install(){
         uci commit
 	rm -rf /tmp/is-opkg /tmp/luci*
         echo "iStore应用商店安装完成！"
+	/etc/init.d/rpcd restart
     fi
     exit
 }
 
 drv_install(){
-    if is_vip; then
-        bash /etc/kmodreg drv 
-    else
-         echo "目前此功能仅限VIP版本提供！"
-    fi
+    bash /etc/kmodreg drv 
     exit
 }
 
 docker_install(){
-    if is_vip; then
-        bash /etc/kmodreg docker
-    else
-        echo "目前此功能仅限VIP版本提供！"
-    fi
+    bash /etc/kmodreg docker
     exit
 }
 

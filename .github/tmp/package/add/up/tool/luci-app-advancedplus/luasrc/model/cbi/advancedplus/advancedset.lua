@@ -19,9 +19,9 @@ e = t:option(Flag, "wizard",translate('Hide Wizard'), translate('Show or hide th
 e.default = "0"
 e.rmempty = false
 
-e = t:option(Flag, "tsoset",translate('TSO optimization for network card interruption'), translate('Turn off the TSO parameters of the INTEL225 network card to improve network interruption'))
-e.default = "1"
-e.rmempty = false
+--e = t:option(Flag, "tsoset",translate('TSO optimization for network card interruption'), translate('Turn off the TSO parameters of the INTEL225 network card to improve network interruption'))
+--e.default = "1"
+--e.rmempty = false
 
 e = t:option(Flag, "uhttpd",translate('Prevent uhttpd from exiting web services'))
 e.default = "1"
