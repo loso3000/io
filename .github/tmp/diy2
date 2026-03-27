@@ -580,13 +580,6 @@ git clone https://$github/sbwml/luci-app-filemanager package/new/luci-app-filema
 rm -rf feeds/packages/net/curl
 git clone https://$github/sbwml/feeds_packages_net_curl feeds/packages/net/curl
 
-# 修改makefile
-# find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
-# find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/lang\/lang\/lang\-package\.mk/include \$(TOPDIR)\/feeds\/packages\/lang\/lang\/golang\-package\.mk/g' {}
-
-# sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
-# sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/*/Makefile
-# echo '默认开启 Irqbalance'
 if  [[ $TARGET_DEVICE == 'x86_64' ]] ;then
 VER1="$(grep "KERNEL_PATCHVER:="  ./target/linux/x86/Makefile | cut -d = -f 2)"
 CLASH="amd64-v1"
