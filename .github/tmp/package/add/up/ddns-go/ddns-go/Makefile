@@ -53,8 +53,8 @@ define Package/ddns-go/install
 	
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/config
-	[ -f $(CURDIR)/files/ddns-go.init ] && $(INSTALL_BIN) $(CURDIR)/files/ddns-go.init $(1)/etc/init.d/ddns-go || true
-	[ -f $(CURDIR)/files/ddns-go.conf ] && $(INSTALL_CONF) $(CURDIR)/files/ddns-go.conf $(1)/etc/config/ddns-go || true
+	$(INSTALL_BIN) $(CURDIR)/files/ddns-go.init $(1)/etc/init.d/ddns-go
+	$(INSTALL_CONF) $(CURDIR)/files/ddns-go.conf $(1)/etc/config/ddns-go
 endef
 
 $(eval $(call GoBinPackage,ddns-go))
