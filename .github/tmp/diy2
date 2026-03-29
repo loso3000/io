@@ -165,6 +165,10 @@ git clone https://$github/sbwml/package_kernel_r8125 package/kernel/r8125
 git clone https://$github/sbwml/package_kernel_r8126 package/kernel/r8126
 git clone https://$github/sbwml/package_kernel_r8127 package/kernel/r8127
 
+#istoreos-files
+#rm -rf ./package/diy
+#rm -rf ./package/istoreos-files
+
 rm -rf ./feeds/luci/applications/luci-app-openlist2
 rm -rf  ./feeds/packages/net/openlist2
 # openlist
@@ -414,9 +418,6 @@ git clone https://$gitea/sbwml/packages_utils_dockerd feeds/packages/utils/docke
 git clone https://$gitea/sbwml/packages_utils_containerd feeds/packages/utils/containerd
 git clone https://$gitea/sbwml/packages_utils_runc feeds/packages/utils/runc
 
-#istoreos-files
-rm -rf ./package/diy
-rm -rf ./package/istoreos-files
 
 cat  patch/banner > ./package/base-files/files/etc/banner
 cat  patch/profile > ./package/base-files/files/etc/profile
