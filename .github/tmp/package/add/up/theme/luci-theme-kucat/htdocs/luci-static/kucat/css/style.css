@@ -3430,10 +3430,6 @@ body.lang_pl.node-main-login .cbi-value-title {
 
 [data-page^="admin-services-openclash"] .CodeMirror {
     font-size: inherit;
-    background-color: rgba(0, 0, 0, 0.8) !important;
-    color: var(--body-color) !important;
-    color: #bbb !important;
-    font-family: 'Google Sans' !important
 }
 
 [data-page^="admin-services-openclash"] select#CORE_VERSION,
