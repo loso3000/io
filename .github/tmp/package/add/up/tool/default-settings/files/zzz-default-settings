@@ -229,15 +229,6 @@ uci -q set base_config.@base[0].ver="$ver"
 uci -q commit base_config
 
 
-
-if check_service "dockerman.lua"; then
-    /etc/init.d/dockerd enable 2>/dev/null
-    /etc/init.d/dockerd restart 2>/dev/null
-else
-    /etc/init.d/dockerd disable 2>/dev/null
-    /etc/init.d/dockerd stop 2>/dev/null
-fi
-
 sed -i 's/^[^#].*option ula/#&/' /etc/config/network
 sed -i "/log-facility/d" "/etc/dnsmasq.conf" 2>/dev/null
 echo "log-facility=/dev/null" >> "/etc/dnsmasq.conf"
