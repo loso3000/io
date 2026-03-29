@@ -397,7 +397,6 @@ rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamb
 # Add luci-app-dockerman
 # rm -rf feeds/luci/applications/luci-app-dockerman
 # git clone https://git.cooluc.com/sbwml/luci-app-dockerman -b openwrt-24.10 feeds/luci/applications/luci-app-dockerman
-#  git clone https://$github/sirpdboy/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
 # rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
 # git clone https://$github/sbwml/packages_utils_docker feeds/packages/utils/docker
 # rm -rf feeds/packages/utils/dockerd
@@ -407,13 +406,13 @@ rm -rf ./package/lean/autocore ./package/lean/automount  ./package/lean/autosamb
 
 # Docker
 rm -rf feeds/luci/applications/luci-app-dockerman
-git clone https://$gitea/sbwml/luci-app-dockerman -b nft feeds/luci/applications/luci-app-dockerman
+# git clone https://$gitea/sbwml/luci-app-dockerman -b nft feeds/luci/applications/luci-app-dockerman
+git clone https://$github/sirpdboy/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
 rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
 git clone https://$gitea/sbwml/packages_utils_docker feeds/packages/utils/docker
 git clone https://$gitea/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd
 git clone https://$gitea/sbwml/packages_utils_containerd feeds/packages/utils/containerd
 git clone https://$gitea/sbwml/packages_utils_runc feeds/packages/utils/runc
-
 
 #istoreos-files
 rm -rf ./package/diy
@@ -448,12 +447,13 @@ git clone https://github.com/sirpdboy/luci-app-watchdog ./package/watchdog
 # sed -i '/o.datatype = "hostname"/d' feeds/luci/modules/luci-mod-admin-full/luasrc/model/cbi/admin_system/system.lua
 # sed -i '/= "hostname"/d' /usr/lib/lua/luci/model/cbi/admin_system/system.lua
 
-git clone  https://$github/linkease/nas-packages-luci ./package/nas-packages-luci
-git clone  https://$github/linkease/nas-packages ./package/nas-packages
-git clone  https://$github/linkease/istore ./package/istore
-sed -i 's/1/0/g' ./package/nas-packages/network/services/linkease/files/linkease.config
-sed -i 's/luci-lib-ipkg/luci-base/g' package/istore/luci/luci-app-store/Makefile
+# git clone  https://$github/linkease/nas-packages-luci ./package/nas-packages-luci
+# git clone  https://$github/linkease/nas-packages ./package/nas-packages
+# git clone  https://$github/linkease/istore ./package/istore
+# sed -i 's/1/0/g' ./package/nas-packages/network/services/linkease/files/linkease.config
+# sed -i 's/luci-lib-ipkg/luci-base/g' package/istore/luci/luci-app-store/Makefile
 
+git clone  https://$github/sbwml/package_new_istore ./package/istore
 
 #离线升级 
 #rm -rf ./feeds/luci/applications/luci-app-attendedsysupgrade
@@ -492,8 +492,6 @@ pushd feeds/luci
     curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0001-luci-mod-system-add-modal-overlay-dialog-to-reboot.patch | patch -p1  #reboot
     curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0002-luci-mod-status-firewall-disable-legacy-firewall-rul2410.patch | patch -p1   #nftable2410
     curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0003-luci-mod-status-storage-index-applicable-only-to-val.patch | patch -p1  #storeage
-    # curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0003-luci-mod-status-storage-index-applicable-only-to-val-storage2305.patch | patch -p1  #storeage2305lean
-    # curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0004-luci-luci-app-upnp-ipurl-upnp2305.patch | patch -p1  #upnp2305lean
 popd
 # uwsgi
 sed -i 's,procd_set_param stderr 1,procd_set_param stderr 0,g' feeds/packages/net/uwsgi/files/uwsgi.init
