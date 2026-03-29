@@ -812,23 +812,20 @@ else
 	opkg update
 	echo "正在安装Docker及相关服务...请耐心等待...大约需要1-5分钟 "
 	# opkg install $nowkmoddir/dockerd*.ipk --force-depends >/dev/null 2>&1
-	# opkg install $nowkmoddir/luci-app-dockerman*.ipk --force-depends  >/dev/null 2>&1
-	# opkg install $nowkmoddir/luci-i18n-dockerman*.ipk --force-depends  >/dev/null 2>&1
-	opkg install --force-depends luci-app-dockerman >/dev/null 2>&1
-    	opkg install --force-depends luci-i18n-dockerman-zh-cn	 >/dev/null 2>&1
-    	opkg install --force-depends avahi-daemon >/dev/null 2>&1
+	opkg install $nowkmoddir/luci-app-dockerman*.ipk --force-depends  >/dev/null 2>&1
+	opkg install $nowkmoddir/luci-i18n-dockerman*.ipk --force-depends  >/dev/null 2>&1
 	if is_docker; then
 		echo "本地成功安装Docker及相关服务！"
 	else
    		echo "本地安装失败！"
    		echo "在线重新安装Docker及相关服务...请耐心等待...大约需要1-5分钟"
    		opkg install --force-depends dockerd >/dev/null 2>&1
-    		opkg install --force-depends luci-i18n-dockerman* >/dev/null 2>&1
-    		opkg install --force-depends luci-app-dockerman >/dev/null 2>&1
-    		opkg install --force-depends avahi-daemon >/dev/null 2>&1
-    		if is_docker; then 
+   		opkg install --force-depends luci-i18n-dockerman* >/dev/null 2>&1
+   		opkg install --force-depends luci-app-dockerman >/dev/null 2>&1
+   		opkg install --force-depends avahi-daemon >/dev/null 2>&1
+   		if is_docker; then 
     		    echo "在线成功安装Docker及相关服务！" 
-    		fi
+   		fi
 
 	fi
 fi
