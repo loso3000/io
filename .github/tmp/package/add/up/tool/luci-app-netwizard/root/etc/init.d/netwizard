@@ -572,24 +572,19 @@ configure_network() {
 
     [ "x$ifname" = "xdevice" ] && $UCISET network.@$ifname[0].ports="${lannet}" || $UCISET network.lan.$ifname="${lannet}"
     if [ -f /etc/config/dockerd ]; then 
-	     DOCKERINDEX=$(uci show firewall | grep -E "@zone\[[0-9]+\].name='docker'" | sed -n 's/.*@zone\[\([0-9]*\)\].name.*/\1/p')
-             [ -n "$DOCKERINDEX" ] && $UCIDEL firewall.@zone[$DOCKERINDEX]
+        $UCIDEL firewall.docker
+        $UCIDEL firewall.dockerd
         uci -q batch <<EOF
-            add firewall zone
-            set firewall.@zone[-1].name='docker'
-            set firewall.@zone[-1].input='ACCEPT'
-            set firewall.@zone[-1].output='ACCEPT'
-            set firewall.@zone[-1].forward='ACCEPT'
-            add_list firewall.@zone[-1].subnet='172.16.0.0/12'
-            set firewall.docker_to_wan=forwarding
-            set firewall.docker_to_wan.src='docker'
-            set firewall.docker_to_wan.dest='wan'
-            set firewall.docker_to_lan=forwarding
-            set firewall.docker_to_lan.src='docker'
-            set firewall.docker_to_lan.dest='lan'
-            set firewall.lan_to_docker=forwarding
-            set firewall.lan_to_docker.src='lan'
-            set firewall.lan_to_docker.dest='docker'
+            set firewall.docker=zone
+            set firewall.docker.name='docker'
+            set firewall.docker.input='ACCEPT'
+            set firewall.docker.output='ACCEPT'
+            set firewall.docker.forward='ACCEPT'
+            set add_list firewall.docker.network='docker'
+            add_list firewall.docker.subnet='172.16.0.0/12'
+            set firewall.dockerd=forwarding
+            set firewall.dockerd.src='docker'
+            set firewall.dockerd.dest='wan'
 EOF
     fi
     if [ "$wan_proto" != "siderouter" ]; then
