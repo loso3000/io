@@ -194,7 +194,7 @@ EOF
 test $ver -lt 6 && {
     ver=6
     # docker
-    if [ -f /etc/config/dockerd ]; then
+    if [ -f /etc/config/dockerd1 ]; then
 	     DOCKERINDEX=$(uci show firewall | grep -E "@zone\[[0-9]+\].name='docker'" | sed -n 's/.*@zone\[\([0-9]*\)\].name.*/\1/p')
          [ -n "$DOCKERINDEX" ] && uci del firewall.@zone[$DOCKERINDEX]
         uci -q batch <<EOF
