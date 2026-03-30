@@ -580,7 +580,7 @@ configure_network() {
             set firewall.docker.input='ACCEPT'
             set firewall.docker.output='ACCEPT'
             set firewall.docker.forward='ACCEPT'
-            set add_list firewall.docker.network='docker'
+            add_list firewall.docker.network='docker'
             add_list firewall.docker.subnet='172.16.0.0/12'
             set firewall.dockerd=forwarding
             set firewall.dockerd.src='docker'
