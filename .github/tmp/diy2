@@ -385,8 +385,8 @@ git clone  https://$github/EasyTier/luci-app-easytier ./package/luci-app-easytie
 #net eth0
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
+curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
 
 # rm -rf $(find ./package/ -type d -regex ".*\(autocore\|automount\|autosamba\|default-settings\).*")
 rm -rf ./package/emortal/autocore ./package/emortal/automount  ./package/emortal/autosamba  ./package/emortal/default-settings 
@@ -494,9 +494,9 @@ curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turbo
 
 # luci
 pushd feeds/luci
-    curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0001-luci-mod-system-add-modal-overlay-dialog-to-reboot.patch | patch -p1  #reboot
-    curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0002-luci-mod-status-firewall-disable-legacy-firewall-rul2410.patch | patch -p1   #nftable2410
-    curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/luci/0003-luci-mod-status-storage-index-applicable-only-to-val.patch | patch -p1  #storeage
+    curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/luci/0001-luci-mod-system-add-modal-overlay-dialog-to-reboot.patch | patch -p1  #reboot
+    curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/luci/0002-luci-mod-status-firewall-disable-legacy-firewall-rul2410.patch | patch -p1   #nftable2410
+    curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/luci/0003-luci-mod-status-storage-index-applicable-only-to-val.patch | patch -p1  #storeage
 popd
 # uwsgi
 sed -i 's,procd_set_param stderr 1,procd_set_param stderr 0,g' feeds/packages/net/uwsgi/files/uwsgi.init
@@ -647,11 +647,11 @@ cp -r  ./package/add/patch/GithubvToken ./files/etc/ezgithub
 chmod 600 ./files/etc/ezgithub
 echo '---------------------------------' >> ./files/etc/banner
 [ -f ./files/root/.zshrc ] || mv -f ./package/add/patch/z.zshrc ./files/root/.zshrc
-[ -f ./files/root/.zshrc ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/z.zshrc > ./files/root/.zshrc
+[ -f ./files/root/.zshrc ] || curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/z.zshrc > ./files/root/.zshrc
 [ -f ./files/etc/profiles ] || mv -f ./package/add/patch/profiles ./files/etc/profiles
-[ -f ./files/etc/profiles ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/profiles > ./files/etc/profiles
+[ -f ./files/etc/profiles ] || curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/profiles > ./files/etc/profiles
 [ -f ./files/etc/opkg/distfeeds.conf.server ] || mv -f ./package/add/feeds/distfeeds.conf ./files/etc/opkg/distfeeds.conf.server
-[ -f ./files/etc/opkg/distfeeds.conf.server ] || curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/feeds/distfeeds.conf > ./files/etc/opkg/distfeeds.conf.server
+[ -f ./files/etc/opkg/distfeeds.conf.server ] || curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/feeds/distfeeds.conf > ./files/etc/opkg/distfeeds.conf.server
 
 
 cat>buildmd5.sh<<\EOF
@@ -867,26 +867,26 @@ if [ ${CONFIG_S} = "Vip_Custom" || ${CONFIG_S} = "Vip_dz"  ] ; then
 #net eth0
 #rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
 #rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
-#curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_networketh0 > ./target/linux/x86/base-files/etc/board.d/99-default_network
-#curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+#curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/99-default_networketh0 > ./target/linux/x86/base-files/etc/board.d/99-default_network
+#curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
 
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
+curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
 
- # curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/10_system2410.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
+ # curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/10_system2410.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 else
 #net eth0
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-default_network
 rm -rf ./target/linux/x86/base-files/etc/board.d/99-virtualbox_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
-curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
+curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/99-default_network > ./target/linux/x86/base-files/etc/board.d/99-default_network
+curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/board.d/02_network > ./target/linux/x86/base-files/etc/board.d/02_network
 
 # 广告链接 23.05专用
-# curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/10_system2305.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
+# curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/10_system2305.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 # 广告链接 24.10专用
-# curl -fsSL  https://raw.githubusercontent.com/loso3000/oth/master/patch/10_system2410gg.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
+# curl -fsSL  https://raw.githubusercontent.com/sirpdboy/other/master/patch/10_system2410gg.js  >   ./package/add/up/tool/autocore/files/generic/10_system.js
 fi
 
 #修复TailScale配置文件冲突
