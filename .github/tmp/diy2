@@ -288,7 +288,7 @@ mv -f  ./package/add/up/diy/docker-compose ./feeds/packages/utils/
 # add_turboacc 24.10
 rm -rf ./feeds/luci/applications/luci-app-turboacc
 # curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
-# curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
+curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
 KERNEL_VERSION="6.6"
 # 1. 添加内核补丁
 PATCH_952="952-add-net-conntrack-events-support-multiple-registrant.patch"
@@ -306,7 +306,7 @@ rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/netw
 mv -f  "./package/add/up/fullcone2410/firewall4" ./package/network/config/firewall4
 mv -f  "./package/add/up/fullcone2410/libnftnl" ./package/libs/libnftnl
 mv -f  "./package/add/up/fullcone2410/nftables" ./package/network/utils/nftables
-
+rm -rf ./package/add/up/fullcone2410/shortcut-fe/shortcut-fe  ./package/add/up/fullcone2410/shortcut-fe/simulated-driver
 # golang
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/lang/golang
