@@ -306,6 +306,11 @@ rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/netw
 mv -f  "./package/add/up/fullcone2410/firewall4" ./package/network/config/firewall4
 mv -f  "./package/add/up/fullcone2410/libnftnl" ./package/libs/libnftnl
 mv -f  "./package/add/up/fullcone2410/nftables" ./package/network/utils/nftables
+
+chmod +x ./package/turboacc/turboacc/luci-app-turboacc/root/etc/init.d/turboacc || ture
+chmod +x ./package/turboacc/luci-app-turboacc/root/etc/init.d/turboacc || ture
+ls ./package/turboacc
+
 # golang
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/lang/golang
