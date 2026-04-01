@@ -442,7 +442,9 @@ configure_network() {
 	$UCISET firewall.@zone[-1].masq6='1'
 	$UCISET firewall.@zone[0].masq6='0'
     fi
-    
+
+    $UCIDEL firewall.@zone[0].network
+    $UCIADDLIST firewall.@zone[0].network='lan'
     $UCISET firewall.@defaults[0].drop_invalid='1'
     
     case "${wan_proto}" in
@@ -506,8 +508,6 @@ configure_network() {
             ;;
             
         siderouter)
-            $UCIDEL firewall.@zone[0].network
-            $UCIADDLIST firewall.@zone[0].network='lan'
             $UCIDEL dhcp.lan.ra_slaac
             
             case "${lan_proto}" in
@@ -552,8 +552,6 @@ configure_network() {
             fi
             
             $UCISET firewall.@zone[0].masq='1'
-            $UCIDEL firewall.@zone[0].network
-            $UCIADDLIST firewall.@zone[0].network='lan'
             
             [ $(uci show network 2>/dev/null | grep utun | wc -l) -gt 1 ] && $UCIADDLIST firewall.@zone[0].network='utun'
             
