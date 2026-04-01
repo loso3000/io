@@ -288,7 +288,7 @@ mv -f  ./package/add/up/diy/docker-compose ./feeds/packages/utils/
 # add_turboacc 24.10
 rm -rf ./feeds/luci/applications/luci-app-turboacc
 # curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
-curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
+# curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
 KERNEL_VERSION="6.6"
 # 1. 添加内核补丁
 PATCH_952="952-add-net-conntrack-events-support-multiple-registrant.patch"
