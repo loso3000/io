@@ -293,7 +293,7 @@ KERNEL_VERSION="6.6"
 # 1. 添加内核补丁
 PATCH_952="952-add-net-conntrack-events-support-multiple-registrant.patch"
 # 删除旧补丁（如果存在）
-rm -f "./target/linux/generic/hack-$KERNEL_VERSION/$PATCH_952"
+# rm -f "./target/linux/generic/hack-$KERNEL_VERSION/$PATCH_952"
 # 复制新补丁
 cp -f ./package/add/up/fullcone2410/hack-6.6/$PATCH_952 "./target/linux/generic/hack-6.6/$PATCH_952"
 # 2. 添加内核配置
@@ -306,7 +306,6 @@ rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/netw
 mv -f  "./package/add/up/fullcone2410/firewall4" ./package/network/config/firewall4
 mv -f  "./package/add/up/fullcone2410/libnftnl" ./package/libs/libnftnl
 mv -f  "./package/add/up/fullcone2410/nftables" ./package/network/utils/nftables
-rm -rf ./package/add/up/fullcone2410/shortcut-fe/shortcut-fe  ./package/add/up/fullcone2410/shortcut-fe/simulated-driver
 # golang
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 26.x feeds/packages/lang/golang
