@@ -1463,6 +1463,32 @@ button:active {
     box-shadow: none
 }
 
+
+.modal label.btn {
+    color: var(--body-color);
+    background-color: rgba(var(--primary-rgbm), 0);
+    display: inline-flex;
+    align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    border: none;
+    background-image: none;
+    box-shadow: none;
+    -ms-user-select: none;
+}
+
+.modal label.btn:focus,
+.modal label.btn:hover
+ {
+    color: var(--body-color);
+    background-color: rgba(var(--primary-rgbm), 0.1);
+    transform: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    border: none;
+}
+
 .cbi-dynlist>.add-item:not([ondrop])>input,
 .cbi-dynlist>.item>span,
 .cbi-dynlist>.add-item input {
