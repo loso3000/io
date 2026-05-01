@@ -290,11 +290,7 @@ rm -rf ./package/add/up/fullcone2410
 rm -rf ./feeds/luci/applications/luci-app-turboacc
 # curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
 curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
-KERNEL_VERSION="6.6"
-echo "添加内核配置..."
-if ! grep -q "CONFIG_NF_CONNTRACK_CHAIN_EVENTS" "./target/linux/generic/config-$KERNEL_VERSION"; then
-    echo "# CONFIG_NF_CONNTRACK_CHAIN_EVENTS is not set" >> "target/linux/generic/config-6.6"
-fi
+
 # rm -rf ./package/libs/libnftnl ./package/network/config/firewall4 ./package/network/utils/nftables
 # mv -f  "./package/add/up/fullcone2410/firewall4" ./package/network/config/firewall4
 # mv -f  "./package/add/up/fullcone2410/libnftnl" ./package/libs/libnftnl
